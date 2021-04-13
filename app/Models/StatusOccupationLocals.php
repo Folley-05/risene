@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class StatusOccupationLocals extends Model 
 {
+    use HasFactory;
+    protected $fillable=['code', 'intitule'];
 
     protected $table = 'statusOccupationLocals';
     public $timestamps = true;
-    protected $fillable = array('intitule');
 
     public function correspondanceouinon()
     {

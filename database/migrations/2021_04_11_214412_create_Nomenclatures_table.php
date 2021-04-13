@@ -3,20 +3,20 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateOrigineFondsTable extends Migration {
+class CreateNomenclaturesTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('origineFonds', function(Blueprint $table) {
+		Schema::create('Nomenclatures', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->string('institule');
+			$table->string('libelle');
 			$table->string('code');
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('origineFonds');
+		Schema::drop('Nomenclatures');
 	}
 }

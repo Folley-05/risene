@@ -12,7 +12,7 @@ class CreateVentilationsTable extends Migration {
 			$table->timestamps();
 			$table->integer('code')->unique();
 			$table->string('nomEtablissement');
-			$table->integer('codeRegion')->unsigned();
+			$table->string('codeRegion');
 			$table->string('ville');
 			$table->string('quartier');
 		});

@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Regions extends Model 
 {
-
-    protected $table = 'regions';
-    public $timestamps = true;
-    protected $fillable = array('code');
+    use HasFactory;
+    protected $fillable=['code', 'libelle'];
 
     public function entreprises()
     {

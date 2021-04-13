@@ -12,6 +12,7 @@ class CreateArrondissementsTable extends Migration {
 			$table->timestamps();
 			$table->integer('code')->unique();
 			$table->string('libelle');
+			$table->string('departement');
 		});
 	}
 

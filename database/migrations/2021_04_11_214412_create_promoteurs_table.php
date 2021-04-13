@@ -13,7 +13,7 @@ class CreatePromoteursTable extends Migration {
 			$table->char('sexe');
 			$table->integer('age');
 			$table->integer('nombreAnneewService');
-			$table->boolean('fonction');
+			$table->string('fonction');
 			$table->string('nom');
 			$table->string('prenom');
 		});

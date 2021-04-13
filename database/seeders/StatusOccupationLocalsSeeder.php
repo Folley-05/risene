@@ -3,10 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use App\Models\StatusOccupationLocals;
 
-
-class UserSeeder extends Seeder
+class StatusOccupationLocalsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +14,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->count(5)->create();
+        StatusOccupationLocals::factory()->count(10)->create();
     }
 }

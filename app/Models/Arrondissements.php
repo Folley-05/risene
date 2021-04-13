@@ -4,12 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Arrondissements extends Model 
 {
+    use HasFactory;
 
     protected $table = 'arrondissements';
+    protected $primaryKey = 'code';
+    public $incrementing = false;
     public $timestamps = true;
-    protected $fillable = array('code', 'libelle');
+    protected $fillable=['code', 'libelle', 'departement'];
 
     public function entreprises()
     {

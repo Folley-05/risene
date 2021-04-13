@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ArrondissementsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('users', [UserController::class, 'index']);
+
+// Arrondissements Routes
+Route::get('getarrondissements', [ArrondissementsController::class, 'index']);
+Route::get('getarrondissement/{code}', [ArrondissementsController::class, 'show']);
+Route::get('getorderarrondissements', [ArrondissementsController::class, 'order']);
+Route::post('setarrondissement', [ArrondissementsController::class, 'store']);
+Route::post('updatearrondissement/{code}', [ArrondissementsController::class, 'update']);
+Route::post('deletearrondissement/{code}', [ArrondissementsController::class, 'destroy']);
+

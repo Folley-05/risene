@@ -10,8 +10,11 @@ class CreateProduitsTable extends Migration {
 		Schema::create('produits', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->integer('designation');
+			$table->string('designation');
 			$table->integer('code');
+			$table->integer('chiffreAffaire');
+			$table->string('id_entreprise');
+			$table->decimal('pourcentageChiffAff');
 		});
 	}
 
