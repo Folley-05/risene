@@ -8,101 +8,116 @@ use Illuminate\Http\Request;
 class StatusOccupationLocalsController extends Controller 
 {
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    
-  }
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		return StatusOccupationLocals::all();
+	}
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  function create(Request $requeste)
-  {
+	/**
+	 * Display a order listing of ressource.
+	 *
+	 * @return Response
+	 */
+	public function order()
+	{
+		return StatusOccupationLocals::orderByDesc('created_at')->get();
+	}
 
-    $sol = new StatusOccupationLocals();
-    $sol->code = $requeste->code;
-    $sol->designation = $requeste->designation;
-    $sol->save();
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create(Request $requete)
+	{
+		
+	}
 
-    if($sol)
-    {
-      return back()->with('success', 'Ajout du Statut Occupation Local');
-        
-    }
-    else{
-      return back()->with('echec', 'Echec du Statut Occupation Local');
-    }
-  }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store(Request $request)
+	{
+		if(StatusOccupationLocals::create($request->all())) {
+			return response()->json([
+				'succes'=>"statusoccupationlocale cree avec succes",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"statusoccupationlocale non cree",
+			], 500);
+		}
+	}
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store(Request $request)
-  {
-    
-  }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show(StatusOccupationLocals $code)
+	{
+		return $code;
+	}
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show()
-  {
-    $sol = StatusOccupationLocals::orderBy('code', 'ASC')->get();
-    return view('tableBases\statusOccupationLocal\viewStatusOccupationLocal', compact('sol'));
-  }
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		
+	}
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
-  }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update(Request $request, StatusOccupationLocals $code)
+	{
+		if($code->update($request->all())) {
+			return response()->json([
+				'success'=>"statusoccupationlocale mis a jour",
+			], 200);
+		}
+		else  {
+			return response()->json([
+				'echec'=>"echec de la mise a jour",
+			], 500);
+		}
+	}
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    $sol = StatusOccupationLocals::where('code', $id)->delete();
-    if($sol)
-    {
-      return back()->with('success', 'Suppression du status occupation local avec succes');
-        
-    }
-    else{
-      return back()->with('echec', 'Echec de suppression du status occupation local ');
-    }
-  }
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy(StatusOccupationLocals $code)
+	{
+		if($code->delete()) {
+			return response()->json([
+				'success'=>"statusoccupationlocale supprime",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"statusoccupationlocale non supprime"
+			], 500);
+		}
+	}
   
 }
 

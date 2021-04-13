@@ -11,6 +11,8 @@ class RegimeImpots extends Model
     protected $fillable=['code', 'designation', 'intitule'];
 
     protected $table = 'regimeImpots';
+    protected $primaryKey = 'code';
+    public $incrementing = false;
     public $timestamps = true;
 
     public function entreprise()

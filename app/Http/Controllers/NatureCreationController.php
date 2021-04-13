@@ -7,95 +7,119 @@ use Illuminate\Http\Request;
 
 class NatureCreationController extends Controller 
 {
-  public function index()
-  {
 
-  }
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		return NatureCreation::all();
+	}
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  function create(Request $requeste)
-  {
+	/**
+	 * Display a order listing of ressource.
+	 *
+	 * @return Response
+	 */
+	public function order()
+	{
+		return NatureCreation::orderByDesc('created_at')->get();
+	}
 
-    $nc = new NatureCreation();
-    $nc->code = $requeste->code;
-    $nc->designation = $requeste->designation;
-    $nc->save();
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create(Request $requete)
+	{
+		
+	}
 
-    if($nc)
-    {
-      return back()->with('success', 'Ajout de la nature de creatkion avec succes');
-        
-    }
-    else{
-      return back()->with('echec', 'Echec d\'ajout de la nature de creation');
-    }
-  }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store(Request $request)
+	{
+		if(NatureCreation::create($request->all())) {
+			return response()->json([
+				'succes'=>"naturecreation cree avec succes",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"naturecreation non cree",
+			], 500);
+		}
+	}
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  function store(Request $request)
-  {
-  }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show(NatureCreation $code)
+	{
+		return $code;
+	}
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show()
-  {
-    $nc = NatureCreation::orderBy('code', 'ASC')->get();
-    return view('tableBases\natureCreation\viewNatureCreation', compact('nc'));
-  }
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		
+	}
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit()
-  {
-    
-  }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update(Request $request, NatureCreation $code)
+	{
+		if($code->update($request->all())) {
+			return response()->json([
+				'success'=>"naturecreation mis a jour",
+			], 200);
+		}
+		else  {
+			return response()->json([
+				'echec'=>"echec de la mise a jour",
+			], 500);
+		}
+	}
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy(NatureCreation $code)
+	{
+		if($code->delete()) {
+			return response()->json([
+				'success'=>"naturecreation supprime",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"naturecreation non supprime"
+			], 500);
+		}
+	}
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    $nc = NatureCreation::where('code', $id)->delete();
-    if($nc)
-    {
-      return back()->with('success', 'Suppression de la nature de creation');
-        
-    }
-    else{
-      return back()->with('echec', 'Echec de suppression de la nature de creation ');
-    }
-  }
+
 }
 
 ?>

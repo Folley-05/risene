@@ -1,1 +1,3 @@
 verifier la table caracteristiqueLocal
+
+y a un soucis de data avec la table regimeimpot

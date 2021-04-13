@@ -8,101 +8,116 @@ use Illuminate\Http\Request;
 class EtatActivitesController extends Controller 
 {
 
-   /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    
-  }
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		return EtatActivites::all();
+	}
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  function create(Request $requeste)
-  {
+	/**
+	 * Display a order listing of ressource.
+	 *
+	 * @return Response
+	 */
+	public function order()
+	{
+		return EtatActivites::orderByDesc('created_at')->get();
+	}
 
-    $etatActivite = new EtatActivites();
-    $etatActivite->code = $requeste->code;
-    $etatActivite->etat = $requeste->etat;
-    $etatActivite->save();
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create(Request $requete)
+	{
+		
+	}
 
-    if($etatActivite)
-    {
-      return back()->with('success', 'Ajout de l\'etat d\'Activite avec success');
-        
-    }
-    else{
-      return back()->with('echec', 'Echec de l\'ajout de  l\'etat d\'Activite ');
-    }
-  }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store(Request $request)
+	{
+		if(EtatActivites::create($request->all())) {
+			return response()->json([
+				'succes'=>"etat activite cree avec succes",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"etat activite non cree",
+			], 500);
+		}
+	}
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store(Request $request)
-  {
-    
-  }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show(EtatActivites $code)
+	{
+		return $code;
+	}
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show()
-  {
-    $etatActivite = EtatActivites::orderBy('code', 'ASC')->get();
-    return view('tableBases\etatActivite\viewEtatActivite', compact('etatActivite'));
-  }
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		
+	}
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
-  }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update(Request $request, EtatActivites $code)
+	{
+		if($code->update($request->all())) {
+			return response()->json([
+				'success'=>"etat activite mis a jour",
+			], 200);
+		}
+		else  {
+			return response()->json([
+				'echec'=>"echec de la mise a jour",
+			], 500);
+		}
+	}
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    $etatActivite = EtatActivites::where('code', $id)->delete();
-    if($etatActivite)
-    {
-      return back()->with('success', 'Suppression de l\'etat d\'Activiteavec succes');
-        
-    }
-    else{
-      return back()->with('echec', 'Echec de suppression de l\'etat d\'Activite ');
-    }
-  }
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy(EtatActivites $code)
+	{
+		if($code->delete()) {
+			return response()->json([
+				'success'=>"etat activite supprime",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"etat activite non supprime"
+			], 500);
+		}
+	}
   
   
 }

@@ -7,95 +7,117 @@ use Illuminate\Http\Request;
 
 class NatureContratLocationsController extends Controller 
 {
-  public function index()
-  {
 
-  }
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		return NatureContratLocations::all();
+	}
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  function create(Request $requeste)
-  {
+	/**
+	 * Display a order listing of ressource.
+	 *
+	 * @return Response
+	 */
+	public function order()
+	{
+		return NatureContratLocations::orderByDesc('created_at')->get();
+	}
 
-    $ncl = new NatureContratLocations();
-    $ncl->code = $requeste->code;
-    $ncl->intitule = $requeste->intitule;
-    $ncl->save();
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create(Request $requete)
+	{
+		
+	}
 
-    if($ncl)
-    {
-      return back()->with('success', 'Ajout de la nature contrat location  avec succes');
-        
-    }
-    else{
-      return back()->with('echec', 'Echec d\'ajout de la nature contrat location  ');
-    }
-  }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store(Request $request)
+	{
+		if(NatureContratLocations::create($request->all())) {
+			return response()->json([
+				'succes'=>"naturecontratlocation cree avec succes",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"naturecontratlocation non cree",
+			], 500);
+		}
+	}
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  function store(Request $request)
-  {
-  }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show(NatureContratLocations $code)
+	{
+		return $code;
+	}
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show()
-  {
-    $ncl = NatureContratLocations::orderBy('code', 'ASC')->get();
-    return view('tableBases\natureContratLocation\viewNatureContratLocation', compact('ncl'));
-  }
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		
+	}
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit()
-  {
-    
-  }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update(Request $request, NatureContratLocations $code)
+	{
+		if($code->update($request->all())) {
+			return response()->json([
+				'success'=>"naturecontratlocation mis a jour",
+			], 200);
+		}
+		else  {
+			return response()->json([
+				'echec'=>"echec de la mise a jour",
+			], 500);
+		}
+	}
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    $ncl = NatureContratLocations::where('code', $id)->delete();
-    if($ncl)
-    {
-      return back()->with('success', 'Suppression de la nature contrat location avec succes');
-        
-    }
-    else{
-      return back()->with('echec', 'Echec de suppression de la nature contrat location ');
-    }
-  }
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy(NatureContratLocations $code)
+	{
+		if($code->delete()) {
+			return response()->json([
+				'success'=>"naturecontratlocation supprime",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"naturecontratlocation non supprime"
+			], 500);
+		}
+	}
   
 }
 

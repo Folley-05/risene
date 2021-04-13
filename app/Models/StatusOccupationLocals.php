@@ -11,6 +11,8 @@ class StatusOccupationLocals extends Model
     protected $fillable=['code', 'intitule'];
 
     protected $table = 'statusOccupationLocals';
+    protected $primaryKey = 'code';
+    public $incrementing = false;
     public $timestamps = true;
 
     public function correspondanceouinon()

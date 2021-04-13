@@ -10,6 +10,8 @@ class EtatActivites extends Model
     use HasFactory;
 
     protected $table = 'etatActivites';
+    protected $primaryKey = 'code';
+    public $incrementing = false;
     public $timestamps = true;
     protected $fillable=['code', 'etat'];
 

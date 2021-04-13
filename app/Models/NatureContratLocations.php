@@ -10,6 +10,8 @@ class NatureContratLocations extends Model
     use HasFactory;
 
     protected $table = 'natureContratLocations';
+    protected $primaryKey = 'code';
+    public $incrementing = false;
     public $timestamps = true;
     protected $fillable=['code', 'intitule'];
 

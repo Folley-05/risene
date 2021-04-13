@@ -11,6 +11,8 @@ class SystemeDsfs extends Model
     protected $fillable=['code', 'designation'];
 
     protected $table = 'systemeDsfs';
+    protected $primaryKey = 'code';
+    public $incrementing = false;
     public $timestamps = true;
 
     public function entreprise()
