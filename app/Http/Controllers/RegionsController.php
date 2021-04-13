@@ -8,100 +8,116 @@ use App\Models\Regions;
 class RegionsController extends Controller 
 {
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		return Regions::all();
+	}
 
-  }
+	/**
+	 * Display a order listing of ressource.
+	 *
+	 * @return Response
+	 */
+	public function order()
+	{
+		return Regions::orderByDesc('created_at')->get();
+	}
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  function create(Request $requeste)
-  {
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create(Request $requete)
+	{
+		
+	}
 
-    $region = new Regions();
-    $region->code = $requeste->code;
-    $region->libelle = $requeste->libelle;
-    $region->save();
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store(Request $request)
+	{
+		if(Regions::create($request->all())) {
+			return response()->json([
+				'succes'=>"regions cree avec succes",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"regions non cree",
+			], 500);
+		}
+	}
 
-    if($region)
-    {
-      return back()->with('success', 'Ajout de la region avec succes');
-        
-    }
-    else{
-      return back()->with('echec', 'Echec d\'ajout de la region ');
-    }
-  }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show(Regions $code)
+	{
+		return $code;
+	}
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  function store(Request $request)
-  {
-  }
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		
+	}
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show()
-  {
-    $regions = Regions::orderBy('code', 'ASC')->get();
-    return view('tableBases\region\viewRegion', compact('regions'));
-  }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update(Request $request, Regions $code)
+	{
+		if($code->update($request->all())) {
+			return response()->json([
+				'success'=>"regions mis a jour",
+			], 200);
+		}
+		else  {
+			return response()->json([
+				'echec'=>"echec de la mise a jour",
+			], 500);
+		}
+	}
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit()
-  {
-    
-  }
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    $region = Regions::where('code', $id)->delete();
-    if($region)
-    {
-      return back()->with('success', 'Suppression de la region avec succes');
-        
-    }
-    else{
-      return back()->with('echec', 'Echec de suppression de la region ');
-    }
-  }
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy(Regions $code)
+	{
+		if($code->delete()) {
+			return response()->json([
+				'success'=>"regions supprime",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"regions non supprime"
+			], 500);
+		}
+	}
   
 }
 

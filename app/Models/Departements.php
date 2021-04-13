@@ -10,6 +10,8 @@ class Departements extends Model
     use HasFactory;
 
     protected $table = 'departements';
+    protected $primaryKey = 'code';
+    public $incrementing = false;
     public $timestamps = true;
     protected $fillable=['code', 'libelle', 'region'];
 

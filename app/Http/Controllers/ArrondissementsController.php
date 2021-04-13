@@ -105,9 +105,18 @@ class ArrondissementsController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Arrondissements $code)
 	{
-
+		if($code->delete()) {
+			return response()->json([
+				'success'=>"arrondissement supprime",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"arrondissement non supprime"
+			], 500);
+		}
 	}
 	
 }
