@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RsController;
+use App\Http\Controllers\ArrondissementsController;
 use App\Http\Controllers\DepartementsController;
 use App\Http\Controllers\RegionsController;
 use App\Http\Controllers\SystemeDsfsController;
