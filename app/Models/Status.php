@@ -8,8 +8,10 @@ class Status extends Model
 {
 
     protected $table = 'Status';
+    protected $primaryKey = 'code';
+    public $incrementing = false;
     public $timestamps = true;
-    protected $fillable = array('code');
+    protected $fillable = array('code, intitule');
 
     public function entreprise()
     {

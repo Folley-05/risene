@@ -106,18 +106,18 @@ Route::post('updatestatusoccupationlocale/{code}', [StatusOccupationLocalsContro
 Route::get('deletestatusoccupationlocale/{code}', [StatusOccupationLocalsController::class, 'destroy']);
 
 // MotifArretActivites Routes
-Route::get('getarrondissements', [MotifArretActivitesController::class, 'index']);
-Route::get('getorderarrondissements', [MotifArretActivitesController::class, 'order']);
-Route::get('getarrondissement/{code}', [MotifArretActivitesController::class, 'show']);
-Route::post('setarrondissement', [MotifArretActivitesController::class, 'store']);
-Route::post('updatearrondissement/{code}', [MotifArretActivitesController::class, 'update']);
-Route::get('deletearrondissement/{code}', [MotifArretActivitesController::class, 'destroy']);
+Route::get('getmotifarretactivites', [MotifArretActivitesController::class, 'index']);
+Route::get('getordermotifarretactivites', [MotifArretActivitesController::class, 'order']);
+Route::get('getmotifarretactivite/{code}', [MotifArretActivitesController::class, 'show']);
+Route::post('setmotifarretactivite', [MotifArretActivitesController::class, 'store']);
+Route::post('updatemotifarretactivite/{code}', [MotifArretActivitesController::class, 'update']);
+Route::get('deletemotifarretactivite/{code}', [MotifArretActivitesController::class, 'destroy']);
 
 // statut Routes
-Route::get('getarrondissements', [StatusController::class, 'index']);
-Route::get('getorderarrondissements', [StatusController::class, 'order']);
-Route::get('getarrondissement/{code}', [StatusController::class, 'show']);
-Route::post('setarrondissement', [StatusController::class, 'store']);
-Route::post('updatearrondissement/{code}', [StatusController::class, 'update']);
-Route::get('deletearrondissement/{code}', [StatusController::class, 'destroy']);
+Route::get('getstatuss', [StatusController::class, 'index']);
+Route::get('getorderstatuss', [StatusController::class, 'order']);
+Route::get('getstatus/{code}', [StatusController::class, 'show']);
+Route::post('setstatus', [StatusController::class, 'store']);
+Route::post('updatestatus/{code}', [StatusController::class, 'update']);
+Route::get('deletestatus/{code}', [StatusController::class, 'destroy']);
 
