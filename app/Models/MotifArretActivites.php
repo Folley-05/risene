@@ -8,6 +8,8 @@ class MotifArretActivites extends Model
 {
 
     protected $table = 'motifArretActivites';
+    protected $primaryKey = 'code';
+    public $incrementing = false;
     public $timestamps = true;
     protected $fillable = array('code', 'libelle');
 

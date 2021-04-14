@@ -13,6 +13,8 @@ use App\Http\Controllers\NatureContratLocationsController;
 use App\Http\Controllers\NatureCreationController;
 use App\Http\Controllers\RegimeImpotsController;
 use App\Http\Controllers\StatusOccupationLocalsController;
+use App\Http\Controllers\MotifArretActivitesController;
+use App\Http\Controllers\StatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,4 +104,20 @@ Route::get('getstatusoccupationlocale/{code}', [StatusOccupationLocalsController
 Route::post('setstatusoccupationlocale', [StatusOccupationLocalsController::class, 'store']);
 Route::post('updatestatusoccupationlocale/{code}', [StatusOccupationLocalsController::class, 'update']);
 Route::get('deletestatusoccupationlocale/{code}', [StatusOccupationLocalsController::class, 'destroy']);
+
+// MotifArretActivites Routes
+Route::get('getarrondissements', [MotifArretActivitesController::class, 'index']);
+Route::get('getorderarrondissements', [MotifArretActivitesController::class, 'order']);
+Route::get('getarrondissement/{code}', [MotifArretActivitesController::class, 'show']);
+Route::post('setarrondissement', [MotifArretActivitesController::class, 'store']);
+Route::post('updatearrondissement/{code}', [MotifArretActivitesController::class, 'update']);
+Route::get('deletearrondissement/{code}', [MotifArretActivitesController::class, 'destroy']);
+
+// statut Routes
+Route::get('getarrondissements', [StatusController::class, 'index']);
+Route::get('getorderarrondissements', [StatusController::class, 'order']);
+Route::get('getarrondissement/{code}', [StatusController::class, 'show']);
+Route::post('setarrondissement', [StatusController::class, 'store']);
+Route::post('updatearrondissement/{code}', [StatusController::class, 'update']);
+Route::get('deletearrondissement/{code}', [StatusController::class, 'destroy']);
 
