@@ -89,3 +89,19 @@ get('getstatusoccupationlocale/{code}')
 post('setstatusoccupationlocale')
 post('updatestatusoccupationlocale/{code}')
 get('deletestatusoccupationlocale/{code}')
+
+ MotifArretActivites Routes
+get('getmotifarretactivites');
+get('getordermotifarretactivites');
+get('getmotifarretactivite/{code}');
+post('setmotifarretactivite');
+post('updatemotifarretactivite/{code}');
+get('deletemotifarretactivite/{code}');
+
+ statut Routes
+get('getstatuss');
+get('getorderstatuss');
+get('getstatus/{code}');
+post('setstatus');
+post('updatestatus/{code}');
+get('deletestatus/{code}');

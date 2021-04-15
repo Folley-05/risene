@@ -45,15 +45,24 @@ class RegionsController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		if(Regions::create($request->all())) {
-			return response()->json([
-				'succes'=>"regions cree avec succes",
-			], 200);
-		}
-		else {
-			return response()->json([
-				'echec'=>"regions non cree",
-			], 500);
+		$request->merge([
+			'libelle'=>"Mbouda"
+		]);
+		$validate=$request->validate([
+			'code'=>'required|unique:regions,code',
+			//'libelle'=>'required'
+		]);
+		if($validate) {
+			if(Regions::create($region->all())) {
+				return response()->json([
+					'succes'=>"regions cree avec succes",
+				], 200);
+			}
+			else {
+				return response()->json([
+					'echec'=>"regions non cree",
+				], 500);
+			}
 		}
 	}
 

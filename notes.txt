@@ -1,3 +1,18 @@
 verifier la table caracteristiqueLocal
 
 y a un soucis de data avec la table regimeimpot
+
+quand alex va m'envoyer les donnees le champs code INS doit etre vide
+
+//modifier les parametres d'une requete
+	$region->merge([
+		'libelle'=>"Mbouda"
+	]);
+
+// valide les donnees 
+	$validate=$region->validate([
+		'code'=>'required|unique:regions,code',
+		//'libelle'=>'required'
+	]);
+
+modifier le champs intitule en designation dans regime impots
