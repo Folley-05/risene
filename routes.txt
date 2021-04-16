@@ -105,3 +105,12 @@ get('getstatus/{code}');
 post('setstatus');
 post('updatestatus/{code}');
 delete('deletestatus/{code}');
+
+
+// Entreprises Routes
+get('getentreprises');
+get('getorderentreprises');
+get('getentreprise/{id}');
+post('setentreprise');
+post('updateentreprise/{id}');
+delete('deleteentreprise/{id}');

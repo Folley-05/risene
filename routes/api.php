@@ -16,6 +16,9 @@ use App\Http\Controllers\StatusOccupationLocalsController;
 use App\Http\Controllers\MotifArretActivitesController;
 use App\Http\Controllers\StatusController;
 
+
+use App\Http\Controllers\EntreprisesController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -113,11 +116,19 @@ Route::post('setmotifarretactivite', [MotifArretActivitesController::class, 'sto
 Route::post('updatemotifarretactivite/{code}', [MotifArretActivitesController::class, 'update']);
 Route::delete('deletemotifarretactivite/{code}', [MotifArretActivitesController::class, 'destroy']);
 
-// statut Routes
+// Statut Routes
 Route::get('getstatuss', [StatusController::class, 'index']);
 Route::get('getorderstatuss', [StatusController::class, 'order']);
 Route::get('getstatus/{code}', [StatusController::class, 'show']);
 Route::post('setstatus', [StatusController::class, 'store']);
 Route::post('updatestatus/{code}', [StatusController::class, 'update']);
 Route::delete('deletestatus/{code}', [StatusController::class, 'destroy']);
+
+// Entreprises Routes
+Route::get('getentreprises', [EntreprisesController::class, 'index']);
+Route::get('getorderentreprises', [EntreprisesController::class, 'order']);
+Route::get('getentreprise/{id}', [EntreprisesController::class, 'show']);
+Route::post('setentreprise', [EntreprisesController::class, 'store']);
+Route::post('updateentreprise/{id}', [EntreprisesController::class, 'update']);
+Route::delete('deleteentreprise/{id}', [EntreprisesController::class, 'destroy']);
 
