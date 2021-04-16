@@ -33,7 +33,7 @@ get('getorderdepartements')
 get('getdepartement/{code}')
 post('setdepartement')
 post('updatedepartement/{code}')
-get('deletedepartement/{code}')
+delete('deletedepartement/{code}')
 
  Regions Routes
 get('getregions')
@@ -41,7 +41,7 @@ get('getorderregions')
 get('getregion/{code}')
 post('setregion')
 post('updateregion/{code}'')
-get('deleteregion/{code}')
+delete('deleteregion/{code}')
 
  SystemeDsf Routes
 get('getsystemedsfs')
@@ -49,7 +49,7 @@ get('getordersystemedsfs')
 get('getsystemedsf/{code}')
 post('setsystemedsf')
 post('updatesystemedsf/{code}')
-get('deletesystemedsf/{code}')
+delete('deletesystemedsf/{code}')
 
  EtatActivites Routes
 get('getetatactivites')
@@ -57,7 +57,7 @@ get('getorderetatactivites')
 get('getetatactivite/{code}')
 post('setetatactivite')
 post('updateetatactivite/{code}')
-get('deleteetatactivite/{code}')
+delete('deleteetatactivite/{code}')
 
  NatureContratLocation Routes
 get('getnaturecontratlocations')
@@ -65,14 +65,14 @@ get('getordernaturecontratlocations')
 get('getnaturecontratlocation/{code}')
 post('setnaturecontratlocation')
 post('updatenaturecontratlocation/{code}')
-get('deletenaturecontratlocation/{code}')
+delete('deletenaturecontratlocation/{code}')
 
  NatureCreation Routes
 get('getnaturecreations')
 get('getordernaturecreations')
 get('getnaturecreation/{code}')
 post('setnaturecreation'))
-get('deletenaturecreation/{code}')
+delete('deletenaturecreation/{code}')
 
  RegimeImpots Routes
 get('getregimeimpots')
@@ -80,7 +80,7 @@ get('getorderregimeimpots')
 get('getregimeimpot/{code}')
 post('setregimeimpot')
 post('updateregimeimpot/{code}')
-get('deleteregimeimpot/{code}')
+delete('deleteregimeimpot/{code}')
 
  StatutOccupationLocal Routes
 get('getstatusoccupationlocales')
@@ -88,7 +88,7 @@ get('getorderstatusoccupationlocales')
 get('getstatusoccupationlocale/{code}')
 post('setstatusoccupationlocale')
 post('updatestatusoccupationlocale/{code}')
-get('deletestatusoccupationlocale/{code}')
+delete('deletestatusoccupationlocale/{code}')
 
  MotifArretActivites Routes
 get('getmotifarretactivites');
@@ -96,7 +96,7 @@ get('getordermotifarretactivites');
 get('getmotifarretactivite/{code}');
 post('setmotifarretactivite');
 post('updatemotifarretactivite/{code}');
-get('deletemotifarretactivite/{code}');
+delete('deletemotifarretactivite/{code}');
 
  statut Routes
 get('getstatuss');
@@ -104,4 +104,4 @@ get('getorderstatuss');
 get('getstatus/{code}');
 post('setstatus');
 post('updatestatus/{code}');
-get('deletestatus/{code}');
+delete('deletestatus/{code}');
