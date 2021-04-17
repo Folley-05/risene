@@ -60,6 +60,7 @@ class EntreprisesController extends Controller
 			if(Entreprises::create($region->all())) {
 				return response()->json([
 					'succes'=>"entreprise cree avec succes",
+					'codeIns'=>$request->codeIns,
 				], 200);
 			}
 			else {
