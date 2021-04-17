@@ -61,4 +61,23 @@ class UserController extends Controller
     {
         //
     }
+
+    /**
+     * Authenticate the user.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function auth(Request $request)
+    {
+        $user=User::where('name', $request->name)->get();
+        // return $user;
+        if($user[0]->password===$request->password)
+            return $user;
+        else 
+            return response()->json([
+                'echec'=>"echec de l'authentification"
+            ], 200);
+    }
+
 }

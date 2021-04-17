@@ -34,7 +34,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Users Routes
 Route::get('users', [UserController::class, 'index']);
+Route::post('auth', [UserController::class, 'auth']);
 
 // Arrondissements Routes
 Route::get('getarrondissements', [ArrondissementsController::class, 'index']);
