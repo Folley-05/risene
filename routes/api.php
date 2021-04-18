@@ -35,8 +35,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Users Routes
-Route::get('users', [UserController::class, 'index']);
+Route::get('getusers', [UserController::class, 'index']);
+Route::get('getorderusers', [UserController::class, 'order']);
+Route::get('getuser/{id},', [UserController::class, 'show']);
 Route::post('auth', [UserController::class, 'auth']);
+Route::post('setuser', [UserController::class, 'store']);
+Route::post('updateuser', [UserController::class, 'update']);
+Route::delete('deleteuser', [UserController::class, 'delete']);
 
 // Arrondissements Routes
 Route::get('getarrondissements', [ArrondissementsController::class, 'index']);
