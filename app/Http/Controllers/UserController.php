@@ -25,7 +25,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response().json([
+            "reponse"=>"oui je saus que je doit coder ca"
+        ], 200);
     }
 
     /**
@@ -36,7 +38,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return response().json([
+            "reponse"=>"oui je saus que je doit coder ca"
+        ], 200);
     }
 
     /**
@@ -48,7 +52,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        return response().json([
+            "reponse"=>"oui je saus que je doit coder ca"
+        ], 200);
     }
 
     /**
@@ -59,7 +65,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        return response().json([
+            "reponse"=>"oui je saus que je doit coder ca"
+        ], 200);
     }
 
     /**

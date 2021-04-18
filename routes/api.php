@@ -41,7 +41,7 @@ Route::get('getuser/{id},', [UserController::class, 'show']);
 Route::post('auth', [UserController::class, 'auth']);
 Route::post('setuser', [UserController::class, 'store']);
 Route::post('updateuser', [UserController::class, 'update']);
-Route::delete('deleteuser', [UserController::class, 'delete']);
+Route::delete('deleteuser', [UserController::class, 'destroy']);
 
 // Arrondissements Routes
 Route::get('getarrondissements', [ArrondissementsController::class, 'index']);
