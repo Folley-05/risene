@@ -8,7 +8,10 @@ class Produits extends Model
 {
 
     protected $table = 'produits';
+    public $primaryKey = 'code';
+    public $increment = false;
     public $timestamps = true;
+    protected $fillable = array('code', 'designation', 'chiffreAffaire', 'pourcentageChiffAff', 'id_entreprise');
 
     public function ventesProduits()
     {

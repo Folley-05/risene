@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Produits;
 
 class ProduitsController extends Controller 
 {
@@ -14,7 +15,18 @@ class ProduitsController extends Controller
    */
   public function index()
   {
-    
+	return Produits::all();
+  }
+
+  /**
+   * Display a listing of the resource.
+   *
+   * @return Response
+   */
+  public function list($id)
+  {
+	return Produits::where('id_entreprise', $id)->orderByDesc('created_at')->get();
+	//return $id;
   }
 
   /**
@@ -24,7 +36,7 @@ class ProduitsController extends Controller
    */
   public function create()
   {
-    
+	
   }
 
   /**
@@ -34,7 +46,23 @@ class ProduitsController extends Controller
    */
   public function store(Request $request)
   {
-    
+	$validate=$request->validate([
+		'code'=>'required|unique:Produits,code',
+		//'libelle'=>'required'
+	]);
+	if($validate) {
+		if(Produits::create($request->all())) {
+			return response()->json([
+				'succes'=>"produit cree avec succes",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"produit non cree",
+			], 500);
+		}
+	}
+	
   }
 
   /**
@@ -43,9 +71,9 @@ class ProduitsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function show($id)
+  public function show($code)
   {
-    
+	return $code;
   }
 
   /**
@@ -56,7 +84,7 @@ class ProduitsController extends Controller
    */
   public function edit($id)
   {
-    
+	
   }
 
   /**
@@ -67,7 +95,17 @@ class ProduitsController extends Controller
    */
   public function update($id)
   {
-    
+	if($code->update($request->all())) {
+		return response()->json([
+			'success'=>"produit mis a jour",
+		], 200);
+	}
+	else  {
+		return response()->json([
+			'echec'=>"echec de la mise a jour",
+		], 500);
+	}
+	
   }
 
   /**
@@ -78,7 +116,16 @@ class ProduitsController extends Controller
    */
   public function destroy($id)
   {
-    
+	if($code->delete()) {
+		return response()->json([
+			'success'=>"produit supprime",
+		], 200);
+	}
+	else {
+		return response()->json([
+			'echec'=>"produit non supprime"
+		], 500);
+	}
   }
   
 }

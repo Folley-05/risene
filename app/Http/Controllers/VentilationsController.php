@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ventilations;
 
 class VentilationsController extends Controller 
 {
@@ -14,7 +15,18 @@ class VentilationsController extends Controller
    */
   public function index()
   {
-    
+	return Ventilations::all();
+  }
+
+  /**
+   * Display a listing of the resource.
+   *
+   * @return Response
+   */
+  public function list($id)
+  {
+	return Ventilations::where('id_entreprise', $id)->orderByDesc('created_at')->get();
+	//return $id;
   }
 
   /**
@@ -24,7 +36,7 @@ class VentilationsController extends Controller
    */
   public function create()
   {
-    
+	
   }
 
   /**
@@ -34,7 +46,23 @@ class VentilationsController extends Controller
    */
   public function store(Request $request)
   {
-    
+	$validate=$request->validate([
+		'code'=>'required|unique:ventilations,code',
+		//'libelle'=>'required'
+	]);
+	if($validate) {
+		if(Ventilations::create($request->all())) {
+			return response()->json([
+				'succes'=>"ventilations cree avec succes",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"ventilations non cree",
+			], 500);
+		}
+	}
+	
   }
 
   /**
@@ -43,9 +71,9 @@ class VentilationsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function show($id)
+  public function show($code)
   {
-    
+	return $code;
   }
 
   /**
@@ -56,7 +84,7 @@ class VentilationsController extends Controller
    */
   public function edit($id)
   {
-    
+	
   }
 
   /**
@@ -67,7 +95,17 @@ class VentilationsController extends Controller
    */
   public function update($id)
   {
-    
+	if($code->update($request->all())) {
+		return response()->json([
+			'success'=>"ventilations mis a jour",
+		], 200);
+	}
+	else  {
+		return response()->json([
+			'echec'=>"echec de la mise a jour",
+		], 500);
+	}
+	
   }
 
   /**
@@ -78,7 +116,16 @@ class VentilationsController extends Controller
    */
   public function destroy($id)
   {
-    
+	if($code->delete()) {
+		return response()->json([
+			'success'=>"ventilations supprime",
+		], 200);
+	}
+	else {
+		return response()->json([
+			'echec'=>"ventilations non supprime"
+		], 500);
+	}
   }
   
 }

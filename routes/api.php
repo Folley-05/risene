@@ -18,6 +18,7 @@ use App\Http\Controllers\StatusController;
 
 
 use App\Http\Controllers\EntreprisesController;
+use App\Http\Controllers\ProduitsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,4 +139,20 @@ Route::get('getentreprise/{id}', [EntreprisesController::class, 'show']);
 Route::post('setentreprise', [EntreprisesController::class, 'store']);
 Route::post('updateentreprise/{id}', [EntreprisesController::class, 'update']);
 Route::delete('deleteentreprise/{id}', [EntreprisesController::class, 'destroy']);
+
+// Ventilations Routes
+Route::get('getventilations', [VentilationsController::class, 'index']);
+Route::get('getventilation/{code}', [VentilationsController::class, 'show']);
+Route::get('getorderventilations/{id}', [VentilationsController::class, 'list']);
+Route::post('setventilation', [VentilationsController::class, 'store']);
+Route::post('updateventilation/{code}', [VentilationsController::class, 'update']);
+Route::delete('deleteventilation/{code}', [VentilationsController::class, 'destroy']);
+
+// Produits Routes
+Route::get('getproduits', [ProduitsController::class, 'index']);
+Route::get('getproduit/{code}', [ProduitsController::class, 'show']);
+Route::get('getorderproduits/{id}', [ProduitsController::class, 'list']);
+Route::post('setproduit', [ProduitsController::class, 'store']);
+Route::post('updateproduit/{code}', [ProduitsController::class, 'update']);
+Route::delete('deleteproduit/{code}', [ProduitsController::class, 'destroy']);
 
