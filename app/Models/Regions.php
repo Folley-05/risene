@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Regions extends Model 
 {
     use HasFactory;
+    
     protected $primaryKey = 'code';
     public $incrementing = false;
     protected $fillable=['code', 'libelle'];
