@@ -7,7 +7,7 @@ class CreateNomenclaturesTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('Nomenclatures', function(Blueprint $table) {
+		Schema::create('nomenclatures', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('libelle');
@@ -17,6 +17,6 @@ class CreateNomenclaturesTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('Nomenclatures');
+		Schema::drop('nomenclatures');
 	}
 }

@@ -3,11 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateEtablissementsTable extends Migration {
+class CreateTempsEtablissementTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('Etablissements', function(Blueprint $table) {
+		Schema::create('tempsEtablissement', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('nom');
@@ -20,6 +20,6 @@ class CreateEtablissementsTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('Etablissements');
+		Schema::drop('tempsEtablissement');
 	}
 }

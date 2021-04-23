@@ -9,7 +9,7 @@ class Entreprises extends Model
 {
     use HasFactory;
 
-    protected $table = 'Entreprises';
+    protected $table = 'entreprises';
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = array('minCom', 'Mairie', 'DGI', 'TribunauxAdmin', 'Douane', 'CAPEF_CCIMA', 'AutresFichierAdmin', 'LibelleAutresFichier', 'statutEtablissement', 'quartier_Village', 'pageFacebook', 'autreMotifArretActivite', 'zoneIndustrielle', 'recensement2009', 'recensement2016', 'montantLoyer', 'codeEtablissementRecense', 'inscriptionCGA', 'connaitreAPPME', 'codeFormeJuridique', 'libelleFormeJuridique', 'quartier', 'repere', 'villeLocalite', 'raisonSocialeSiege', 'id_departement', 'sigleSiege', 'id_arrondissement', 'numContribuableSiege', 'numRegistreCommerceSiege', 'quartierSiege', 'repereSiege', 'villeSiege', 'tel1Siege', 'tel2Siege', 'faxSiege', 'emailSiege', 'siteWebSiege', 'zoneFranche');

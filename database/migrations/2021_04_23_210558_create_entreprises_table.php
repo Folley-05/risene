@@ -7,7 +7,7 @@ class CreateEntreprisesTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('Entreprises', function(Blueprint $table) {
+		Schema::create('entreprises', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('raisonSociale');
@@ -150,6 +150,6 @@ class CreateEntreprisesTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('Entreprises');
+		Schema::drop('entreprises');
 	}
 }

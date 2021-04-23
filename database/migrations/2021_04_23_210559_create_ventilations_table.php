@@ -15,6 +15,7 @@ class CreateVentilationsTable extends Migration {
 			$table->string('codeRegion');
 			$table->string('ville');
 			$table->string('quartier');
+			$table->integer('id_entreprise')->unsigned();
 		});
 	}
 

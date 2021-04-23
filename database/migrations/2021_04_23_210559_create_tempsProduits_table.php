@@ -7,7 +7,7 @@ class CreateTempsProduitsTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('TempsProduits', function(Blueprint $table) {
+		Schema::create('tempsProduits', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('designation');
@@ -20,6 +20,6 @@ class CreateTempsProduitsTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('TempsProduits');
+		Schema::drop('tempsProduits');
 	}
 }
