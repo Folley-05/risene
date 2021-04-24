@@ -19,6 +19,7 @@ use App\Http\Controllers\StatusController;
 
 use App\Http\Controllers\EntreprisesController;
 use App\Http\Controllers\ProduitsController;
+use App\Http\Controllers\VentilationsController;
 
 /*
 |--------------------------------------------------------------------------
