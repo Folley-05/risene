@@ -1,0 +1,125 @@
+liste des route de l'api
+
+routes des table de bases
+
+Arrondissements Routes
+
+get('getarrondissements')
+cette route renvoie la liste des arrondissements
+
+get('getorderarrondissements')
+cette route renvoie la liste des arrondissements ranges selon la date de creation
+
+get('getarrondissement/{code}')
+cette route renvoie un arrondissement suivant son code
+
+post('setarrondissement')
+cette route enregistre un arrondissement
+
+post('updatearrondissement/{code}')
+cette route modifie un arrondissement suivant son code. les champs a modifier doivent etre envoye dans le body de la requete
+
+get('deletearrondissement/{code}')
+cette route supprime un arrondissent suivant son code
+
+
+
+toutes les autres routes des tables de bases suivent le meme schema
+
+
+Departements Routes
+get('getdepartements')
+get('getorderdepartements')
+get('getdepartement/{code}')
+post('setdepartement')
+post('updatedepartement/{code}')
+delete('deletedepartement/{code}')
+
+ Regions Routes
+get('getregions')
+get('getorderregions')
+get('getregion/{code}')
+post('setregion')
+post('updateregion/{code}'')
+delete('deleteregion/{code}')
+
+ SystemeDsf Routes
+get('getsystemedsfs')
+get('getordersystemedsfs')
+get('getsystemedsf/{code}')
+post('setsystemedsf')
+post('updatesystemedsf/{code}')
+delete('deletesystemedsf/{code}')
+
+ EtatActivites Routes
+get('getetatactivites')
+get('getorderetatactivites')
+get('getetatactivite/{code}')
+post('setetatactivite')
+post('updateetatactivite/{code}')
+delete('deleteetatactivite/{code}')
+
+ NatureContratLocation Routes
+get('getnaturecontratlocations')
+get('getordernaturecontratlocations')
+get('getnaturecontratlocation/{code}')
+post('setnaturecontratlocation')
+post('updatenaturecontratlocation/{code}')
+delete('deletenaturecontratlocation/{code}')
+
+ NatureCreation Routes
+get('getnaturecreations')
+get('getordernaturecreations')
+get('getnaturecreation/{code}')
+post('setnaturecreation'))
+delete('deletenaturecreation/{code}')
+
+ RegimeImpots Routes
+get('getregimeimpots')
+get('getorderregimeimpots')
+get('getregimeimpot/{code}')
+post('setregimeimpot')
+post('updateregimeimpot/{code}')
+delete('deleteregimeimpot/{code}')
+
+ StatutOccupationLocal Routes
+get('getstatusoccupationlocales')
+get('getorderstatusoccupationlocales')
+get('getstatusoccupationlocale/{code}')
+post('setstatusoccupationlocale')
+post('updatestatusoccupationlocale/{code}')
+delete('deletestatusoccupationlocale/{code}')
+
+ MotifArretActivites Routes
+get('getmotifarretactivites');
+get('getordermotifarretactivites');
+get('getmotifarretactivite/{code}');
+post('setmotifarretactivite');
+post('updatemotifarretactivite/{code}');
+delete('deletemotifarretactivite/{code}');
+
+ statut Routes
+get('getstatuss');
+get('getorderstatuss');
+get('getstatus/{code}');
+post('setstatus');
+post('updatestatus/{code}');
+delete('deletestatus/{code}');
+
+
+// Entreprises Routes
+get('getentreprises');
+get('getorderentreprises');
+get('getentreprise/{id}');
+post('setentreprise');
+post('updateentreprise/{id}');
+delete('deleteentreprise/{id}');
+
+// Users Routes
+get('getusers')
+get('getorderusers');
+get('getuser/{id},');
+post('auth');
+post('setuser');
+post('updateuser');
+delete('deleteuser');
