@@ -114,12 +114,3 @@ get('getentreprise/{id}');
 post('setentreprise');
 post('updateentreprise/{id}');
 delete('deleteentreprise/{id}');
-
-// Users Routes
-get('getusers')
-get('getorderusers');
-get('getuser/{id},');
-post('auth');
-post('setuser');
-post('updateuser');
-delete('deleteuser');
