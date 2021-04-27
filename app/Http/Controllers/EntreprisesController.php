@@ -52,11 +52,7 @@ class EntreprisesController extends Controller
 			'numCNPS'=>'unique:Entreprises,numCNPS'
 			//'libelle'=>'required'
 		]);
-<<<<<<< HEAD
-		$result=Entreprises::orderByDesc('created_at')->take(1)->get();
-=======
 		$result=Regions::orderByDesc('created_at')->take(1)->get();
->>>>>>> 8b34f85fa69e1cfdaf6ce20df6d6ea86b79344b3
 		$request->merge([
 			'codeINS'=>genererCode($result[0]->codeINS)
 		]);
@@ -132,9 +128,6 @@ class EntreprisesController extends Controller
 	 */
 	public function destroy(EntrFeprises $id)
 	{
-<<<<<<< HEAD
-		
-=======
 		if($id->delete()) {
 			return response()->json([
 				'success'=>"entreprise supprime",
@@ -145,7 +138,6 @@ class EntreprisesController extends Controller
 				'echec'=>"entreprise non supprime"
 			], 500);
 		}
->>>>>>> 8b34f85fa69e1cfdaf6ce20df6d6ea86b79344b3
 	}
   
 }

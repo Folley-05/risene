@@ -78,11 +78,7 @@ class UserController extends Controller
      */
     public function auth(Request $request)
     {
-<<<<<<< HEAD
-        $user=User::where('email', $request->name)->get();
-=======
         $user=User::where('name', $request->name)->get();
->>>>>>> 8b34f85fa69e1cfdaf6ce20df6d6ea86b79344b3
         // return $user;
         if($user[0]->password===$request->password)
             return $user;
