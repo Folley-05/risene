@@ -139,7 +139,7 @@ Route::get('getorderentreprises', [EntreprisesController::class, 'order']);
 Route::get('getentreprise/{id}', [EntreprisesController::class, 'show']);
 Route::post('setentreprise', [EntreprisesController::class, 'store']);
 Route::post('updateentreprise/{id}', [EntreprisesController::class, 'update']);
-Route::delete('deleteentreprise/{id}', [EntreprisesController::class, 'destroy']);
+Route::delete('deleteentreprise/{id}', [EntreprisesController::class, 'del']);
 
 // Ventilations Routes
 Route::get('getventilations', [VentilationsController::class, 'index']);

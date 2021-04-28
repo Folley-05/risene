@@ -126,16 +126,23 @@ class EntreprisesController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy(EntrFeprises $id)
+	public function destroy(Entreprises $id)
 	{
-		if($id->delete()) {
+		return response().json([
+			"attends"=> "la route ci derange"
+		], 200);
+	}
+
+	public function del(Request $request, Entreprises $id) 
+	{
+		if($id->update($request->all())) {
 			return response()->json([
-				'success'=>"entreprise supprime",
+				'success'=>"entreprise mise a jour",
 			], 200);
 		}
-		else {
+		else  {
 			return response()->json([
-				'echec'=>"entreprise non supprime"
+				'echec'=>"echec de la mise a jour",
 			], 500);
 		}
 	}
