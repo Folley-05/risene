@@ -42,7 +42,7 @@ Route::get('getorderusers', [UserController::class, 'order']);
 Route::get('getuser/{id},', [UserController::class, 'show']);
 Route::post('auth', [UserController::class, 'auth']);
 Route::post('setuser', [UserController::class, 'store']);
-Route::post('updateuser', [UserController::class, 'update']);
+Route::post('updateuser/{id}', [UserController::class, 'update']);
 Route::delete('deleteuser', [UserController::class, 'destroy']);
 
 // Arrondissements Routes

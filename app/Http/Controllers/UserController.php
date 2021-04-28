@@ -50,11 +50,16 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $id)
     {
-        return response().json([
-            "reponse"=>"oui je saus que je doit coder ca"
-        ], 200);
+        if($id->update($request->all())) {
+            return [];
+        }
+        else {
+            return response().json([
+                "echec"=>"echec quoi"
+            ]);
+        }
     }
 
     /**
