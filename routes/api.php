@@ -43,7 +43,7 @@ Route::get('getuser/{id},', [UserController::class, 'show']);
 Route::post('auth', [UserController::class, 'auth']);
 Route::post('setuser', [UserController::class, 'store']);
 Route::post('updateuser/{id}', [UserController::class, 'update']);
-Route::delete('deleteuser', [UserController::class, 'destroy']);
+Route::delete('deleteuser/{id}', [UserController::class, 'destroy']);
 
 // Arrondissements Routes
 Route::get('getarrondissements', [ArrondissementsController::class, 'index']);
@@ -138,6 +138,11 @@ Route::get('getentreprises', [EntreprisesController::class, 'index']);
 Route::get('getorderentreprises', [EntreprisesController::class, 'order']);
 Route::get('getentreprise/{id}', [EntreprisesController::class, 'show']);
 Route::post('setentreprise', [EntreprisesController::class, 'store']);
+Route::post('addentreprise', [EntreprisesController::class, 'add']);
+Route::post('fullentreprise', [EntreprisesController::class, 'full']);
+Route::post('validentreprise', [EntreprisesController::class, 'valid']);
+Route::get('waitingentreprises', [EntreprisesController::class, 'waiting']);
+Route::get('waitingentreprise/{id}', [EntreprisesController::class, 'wait']);
 Route::post('updateentreprise/{id}', [EntreprisesController::class, 'update']);
 Route::delete('deleteentreprise/{id}', [EntreprisesController::class, 'del']);
 

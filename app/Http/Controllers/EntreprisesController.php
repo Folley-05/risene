@@ -146,6 +146,27 @@ class EntreprisesController extends Controller
 			], 500);
 		}
 	}
+	
+	public function add(Request $request) {
+		return "a coder";
+	}
+	
+	public function full(Request $request, Entreprises $id) {
+		return "a coder ";
+	}
+
+	public function valid(Request $request) {
+		return "a coder";
+	}
+
+	public function waiting() {
+		return Entreprises::where('statutTraitement', false)->get();
+	}
+
+	public function wait(Entreprises $id) {
+		return " a coder ";
+	}
+
   
 }
 

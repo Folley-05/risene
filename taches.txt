@@ -1,0 +1,1 @@
+------ securiser les mises a jour dans la table entreprises

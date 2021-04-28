@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -25,9 +26,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return response().json([
-            "reponse"=>"oui je saus que je doit coder ca"
-        ], 200);
+        $validate=$request->validate([
+            'name'=>'required|unique:users,name',
+            'email'=>'required',
+            'password'=>'required|unique:users,password'
+        ]);
+        $request->merge([
+            'api_token'=>Str::random(10),
+            'remenber_token'=>Str::random(10),
+            'email_verified_at'=>now()
+        ]);
+        if($validate) {
+            if(User::create($request->all())) {
+                return response()->json([
+                    'succes'=>"user cree avec succes",
+                ], 200);
+            }
+            else {
+                return response()->json([
+                    'echec'=>"user non cree",
+                ], 500);
+            }
+        }
     }
 
     /**
@@ -38,9 +58,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return response().json([
-            "reponse"=>"oui je saus que je doit coder ca"
-        ], 200);
+        return $user;
     }
 
     /**
@@ -53,11 +71,13 @@ class UserController extends Controller
     public function update(Request $request, User $id)
     {
         if($id->update($request->all())) {
-            return [];
+            return response()->json([
+                'success'=>"user mis a jour"
+            ]);
         }
         else {
-            return response().json([
-                "echec"=>"echec quoi"
+            return response()->json([
+                "echec"=>"echec de la mise a jour"
             ]);
         }
     }
@@ -68,11 +88,18 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $id)
     {
-        return response().json([
-            "reponse"=>"oui je saus que je doit coder ca"
-        ], 200);
+        if($id->delete()) {
+			return response()->json([
+				'success'=>"user supprime",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"user non supprime"
+			], 500);
+		}
     }
 
     /**
