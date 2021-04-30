@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'password' => $this->faker->lastname, // password
             'api_token' => Str::random(10),
             'remember_token' => Str::random(10),
+            'role' =>$this->faker->randomElement($array = array ('admin','dataadmin','user')),
         ];
     }
 
