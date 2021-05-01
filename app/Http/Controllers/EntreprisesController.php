@@ -52,7 +52,7 @@ class EntreprisesController extends Controller
 			'brancheActivitePrincipale'=>'required',
 			'codeBrancheActivitePrincipale'=>'required',
 			'annee'=>'required',
-			'numCNPS'=>'unique:entreprises,numCNPS'
+			'sigle'=>'required|unique:entreprises,sigle'
 		]);
 		$result=Entreprises::orderByDesc('created_at')->take(1)->get();
 		// $request->merge([

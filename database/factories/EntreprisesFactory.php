@@ -164,6 +164,7 @@ class EntreprisesFactory extends Factory
 			'brancheActiviteSecondaire'=>$this->faker->sentence(),
 			'codeBrancheActivitePrincipale'=>$this->faker->numberBetween($min = 1, $max = 30),
 			'codeBrancheActiviteSecondaire'=>$this->faker->numberBetween($min = 1, $max = 30),
+			'sigle'=>$this->faker->unique()->lastName,
         ];
     }
 }

@@ -12,7 +12,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->timestamps();
 			$table->string('raisonSociale');
 			$table->string('numContribuable');
-			$table->string('numCNPS');
+			$table->string('numCNPS')->nullable();
 			$table->string('numRegistreCommerce')->nullable();
 			$table->string('numStructure')->nullable();
 			$table->string('numGps')->nullable();
@@ -44,7 +44,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->boolean('remplissagedsf')->nullable();
 			$table->integer('chiffaff')->nullable();
 			$table->integer('chiffaffexp')->nullable();
-			$table->integer('valajoute');
+			$table->integer('valajoute')->nullable();
 			$table->boolean('conape')->nullable();
 			$table->boolean('avislibreechange')->nullable();
 			$table->boolean('conpolitiquepub')->nullable();
@@ -151,6 +151,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('situationExportation')->nullable();
 			$table->string('annees')->nullable();
 			$table->string('brancheActivitePrincipale')->nullable();
+			$table->string('sigle');
 			$table->string('brancheActiviteSecondaire')->nullable();
 			$table->string('codeBrancheActivitePrincipale')->nullable();
 			$table->string('codeBrancheActiviteSecondaire')->nullable();
