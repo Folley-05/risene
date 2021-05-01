@@ -48,19 +48,21 @@ class EntreprisesController extends Controller
 		$validate=$request->validate([
 			'sigleSiege'=>'required',
 			'raisonSociale'=>'required',
-			'numContribuable'=>'required|unique:Entreprises,numContribuable',
-			'numCNPS'=>'unique:Entreprises,numCNPS'
-			//'libelle'=>'required'
+			'numContribuable'=>'required|unique:entreprises,numContribuable',
+			'brancheActivitePrincipale'=>'required',
+			'codeBrancheActivitePrincipale'=>'required',
+			'annee'=>'required',
+			'numCNPS'=>'unique:entreprises,numCNPS'
 		]);
-		$result=Regions::orderByDesc('created_at')->take(1)->get();
-		$request->merge([
-			'codeINS'=>genererCode($result[0]->codeINS)
-		]);
+		$result=Entreprises::orderByDesc('created_at')->take(1)->get();
+		// $request->merge([
+		// 	'codeINS'=>genererCode($result[0]->codeINS)
+		// ]);
 		if($validate) {
-			if(Entreprises::create($region->all())) {
+			if(Entreprises::create($request->all())) {
 				return response()->json([
 					'succes'=>"entreprise cree avec succes",
-					'codeIns'=>$request->codeIns,
+					//'codeIns'=>$request->codeIns,
 				], 200);
 			}
 			else {
@@ -69,6 +71,7 @@ class EntreprisesController extends Controller
 				], 500);
 			}
 		}
+		//return $request;
 	}
 
 	/**

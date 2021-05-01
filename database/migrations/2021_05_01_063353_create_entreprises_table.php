@@ -14,7 +14,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('numContribuable');
 			$table->string('numCNPS');
 			$table->string('numRegistreCommerce')->nullable();
-			$table->string('numStructure');
+			$table->string('numStructure')->nullable();
 			$table->string('numGps')->nullable();
 			$table->float('altitude')->nullable();
 			$table->float('lattitude')->nullable();
@@ -35,7 +35,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->boolean('etrefilialtierce')->nullable();
 			$table->integer('capitalSocial')->nullable();
 			$table->integer('partprivenational')->nullable();
-			$table->integer('partpriveetranger');
+			$table->integer('partpriveetranger')->nullable();
 			$table->integer('partpubliquenationale')->nullable();
 			$table->integer('partpubliqueetranger')->nullable();
 			$table->boolean('tenuecomptaecrte')->nullable();
@@ -43,7 +43,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->boolean('tenuecomptaformelle')->nullable();
 			$table->boolean('remplissagedsf')->nullable();
 			$table->integer('chiffaff')->nullable();
-			$table->integer('chiffaffexp');
+			$table->integer('chiffaffexp')->nullable();
 			$table->integer('valajoute');
 			$table->boolean('conape')->nullable();
 			$table->boolean('avislibreechange')->nullable();
@@ -146,7 +146,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('regimeFiscal')->nullable();
 			$table->boolean('statutSuppression')->nullable();
 			$table->string('natureBenefices')->nullable();
-			$table->string('effectifPermanent');
+			$table->string('effectifPermanent')->nullable();
 			$table->string('typeEntreprise')->nullable();
 			$table->string('situationExportation')->nullable();
 			$table->string('annees')->nullable();
