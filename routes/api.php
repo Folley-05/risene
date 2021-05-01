@@ -15,6 +15,7 @@ use App\Http\Controllers\RegimeImpotsController;
 use App\Http\Controllers\StatusOccupationLocalsController;
 use App\Http\Controllers\MotifArretActivitesController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\ActivitesController;
 
 
 use App\Http\Controllers\EntreprisesController;
@@ -161,4 +162,12 @@ Route::get('getorderproduits/{id}', [ProduitsController::class, 'list']);
 Route::post('setproduit', [ProduitsController::class, 'store']);
 Route::post('updateproduit/{code}', [ProduitsController::class, 'update']);
 Route::delete('deleteproduit/{code}', [ProduitsController::class, 'destroy']);
+
+// Activites Routes
+Route::get('getactivites', [ActivitesController::class, 'index']);
+Route::get('getorderactivites', [ActivitesController::class, 'order']);
+Route::get('getactivite/{code}', [ActivitesController::class, 'show']);
+Route::post('setactivite', [ActivitesController::class, 'store']);
+Route::post('updateactivite/{code}', [ActivitesController::class, 'update']);
+Route::delete('deleteactivite/{code}', [ActivitesController::class, 'destroy']);
 

@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
         //$this->call(RegimeImpotsSeeder::class);
         //$this->call(StatusOccupationLocalsSeeder::class);
         //$this->call(SystemeDsfsSeeder::class);
+        $this->call(ActivitesSeeder::class);
+
         //$this->call(EntreprisesSeeder::class);
     }
 }

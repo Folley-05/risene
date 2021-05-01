@@ -54,10 +54,6 @@ class EntreprisesController extends Controller
 			'annee'=>'required',
 			'sigle'=>'required|unique:entreprises,sigle'
 		]);
-		$result=Entreprises::orderByDesc('created_at')->take(1)->get();
-		// $request->merge([
-		// 	'codeINS'=>genererCode($result[0]->codeINS)
-		// ]);
 		if($validate) {
 			if(Entreprises::create($request->all())) {
 				return response()->json([
@@ -158,8 +154,21 @@ class EntreprisesController extends Controller
 		return "a coder ";
 	}
 
-	public function valid(Request $request) {
-		return "a coder";
+	public function valid(Request $request, Entreprises $id) {
+		$result=Entreprises::orderByDesc('created_at')->take(1)->get();
+		$request->merge([
+			'codeINS'=>genererCode($result[0]->codeINS)
+		]);
+		if($id->update($request->all())) {
+			return response()->json([
+				'success'=>"entreprise mise a jour",
+			], 200);
+		}
+		else  {
+			return response()->json([
+				'echec'=>"echec de la mise a jour",
+			], 500);
+		}
 	}
 
 	public function waiting() {

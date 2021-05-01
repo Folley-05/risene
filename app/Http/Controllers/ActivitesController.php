@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Activites;
 
 class ActivitesController extends Controller 
 {
@@ -14,7 +15,18 @@ class ActivitesController extends Controller
    */
   public function index()
   {
-    
+    return Activites::all();
+  }
+
+  /**
+   * Display the ordered resource.
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function order()
+  {
+    return Activites::orderByDesc('created_at')->get();
   }
 
   /**
@@ -34,7 +46,22 @@ class ActivitesController extends Controller
    */
   public function store(Request $request)
   {
-    
+	$validate=$request->validate([
+		'code'=>'required|unique:activites,code',
+		'intitule'=>'required'
+	]);
+	if($validate) {
+		if(Activites::create($request->all())) {
+			return response()->json([
+				'succes'=>"activite cree avec succes",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"activite non cree",
+			], 500);
+		}
+	}
   }
 
   /**
@@ -43,9 +70,9 @@ class ActivitesController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function show($id)
+  public function show(Activites $code)
   {
-    
+    return $code;
   }
 
   /**
@@ -65,8 +92,18 @@ class ActivitesController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Activites $code, Request $request)
   {
+	if($code->update($request->all())) {
+		return response()->json([
+			'success'=>"activite mise a jour",
+		], 200);
+	}
+	else  {
+		return response()->json([
+			'echec'=>"echec de la mise a jour",
+		], 500);
+	}
     
   }
 
@@ -76,8 +113,18 @@ class ActivitesController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Activites $code)
   {
+	if($code->delete()) {
+		return response()->json([
+			'success'=>"activite supprime",
+		], 200);
+	}
+	else {
+		return response()->json([
+			'echec'=>"activite non supprime"
+		], 500);
+	}
     
   }
   
