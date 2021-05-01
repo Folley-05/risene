@@ -54,10 +54,13 @@ class EntreprisesController extends Controller
 			'annee'=>'required',
 			'sigle'=>'required|unique:entreprises,sigle'
 		]);
+		$request->merge([
+			'statutTraitement'=>false
+		]);
 		if($validate) {
 			if(Entreprises::create($request->all())) {
 				return response()->json([
-					'succes'=>"entreprise cree avec succes",
+					'succes'=>"entreprise en attente de validation",
 					//'codeIns'=>$request->codeIns,
 				], 200);
 			}
@@ -155,20 +158,22 @@ class EntreprisesController extends Controller
 	}
 
 	public function valid(Request $request, Entreprises $id) {
-		$result=Entreprises::orderByDesc('created_at')->take(1)->get();
+		$result=Entreprises::where('statutTraitement', true)->orderByDesc('created_at')->take(2)->get();
 		$request->merge([
-			'codeINS'=>genererCode($result[0]->codeINS)
+			'codeINS'=>genererCode($result[0]->codeINS),
+			'statutTraitement'=>true
 		]);
 		if($id->update($request->all())) {
 			return response()->json([
-				'success'=>"entreprise mise a jour",
+				'success'=>"entreprise valide, code ins attribue",
 			], 200);
 		}
 		else  {
 			return response()->json([
-				'echec'=>"echec de la mise a jour",
+				'echec'=>"echec de la validation",
 			], 500);
 		}
+		//return $request;
 	}
 
 	public function waiting() {
@@ -190,7 +195,7 @@ function calculKey($chaine) {
 	$pair=0;
 	$chaine=str_split($chaine);
 	//echo($t[0]);
-	for($i=0; $i<=count($chaine); $i++) {
+	for($i=0; $i<count($chaine); $i++) {
 		$r=$i+1;
 		if($r%2) {
 			$impair+=$chaine[$i];
