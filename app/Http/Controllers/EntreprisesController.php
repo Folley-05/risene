@@ -154,7 +154,16 @@ class EntreprisesController extends Controller
 	}
 	
 	public function full(Request $request, Entreprises $id) {
-		return "a coder ";
+		if($id->update($request->all())) {
+			return response()->json([
+				'success'=>"entreprise remplie, code ins attribue",
+			], 200);
+		}
+		else  {
+			return response()->json([
+				'echec'=>"echec",
+			], 500);
+		}
 	}
 
 	public function valid(Request $request, Entreprises $id) {
