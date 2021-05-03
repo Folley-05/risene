@@ -51,7 +51,7 @@ class EntreprisesController extends Controller
 			'numContribuable'=>'required|unique:entreprises,numContribuable',
 			'brancheActivitePrincipale'=>'required',
 			'codeBrancheActivitePrincipale'=>'required',
-			'annee'=>'required',
+			'annees'=>'required',
 			'sigle'=>'required|unique:entreprises,sigle'
 		]);
 		$request->merge([
