@@ -17,4 +17,6 @@ quand alex va m'envoyer les donnees le champs code INS doit etre vide
 
 modifier le champs intitule en designation dans regime impots
 
+empecher la presence d'un champs 
+not_in, prohibited
 

@@ -154,9 +154,21 @@ class EntreprisesController extends Controller
 	}
 	
 	public function full(Request $request, Entreprises $id) {
+		$validate=$request->validate([
+			'id'=>'prohibited',
+			'sigleSiege'=>'prohibited',
+			'raisonSociale'=>'prohibited',
+			'numContribuable'=>'prohibited',
+			'brancheActivitePrincipale'=>'prohibited',
+			'codeBrancheActivitePrincipale'=>'prohibited',
+			'annees'=>'prohibited',
+			'sigle'=>'prohibited',
+			'codeINS'=>'prohibited',
+			'statutTraitement'=>'prohibited',
+		]);
 		if($id->update($request->all())) {
 			return response()->json([
-				'success'=>"entreprise remplie, code ins attribue",
+				'success'=>"entreprise remplie",
 			], 200);
 		}
 		else  {
@@ -164,6 +176,7 @@ class EntreprisesController extends Controller
 				'echec'=>"echec",
 			], 500);
 		}
+		
 	}
 
 	public function valid(Request $request, Entreprises $id) {
@@ -175,7 +188,7 @@ class EntreprisesController extends Controller
 		]);
 		if($id->update($request->all())) {
 			return response()->json([
-				'success'=>"entreprise valide, code ins attribue",
+				'success'=>"entreprise valide",
 				'codeIns'=>$ins,
 			], 200);
 		}
@@ -192,7 +205,7 @@ class EntreprisesController extends Controller
 	}
 
 	public function wait(Entreprises $id) {
-		return " a coder ";
+		return $id;
 	}
 
   
