@@ -168,13 +168,15 @@ class EntreprisesController extends Controller
 
 	public function valid(Request $request, Entreprises $id) {
 		$result=Entreprises::where('statutTraitement', true)->orderByDesc('created_at')->take(2)->get();
+		$ins=genererCode($result[0]->codeINS);
 		$request->merge([
-			'codeINS'=>genererCode($result[0]->codeINS),
+			'codeINS'=>$ins,
 			'statutTraitement'=>true
 		]);
 		if($id->update($request->all())) {
 			return response()->json([
 				'success'=>"entreprise valide, code ins attribue",
+				'codeIns'=>$ins,
 			], 200);
 		}
 		else  {
