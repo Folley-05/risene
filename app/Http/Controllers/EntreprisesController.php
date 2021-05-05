@@ -29,6 +29,16 @@ class EntreprisesController extends Controller
 	}
 
 	/**
+	 * Display a listing of active ressource.
+	 *
+	 * @return Response
+	 */
+	public function active()
+	{
+		return Entreprises::where('statutSuppression', true)->get();
+	}
+
+	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
@@ -104,11 +114,17 @@ class EntreprisesController extends Controller
 	public function update(Request $request, Entreprises $id)
 	{
 		$validate=$request->validate([
-			'sigleSiege'=>'required',
-			'raisonSociale'=>'required',
-			'numContribuable'=>'required|unique:Entreprises,numContribuable',
+			'id'=>'prohibited',
+			'sigleSiege'=>'prohibited',
+			'raisonSociale'=>'prohibited',
+			'numContribuable'=>'prohibited',
+			'brancheActivitePrincipale'=>'prohibited',
+			'codeBrancheActivitePrincipale'=>'prohibited',
+			'annees'=>'prohibited',
+			'sigle'=>'prohibited',
+			'codeINS'=>'prohibited',
+			'statutTraitement'=>'prohibited',
 			'numCNPS'=>'unique:Entreprises,numCNPS'
-			//'libelle'=>'required'
 		]);
 		if($id->update($request->all())) {
 			return response()->json([

@@ -137,6 +137,7 @@ Route::delete('deletestatus/{code}', [StatusController::class, 'destroy']);
 // Entreprises Routes
 Route::get('getentreprises', [EntreprisesController::class, 'index']);
 Route::get('getorderentreprises', [EntreprisesController::class, 'order']);
+Route::get('getactiveentreprises', [EntreprisesController::class, 'active']);
 Route::get('getentreprise/{id}', [EntreprisesController::class, 'show']);
 Route::post('setentreprise', [EntreprisesController::class, 'store']);
 Route::post('addentreprise', [EntreprisesController::class, 'add']);
