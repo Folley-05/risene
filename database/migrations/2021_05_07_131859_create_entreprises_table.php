@@ -154,7 +154,12 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('sigle');
 			$table->string('brancheActiviteSecondaire')->nullable();
 			$table->string('codeBrancheActivitePrincipale')->nullable();
+			$table->string('dateCessation')->nullable();
 			$table->string('codeBrancheActiviteSecondaire')->nullable();
+			$table->string('civilite')->nullable();
+			$table->string('sexe')->nullable();
+			$table->string('dateMiseajours')->nullable();
+			$table->boolean('etatMiseAJour')->nullable();
 		});
 	}
 

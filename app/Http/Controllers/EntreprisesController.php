@@ -126,6 +126,12 @@ class EntreprisesController extends Controller
 			'statutTraitement'=>'prohibited',
 			'numCNPS'=>'unique:Entreprises,numCNPS'
 		]);
+		$result=Entreprises::where('id', $id->id)->get();
+		if(!$result[0]->etatMiseAJour) 
+			return response()->json([
+				'echec'=>"vous ne pouvez pas mettre a jour une entreprise sans donnees",
+			], 500);
+
 		if($id->update($request->all())) {
 			return response()->json([
 				'success'=>"entreprise mise a jour",
@@ -170,6 +176,11 @@ class EntreprisesController extends Controller
 	}
 	
 	public function full(Request $request, Entreprises $id) {
+		$result=Entreprises::where('id', $id->id)->get();
+		if($result[0]->etatMiseAJour) 
+			return response()->json([
+				'echec'=>"vous ne pouvez pas remplir cette entreprise essayez une mise a jour",
+			], 500);
 		$validate=$request->validate([
 			'id'=>'prohibited',
 			'sigleSiege'=>'prohibited',
@@ -181,6 +192,9 @@ class EntreprisesController extends Controller
 			'sigle'=>'prohibited',
 			'codeINS'=>'prohibited',
 			'statutTraitement'=>'prohibited',
+		]);
+		$request->merge([
+			'etatMiseAJour'=>true
 		]);
 		if($id->update($request->all())) {
 			return response()->json([
