@@ -16,11 +16,11 @@ use App\Http\Controllers\StatusOccupationLocalsController;
 use App\Http\Controllers\MotifArretActivitesController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ActivitesController;
-
-
 use App\Http\Controllers\EntreprisesController;
 use App\Http\Controllers\ProduitsController;
 use App\Http\Controllers\VentilationsController;
+use App\Http\Controllers\CatImpotLiberatoiresController;
+use App\Http\Controllers\CatJuridiquesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -171,4 +171,20 @@ Route::get('getactivite/{code}', [ActivitesController::class, 'show']);
 Route::post('setactivite', [ActivitesController::class, 'store']);
 Route::post('updateactivite/{code}', [ActivitesController::class, 'update']);
 Route::delete('deleteactivite/{code}', [ActivitesController::class, 'destroy']);
+
+// CatImpotLiberatoires Routes
+Route::get('getcatimpotliberatoires', [CatImpotLiberatoiresController::class, 'index']);
+Route::get('getordercatimpotliberatoires', [CatImpotLiberatoiresController::class, 'order']);
+Route::get('getcatimpotliberatoires/{code}', [CatImpotLiberatoiresController::class, 'show']);
+Route::post('setcatimpotliberatoires', [CatImpotLiberatoiresController::class, 'store']);
+Route::post('updatecatimpotliberatoires/{code}', [CatImpotLiberatoiresController::class, 'update']);
+Route::delete('deletecatimpotliberatoires/{code}', [CatImpotLiberatoiresController::class, 'destroy']);
+
+// CatImpotLiberatoires Routes
+Route::get('getcatjuridiques', [CatJuridiquesController::class, 'index']);
+Route::get('getordercatjuridiques', [CatJuridiquesController::class, 'order']);
+Route::get('getcatjuridiques/{code}', [CatJuridiquesController::class, 'show']);
+Route::post('setcatjuridiques', [CatJuridiquesController::class, 'store']);
+Route::post('updatecatjuridiques/{code}', [CatJuridiquesController::class, 'update']);
+Route::delete('deletecatjuridiques/{code}', [CatJuridiquesController::class, 'destroy']);
 

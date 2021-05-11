@@ -14,6 +14,7 @@ class CatJuridiques extends Model
     protected $primaryKey='code';
     public $incrementing=false;
     public $timestamps = true;
+    protected $fillable = array('institule', 'code');
 
     public function entreprise()
     {
