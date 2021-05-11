@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
         //$this->call(StatusOccupationLocalsSeeder::class);
         //$this->call(SystemeDsfsSeeder::class);
         //$this->call(ActivitesSeeder::class);
+        //$this->call(CatImpotLiberatoiresSeeder::class);
+        //$this->call(CatJuridiqueSeeder::class);
 
-        $this->call(EntreprisesSeeder::class);
+        //$this->call(EntreprisesSeeder::class);
     }
 }

@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\RegimeImpots;
+use App\Models\CatJuridiques;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RegimeImpotsFactory extends Factory
+class CatJuridiquesFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = RegimeImpots::class;
+    protected $model = CatJuridiques::class;
 
     /**
      * Define the model's default state.
@@ -22,9 +22,8 @@ class RegimeImpotsFactory extends Factory
     public function definition()
     {
         return [
-            'code'=>$this->faker->unique()->randomDigit,
-            'designation'=>$this->faker->name,
-            'institule'=>$this->faker->name
+            'code'=>$this->faker->unique()->numberBetween($min=0, $max=10),
+            'institule'=>$this->faker->lastName,
         ];
     }
 }

@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\RegimeImpots;
+use App\Models\CatJuridiques;
 
-class RegimeImpotsSeeder extends Seeder
+class CatJuridiqueSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class RegimeImpotsSeeder extends Seeder
      */
     public function run()
     {
-        RegimeImpots::factory()->count(5)->create();
+        CatJuridiques::factory()->count(10)->create();
     }
 }
