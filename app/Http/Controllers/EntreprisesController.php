@@ -240,10 +240,14 @@ class EntreprisesController extends Controller
 
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required'
+			'file'=>'required|mimes:txt'
 		]);
 		$data=convertCsvToArray(public_path('test.csv'), ',');
-		return $data;
+		for ($i = 0; $i < count($data); $i ++)
+		{
+			Entreprises::firstOrCreate($data[$i]);
+		}
+		return $i."insersions effectuees, ";
 	}
   
 }

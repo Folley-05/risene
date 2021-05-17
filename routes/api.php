@@ -69,6 +69,7 @@ Route::get('getregion/{code}', [RegionsController::class, 'show']);
 Route::post('setregion', [RegionsController::class, 'store']);
 Route::post('updateregion/{code}', [RegionsController::class, 'update']);
 Route::delete('deleteregion/{code}', [RegionsController::class, 'destroy']);
+Route::post('importregions', [RegionsController::class, 'import']);
 
 // SystemeDsf Routes
 Route::get('getsystemedsfs', [SystemeDsfsController::class, 'index']);
