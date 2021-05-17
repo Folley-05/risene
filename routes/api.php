@@ -147,6 +147,7 @@ Route::get('waitingentreprises', [EntreprisesController::class, 'waiting']);
 Route::get('waitingentreprise/{id}', [EntreprisesController::class, 'wait']);
 Route::post('updateentreprise/{id}', [EntreprisesController::class, 'update']);
 Route::delete('deleteentreprise/{id}', [EntreprisesController::class, 'del']);
+Route::post('importentreprises', [EntreprisesController::class, 'import']);
 
 // Ventilations Routes
 Route::get('getventilations', [VentilationsController::class, 'index']);

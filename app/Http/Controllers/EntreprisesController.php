@@ -238,6 +238,13 @@ class EntreprisesController extends Controller
 		return $id;
 	}
 
+	public function import(Request $request) {
+		$validate=$request->validate([
+			'file'=>'required'
+		]);
+		$data=convertCsvToArray(public_path('test.csv'), ',');
+		return $data;
+	}
   
 }
 
@@ -277,4 +284,22 @@ function genererCode($code) {
 	else return "2000016000";
 
 }
+
+function convertCsvToArray(String $file, String $delimiter) {
+	$header=null;
+	$data=array();
+	if (!file_exists($file) || !is_readable($file))	return "the file not exist or is not readable";
+	if(($handle=fopen($file, 'r')) !== false) {
+		while(($row=fgetcsv($handle, 1000, $delimiter)) !== false) 
+		{
+			if(!$header) $header=$row;
+			else $data[]=array_combine($header, $row);
+		}
+		fclose($handle);
+		return $data;
+	}
+	else return "can't open the file";
+
+}
+
 ?>
