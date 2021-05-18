@@ -233,6 +233,9 @@ class EntreprisesController extends Controller
 	public function waiting() {
 		return Entreprises::where('statutTraitement', false)->get();
 	}
+	public function updated() {
+		return Entreprises::where('etatMiseAJour', true)->get();
+	}
 
 	public function wait(Entreprises $id) {
 		return $id;

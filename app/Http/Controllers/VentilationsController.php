@@ -93,7 +93,7 @@ class VentilationsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Ventilations $id)
   {
 	if($code->update($request->all())) {
 		return response()->json([
@@ -114,7 +114,7 @@ class VentilationsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Ventilations $id)
   {
 	if($code->delete()) {
 		return response()->json([
@@ -127,6 +127,23 @@ class VentilationsController extends Controller
 		], 500);
 	}
   }
+
+	/**
+	 * insert from file function.
+	 *
+	 * @return Response
+	 */
+	public function import(Request $request) {
+		$validate=$request->validate([
+			'file'=>'required|mimes:txt'
+		]);
+		$data=convertCsvToArray($request->file, ',');
+		for ($i = 0; $i < count($data); $i ++)
+		{
+			Ventilations::firstOrCreate($data[$i]);
+		}
+		return $i."insersions effectuees, ";
+	}
   
 }
 

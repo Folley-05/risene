@@ -124,6 +124,23 @@ class CatImpotLiberatoiresController extends Controller
 			], 500);
 		}
 	}
+
+	/**
+	 * insert from file function.
+	 *
+	 * @return Response
+	 */
+	public function import(Request $request) {
+		$validate=$request->validate([
+			'file'=>'required|mimes:txt'
+		]);
+		$data=convertCsvToArray($request->file, ',');
+		for ($i = 0; $i < count($data); $i ++)
+		{
+			CatImpotLiberatoires::firstOrCreate($data[$i]);
+		}
+		return $i."insersions effectuees, ";
+	}
   
 }
 

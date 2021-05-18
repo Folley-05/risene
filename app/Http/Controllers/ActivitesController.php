@@ -113,20 +113,37 @@ class ActivitesController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy(Activites $code)
-  {
-	if($code->delete()) {
-		return response()->json([
-			'success'=>"activite supprime",
-		], 200);
-	}
-	else {
-		return response()->json([
-			'echec'=>"activite non supprime"
-		], 500);
-	}
+  	public function destroy(Activites $code)
+  	{
+		if($code->delete()) {
+			return response()->json([
+				'success'=>"activite supprime",
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"activite non supprime"
+			], 500);
+		}
     
-  }
+	}
+
+	/**
+	 * insert from file function.
+	 *
+	 * @return Response
+	 */
+	public function import(Request $request) {
+		$validate=$request->validate([
+			'file'=>'required|mimes:txt'
+		]);
+		$data=convertCsvToArray($request->file, ',');
+		for ($i = 0; $i < count($data); $i ++)
+		{
+			Activites::firstOrCreate($data[$i]);
+		}
+		return $i."insersions effectuees, ";
+	}
   
 }
 
