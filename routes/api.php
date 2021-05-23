@@ -153,7 +153,7 @@ Route::get('getentreprise/{id}', [EntreprisesController::class, 'show']);
 Route::post('setentreprise', [EntreprisesController::class, 'store']);
 Route::get('waitingentreprises', [EntreprisesController::class, 'waiting']);
 Route::get('waitingentreprise/{id}', [EntreprisesController::class, 'wait']);
-Route::get('updatedentreprise', [EntreprisesController::class, 'updated']);
+Route::get('updatedentreprises', [EntreprisesController::class, 'updated']);
 Route::post('addentreprise', [EntreprisesController::class, 'add']);
 Route::post('fullentreprise/{id}', [EntreprisesController::class, 'full']);
 Route::post('validentreprise/{id}', [EntreprisesController::class, 'valid']);
