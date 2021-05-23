@@ -134,7 +134,7 @@ Route::get('getmotifarretactivite/{code}', [MotifArretActivitesController::class
 Route::post('setmotifarretactivite', [MotifArretActivitesController::class, 'store']);
 Route::post('updatemotifarretactivite/{code}', [MotifArretActivitesController::class, 'update']);
 Route::delete('deletemotifarretactivite/{code}', [MotifArretActivitesController::class, 'destroy']);
-Route::post('importrmotifactivites', [MotifArretActivitesController::class, 'import']);
+Route::post('importrmotifarretactivites', [MotifArretActivitesController::class, 'import']);
 
 // Statut Routes
 Route::get('getstatuss', [StatusController::class, 'index']);

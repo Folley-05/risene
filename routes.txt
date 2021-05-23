@@ -34,7 +34,7 @@ get('getdepartement/{code}')
 post('setdepartement')
 post('updatedepartement/{code}')
 delete('deletedepartement/{code}')
-post('importregions')
+post('importdepartements')
 
  Regions Routes
 get('getregions')
@@ -52,7 +52,7 @@ get('getsystemedsf/{code}')
 post('setsystemedsf')
 post('updatesystemedsf/{code}')
 delete('deletesystemedsf/{code}')
-post('importregions')
+post('importsystemedsfs')
 
  EtatActivites Routes
 get('getetatactivites')
@@ -61,7 +61,7 @@ get('getetatactivite/{code}')
 post('setetatactivite')
 post('updateetatactivite/{code}')
 delete('deleteetatactivite/{code}')
-post('importregions')
+post('importetatactivites')
 
  NatureContratLocation Routes
 get('getnaturecontratlocations')
@@ -70,7 +70,7 @@ get('getnaturecontratlocation/{code}')
 post('setnaturecontratlocation')
 post('updatenaturecontratlocation/{code}')
 delete('deletenaturecontratlocation/{code}')
-post('importregions')
+post('importnaturecontratlocations')
 
  NatureCreation Routes
 get('getnaturecreations')
@@ -78,7 +78,7 @@ get('getordernaturecreations')
 get('getnaturecreation/{code}')
 post('setnaturecreation'))
 delete('deletenaturecreation/{code}')
-post('importregions')
+post('importnaturecreations')
 
  RegimeImpots Routes
 get('getregimeimpots')
@@ -87,7 +87,7 @@ get('getregimeimpot/{code}')
 post('setregimeimpot')
 post('updateregimeimpot/{code}')
 delete('deleteregimeimpot/{code}')
-post('importregions')
+post('importregimeimpots')
 
  StatutOccupationLocal Routes
 get('getstatusoccupationlocales')
@@ -96,7 +96,7 @@ get('getstatusoccupationlocale/{code}')
 post('setstatusoccupationlocale')
 post('updatestatusoccupationlocale/{code}')
 delete('deletestatusoccupationlocale/{code}')
-post('importregions')
+post('importstatutoccupations')
 
  MotifArretActivites Routes
 get('getmotifarretactivites')
@@ -105,7 +105,7 @@ get('getmotifarretactivite/{code}')
 post('setmotifarretactivite')
 post('updatemotifarretactivite/{code}')
 delete('deletemotifarretactivite/{code}')
-post('importregions')
+post('importrmotifarretactivites')
 
  statut Routes
 get('getstatuss')
@@ -114,7 +114,7 @@ get('getstatus/{code}')
 post('setstatus')
 post('updatestatus/{code}')
 delete('deletestatus/{code}')
-post('importregions')
+post('importstatuts')
 
 
 // Entreprises Routes
@@ -130,7 +130,7 @@ get('waitingentreprises')
 get('waitingentreprise/{id}')
 post('updateentreprise/{id}')
 delete('deleteentreprise/{id}')
-post('importregions')
+post('importentreprises')
 
 // CatImpotLiberatoires Routes
 get('getcatimpotliberatoires')
@@ -139,13 +139,13 @@ get('getcatimpotliberatoires/{code}')
 post('setcatimpotliberatoires')
 post('updatecatimpotliberatoires/{code}')
 delete('deletecatimpotliberatoires/{code}')
-post('importregions')
+post('importcatimpotliberatoires')
 
-// CatImpotLiberatoires Routes
+// CatJuridiques Routes
 get('getcatjuridiques')
 get('getordercatjuridiques')
 get('getcatjuridiques/{code}')
 post('setcatjuridiques')
 post('updatecatjuridiques/{code}')
 delete('deletecatjuridiques/{code}')
-post('importregions')
+post('importcatjuridiques')
