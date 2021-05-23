@@ -34,6 +34,7 @@ get('getdepartement/{code}')
 post('setdepartement')
 post('updatedepartement/{code}')
 delete('deletedepartement/{code}')
+post('importregions')
 
  Regions Routes
 get('getregions')
@@ -42,6 +43,7 @@ get('getregion/{code}')
 post('setregion')
 post('updateregion/{code}'')
 delete('deleteregion/{code}')
+post('importregions')
 
  SystemeDsf Routes
 get('getsystemedsfs')
@@ -50,6 +52,7 @@ get('getsystemedsf/{code}')
 post('setsystemedsf')
 post('updatesystemedsf/{code}')
 delete('deletesystemedsf/{code}')
+post('importregions')
 
  EtatActivites Routes
 get('getetatactivites')
@@ -58,6 +61,7 @@ get('getetatactivite/{code}')
 post('setetatactivite')
 post('updateetatactivite/{code}')
 delete('deleteetatactivite/{code}')
+post('importregions')
 
  NatureContratLocation Routes
 get('getnaturecontratlocations')
@@ -66,6 +70,7 @@ get('getnaturecontratlocation/{code}')
 post('setnaturecontratlocation')
 post('updatenaturecontratlocation/{code}')
 delete('deletenaturecontratlocation/{code}')
+post('importregions')
 
  NatureCreation Routes
 get('getnaturecreations')
@@ -73,6 +78,7 @@ get('getordernaturecreations')
 get('getnaturecreation/{code}')
 post('setnaturecreation'))
 delete('deletenaturecreation/{code}')
+post('importregions')
 
  RegimeImpots Routes
 get('getregimeimpots')
@@ -81,6 +87,7 @@ get('getregimeimpot/{code}')
 post('setregimeimpot')
 post('updateregimeimpot/{code}')
 delete('deleteregimeimpot/{code}')
+post('importregions')
 
  StatutOccupationLocal Routes
 get('getstatusoccupationlocales')
@@ -89,49 +96,56 @@ get('getstatusoccupationlocale/{code}')
 post('setstatusoccupationlocale')
 post('updatestatusoccupationlocale/{code}')
 delete('deletestatusoccupationlocale/{code}')
+post('importregions')
 
  MotifArretActivites Routes
-get('getmotifarretactivites');
-get('getordermotifarretactivites');
-get('getmotifarretactivite/{code}');
-post('setmotifarretactivite');
-post('updatemotifarretactivite/{code}');
-delete('deletemotifarretactivite/{code}');
+get('getmotifarretactivites')
+get('getordermotifarretactivites')
+get('getmotifarretactivite/{code}')
+post('setmotifarretactivite')
+post('updatemotifarretactivite/{code}')
+delete('deletemotifarretactivite/{code}')
+post('importregions')
 
  statut Routes
-get('getstatuss');
-get('getorderstatuss');
-get('getstatus/{code}');
-post('setstatus');
-post('updatestatus/{code}');
-delete('deletestatus/{code}');
+get('getstatuss')
+get('getorderstatuss')
+get('getstatus/{code}')
+post('setstatus')
+post('updatestatus/{code}')
+delete('deletestatus/{code}')
+post('importregions')
 
 
 // Entreprises Routes
-get('getentreprises');
-get('getorderentreprises');
-get('getentreprise/{id}');
-post('setentreprise');
-post('addentreprise');
-post('fullentreprise');
-post('validentreprise/{id}');
-get('waitingentreprises');
-get('waitingentreprise/{id}');
-post('updateentreprise/{id}');
-delete('deleteentreprise/{id}');
+get('getentreprises')
+get('getorderentreprises')
+get('getentreprise/{id}')
+get('updatedentreprise');
+post('setentreprise')
+post('addentreprise')
+post('fullentreprise')
+post('validentreprise/{id}')
+get('waitingentreprises')
+get('waitingentreprise/{id}')
+post('updateentreprise/{id}')
+delete('deleteentreprise/{id}')
+post('importregions')
 
 // CatImpotLiberatoires Routes
-get('getcatimpotliberatoires');
-get('getordercatimpotliberatoires');
-get('getcatimpotliberatoires/{code}');
-post('setcatimpotliberatoires');
-post('updatecatimpotliberatoires/{code}');
-delete('deletecatimpotliberatoires/{code}');
+get('getcatimpotliberatoires')
+get('getordercatimpotliberatoires')
+get('getcatimpotliberatoires/{code}')
+post('setcatimpotliberatoires')
+post('updatecatimpotliberatoires/{code}')
+delete('deletecatimpotliberatoires/{code}')
+post('importregions')
 
 // CatImpotLiberatoires Routes
-get('getcatjuridiques');
-get('getordercatjuridiques');
-get('getcatjuridiques/{code}');
-post('setcatjuridiques');
-post('updatecatjuridiques/{code}');
-delete('deletecatjuridiques/{code}');
+get('getcatjuridiques')
+get('getordercatjuridiques')
+get('getcatjuridiques/{code}')
+post('setcatjuridiques')
+post('updatecatjuridiques/{code}')
+delete('deletecatjuridiques/{code}')
+post('importregions')
