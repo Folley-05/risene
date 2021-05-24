@@ -160,6 +160,8 @@ Route::post('validentreprise/{id}', [EntreprisesController::class, 'valid']);
 Route::post('updateentreprise/{id}', [EntreprisesController::class, 'update']);
 Route::delete('deleteentreprise/{id}', [EntreprisesController::class, 'del']);
 Route::post('importentreprises', [EntreprisesController::class, 'import']);
+Route::post('sortentreprises', [EntreprisesController::class, 'sort']);
+
 
 // Ventilations Routes
 Route::get('getventilations', [VentilationsController::class, 'index']);

@@ -214,7 +214,7 @@ class EntreprisesController extends Controller
 		$ins=genererCode($result[0]->codeINS);
 		$request->merge([
 			'codeINS'=>$ins,
-			'statutTraitement'=>true
+			'statutTraitement'=>true,
 		]);
 		if($id->update($request->all())) {
 			return response()->json([
@@ -239,6 +239,10 @@ class EntreprisesController extends Controller
 
 	public function wait(Entreprises $id) {
 		return $id;
+	}
+
+	public function sort(Request $request) {
+		return Entreprises::where('region', '')->get();
 	}
 
 	public function import(Request $request) {
