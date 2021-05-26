@@ -135,11 +135,16 @@ class RegionsController extends Controller
 			'file'=>'required|mimes:txt'
 		]);
 		$data=convertCsvToArray($request->file, ',');
-		for ($i = 0; $i < count($data); $i ++)
-		{
-			Regions::firstOrCreate($data[$i]);
+		if(sizeof($data)) {
+			for ($i = 0; $i < count($data); $i ++) {
+				Regions::firstOrCreate($data[$i]);
+			}
+			return $i." insersions effectuees, ";
 		}
-		return $i."insersions effectuees, ";
+		return response()->json([
+			"echec"=> "quelque chose s'est mal passe",
+			"erreur"=> $data
+		]);
 	}
   
 }
