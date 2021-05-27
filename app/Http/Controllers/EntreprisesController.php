@@ -39,6 +39,23 @@ class EntreprisesController extends Controller
 	}
 
 	/**
+	 * Display a listing of sort ressource.
+	 *
+	 * @return Response
+	 */
+	public function sortEntreprises(Request $request)
+	{
+		$request->validate([
+			'field'=>'required',
+			'order'=>'required',
+		]);
+		if($request->order==='DESC')
+			return Entreprises::orderByDesc($request->field)->get();
+		else
+			return Entreprises::orderBy($request->field)->get();
+	}
+
+	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
