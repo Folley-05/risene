@@ -150,3 +150,12 @@ post('setcatjuridiques')
 post('updatecatjuridiques/{code}')
 delete('deletecatjuridiques/{code}')
 post('importcatjuridiques')
+
+// SecteurActivites Routes
+get('getsecteuractivites');
+get('getordersecteuractivites');
+get('getsecteuractivite/{code}');
+post('setsecteuractivite');
+post('updatesecteuractivite/{code}');
+delete('deletesecteuractivite/{code}');
+post('importsecteuractivites');

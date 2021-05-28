@@ -21,6 +21,7 @@ use App\Http\Controllers\ProduitsController;
 use App\Http\Controllers\VentilationsController;
 use App\Http\Controllers\CatImpotLiberatoiresController;
 use App\Http\Controllers\CatJuridiquesController;
+use App\Http\Controllers\SecteurActivitesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -209,4 +210,13 @@ Route::post('setcatjuridiques', [CatJuridiquesController::class, 'store']);
 Route::post('updatecatjuridiques/{code}', [CatJuridiquesController::class, 'update']);
 Route::delete('deletecatjuridiques/{code}', [CatJuridiquesController::class, 'destroy']);
 Route::post('importcatjuridiques', [CatJuridiquesController::class, 'import']);
+
+// SecteurActivites Routes
+Route::get('getsecteuractivites', [SecteurActivitesController::class, 'index']);
+Route::get('getordersecteuractivites', [SecteurActivitesController::class, 'order']);
+Route::get('getsecteuractivite/{code}', [SecteurActivitesController::class, 'show']);
+Route::post('setsecteuractivite', [SecteurActivitesController::class, 'store']);
+Route::post('updatesecteuractivite/{code}', [SecteurActivitesController::class, 'update']);
+Route::delete('deletesecteuractivite/{code}', [SecteurActivitesController::class, 'destroy']);
+Route::post('importsecteuractivites', [SecteurActivitesController::class, 'import']);
 
