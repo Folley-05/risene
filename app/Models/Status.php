@@ -11,6 +11,7 @@ class Status extends Model
     protected $primaryKey = 'code';
     public $incrementing = false;
     public $timestamps = true;
+    
     protected $fillable = array('code, intitule');
 
     public function entreprise()

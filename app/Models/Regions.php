@@ -11,6 +11,7 @@ class Regions extends Model
     
     protected $primaryKey = 'code';
     public $incrementing = false;
+    
     protected $fillable=['code', 'libelle'];
 
     public function entreprises()
