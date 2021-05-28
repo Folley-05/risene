@@ -46,7 +46,7 @@ class SecteurActivitesController extends Controller
 	public function store(Request $request)
 	{
 		$validate=$request->validate([
-			'code'=>'required|unique:SecteurActivites,code',
+			'code'=>'required|unique:secteurActivites,code',
 			//'libelle'=>'required'
 		]);
 		if($validate) {
