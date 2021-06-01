@@ -134,7 +134,7 @@ class RegionsController extends Controller
 		$validate=$request->validate([
 			'file'=>'required'
 		]);
-		$data=convertCsvToArray($request->file, ',');
+		/*$data=convertCsvToArray($request->file, ',');
 		if(sizeof($data)) {
 			for ($i = 0; $i < count($data); $i ++) {
 				Regions::firstOrCreate($data[$i]);
@@ -144,7 +144,8 @@ class RegionsController extends Controller
 		return response()->json([
 			"echec"=> "quelque chose s'est mal passe",
 			"erreur"=> $data
-		]);
+		]);*/
+		return $request;
 	}
   
 }
