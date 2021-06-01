@@ -132,7 +132,7 @@ class RegionsController extends Controller
 	 */
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:txt'
+			'file'=>'required'
 		]);
 		$data=convertCsvToArray($request->file, ',');
 		if(sizeof($data)) {
@@ -148,6 +148,7 @@ class RegionsController extends Controller
 	}
   
 }
+
 
 
 function convertCsvToArray(String $file, String $delimiter) {

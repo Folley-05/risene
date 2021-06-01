@@ -202,7 +202,7 @@ Route::post('updatecatimpotliberatoires/{code}', [CatImpotLiberatoiresController
 Route::delete('deletecatimpotliberatoires/{code}', [CatImpotLiberatoiresController::class, 'destroy']);
 Route::post('importcatimpotliberatoires', [CatImpotLiberatoiresController::class, 'import']);
 
-// CatImpotJuridiques Routes
+// CatJuridiques Routes
 Route::get('getcatjuridiques', [CatJuridiquesController::class, 'index']);
 Route::get('getordercatjuridiques', [CatJuridiquesController::class, 'order']);
 Route::get('getcatjuridiques/{code}', [CatJuridiquesController::class, 'show']);
