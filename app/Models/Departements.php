@@ -2,22 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Departements extends Model 
 {
-    use HasFactory;
 
     protected $table = 'departements';
-    protected $primaryKey = 'code';
-    public $incrementing = false;
     public $timestamps = true;
-    protected $fillable=['code', 'libelle', 'region'];
+    protected $fillable = array('code', 'libelle');
 
-    public function entreprises()
+    public function region()
     {
-        return $this->hasMany('App\Models\Entreprises');
+        return $this->belongsTo('App\Models\Regions');
+    }
+
+    public function arrondissements()
+    {
+        return $this->hasMany('App\Models\Arrondissements');
     }
 
 }

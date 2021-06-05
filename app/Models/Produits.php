@@ -8,19 +8,17 @@ class Produits extends Model
 {
 
     protected $table = 'produits';
-    public $primaryKey = 'code';
-    public $increment = false;
     public $timestamps = true;
-    protected $fillable = array('code', 'designation', 'chiffreAffaire', 'pourcentageChiffAff', 'id_entreprise');
-
-    public function ventesProduits()
-    {
-        return $this->belongsTo('App\Models\VentesProduits', 'id_venteProduits');
-    }
+    protected $fillable = array('chiffreAffaire', 'id_entreprise', 'pourcentageChiffAff');
 
     public function typeNomenclature()
     {
         return $this->hasOne('App\Models\TypeNommenclatures');
+    }
+
+    public function entreprise()
+    {
+        return $this->belongsTo('App\Models\Entreprises');
     }
 
 }

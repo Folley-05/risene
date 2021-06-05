@@ -2,18 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class EtatActivites extends Model 
 {
-    use HasFactory;
 
     protected $table = 'etatActivites';
-    protected $primaryKey = 'code';
-    public $incrementing = false;
     public $timestamps = true;
-    protected $fillable=['code', 'etat'];
+    protected $fillable = array('code');
 
     public function entreprise()
     {

@@ -8,10 +8,8 @@ class Ventilations extends Model
 {
 
     protected $table = 'ventilations';
-    public $primaryKey = 'code';
-    public $increment = false;
     public $timestamps = true;
-    protected $fillable = array('code', 'nomEtablissement', 'ville', 'quartier', 'id_entreprise');
+    protected $fillable = array('code', 'nomEtablissement', 'ville', 'quartier');
 
     public function entreprise()
     {

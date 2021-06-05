@@ -25,4 +25,9 @@ class TypeNommenclatures extends Model
         return $this->hasMany('App\Models\Activites');
     }
 
+    public function npmenclature()
+    {
+        return $this->hasOne('APP\Models\Nomenclatures');
+    }
+
 }

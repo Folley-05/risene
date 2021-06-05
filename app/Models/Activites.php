@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Activites extends Model 
 {
-    use HasFactory;
 
     protected $table = 'activites';
-    protected $primaryKey = 'code';
     public $timestamps = true;
     protected $fillable = array('intitule', 'code');
 
@@ -22,6 +19,11 @@ class Activites extends Model
     public function entreprise()
     {
         return $this->belongsTo('App\Models\Entreprises', 'id_entreprise');
+    }
+
+    public function secteurActivite()
+    {
+        return $this->belongsTo('App\Models\SecteurActivites');
     }
 
 }

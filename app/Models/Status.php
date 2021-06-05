@@ -7,12 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Status extends Model 
 {
 
-    protected $table = 'Status';
-    protected $primaryKey = 'code';
-    public $incrementing = false;
+    protected $table = 'status';
     public $timestamps = true;
-    
-    protected $fillable = array('code, intitule');
+    protected $fillable = array('code');
 
     public function entreprise()
     {
