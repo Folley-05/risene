@@ -3,13 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Departements extends Model 
 {
+    use HasFactory;
 
     protected $table = 'departements';
+    protected $primaryKey = 'code';
+    public $incrementing = false;
     public $timestamps = true;
-    protected $fillable = array('code', 'libelle');
+    protected $fillable=['code', 'libelle', 'region'];
 
     public function region()
     {
