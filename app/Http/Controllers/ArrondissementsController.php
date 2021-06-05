@@ -123,7 +123,7 @@ class ArrondissementsController extends Controller
 	 * insert from file function.
 	 *
 	 * @return Response
-	 */
+	*/
 	public function import(Request $request) {
 		$validate=$request->validate([
 			'file'=>'required|mimes:txt'
@@ -136,6 +136,25 @@ class ArrondissementsController extends Controller
 		return $i."insersions effectuees, ";
 	}
 	
+}
+
+
+
+function convertCsvToArray(String $file, String $delimiter) {
+	$header=null;
+	$data=array();
+	if (!file_exists($file) || !is_readable($file))	return "the file not exist or is not readable";
+	if(($handle=fopen($file, 'r')) !== false) {
+		while(($row=fgetcsv($handle, 1000, $delimiter)) !== false) 
+		{
+			if(!$header) $header=$row;
+			else $data[]=array_combine($header, $row);
+		}
+		fclose($handle);
+		return $data;
+	}
+	else return "can't open the file";
+
 }
 
 ?>
