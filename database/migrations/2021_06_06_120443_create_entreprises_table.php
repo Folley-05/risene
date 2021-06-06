@@ -10,10 +10,10 @@ class CreateEntreprisesTable extends Migration {
 		Schema::create('entreprises', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->string('raisonSociale');
+			$table->string('raisonSociale')->unique();
 			$table->string('numContribuable');
 			$table->string('numCNPS')->nullable();
-			$table->string('numRegistreCommerce')->nullable();
+			$table->string('numRegistreCommerce')->unique()->nullable();
 			$table->string('numGps')->nullable();
 			$table->float('altitude')->nullable();
 			$table->float('lattitude')->nullable();
@@ -84,7 +84,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('effectifPermanent')->nullable();
 			$table->string('typeEntreprise')->nullable();
 			$table->string('situationExportation')->nullable();
-			$table->string('annees')->nullable();
+			$table->integer('annee')->nullable();
 			$table->string('brancheActivitePrincipale');
 			$table->string('sigle');
 			$table->string('brancheActiviteSecondaire')->nullable();

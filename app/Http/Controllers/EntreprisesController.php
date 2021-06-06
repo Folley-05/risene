@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Entreprises;
+use App\Models\BackUpEntreprises;
 
 class EntreprisesController extends Controller 
 {
@@ -73,16 +74,18 @@ class EntreprisesController extends Controller
 	public function store(Request $request)
 	{
 		$validate=$request->validate([
-			'sigleSiege'=>'required',
 			'raisonSociale'=>'required',
 			'numContribuable'=>'required|unique:entreprises,numContribuable',
 			'brancheActivitePrincipale'=>'required',
 			'codeBrancheActivitePrincipale'=>'required',
-			'annees'=>'required',
-			'sigle'=>'required|unique:entreprises,sigle'
+			'sigle'=>'required|unique:entreprises,sigle',
+			'codeINS'=>'prohibited',
+			'statutTraitement'=>'prohibited',
+			'etatMiseAJour'=>'prohibited',
 		]);
 		$request->merge([
-			'statutTraitement'=>false
+			'statutTraitement'=>false,
+			'annee'=>now()->year,
 		]);
 		if($validate) {
 			if(Entreprises::create($request->all())) {
@@ -137,11 +140,14 @@ class EntreprisesController extends Controller
 			'numContribuable'=>'prohibited',
 			'brancheActivitePrincipale'=>'prohibited',
 			'codeBrancheActivitePrincipale'=>'prohibited',
-			'annees'=>'prohibited',
+			'annee'=>'prohibited',
 			'sigle'=>'prohibited',
 			'codeINS'=>'prohibited',
 			'statutTraitement'=>'prohibited',
 			'numCNPS'=>'unique:Entreprises,numCNPS'
+		]);
+		$request->merge([
+			'dateMiseajours'=>now()
 		]);
 		$result=Entreprises::where('id', $id->id)->get();
 		if(!$result[0]->etatMiseAJour) 
@@ -205,13 +211,15 @@ class EntreprisesController extends Controller
 			'numContribuable'=>'prohibited',
 			'brancheActivitePrincipale'=>'prohibited',
 			'codeBrancheActivitePrincipale'=>'prohibited',
-			'annees'=>'prohibited',
+			'annee'=>'prohibited',
 			'sigle'=>'prohibited',
 			'codeINS'=>'prohibited',
 			'statutTraitement'=>'prohibited',
+			'etatMiseAJour'=>'prohibited'
 		]);
 		$request->merge([
-			'etatMiseAJour'=>true
+			'etatMiseAJour'=>true,
+			'dateMiseajours'=>now()
 		]);
 		if($id->update($request->all())) {
 			return response()->json([
@@ -272,6 +280,48 @@ class EntreprisesController extends Controller
 			Entreprises::firstOrCreate($data[$i]);
 		}
 		return $i."insersions effectuees, ";
+	}
+
+	/**
+	 * Put all Entreprise on BackUp.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function backUp() {
+		$entreprises=Entreprises::all()->toArray();
+		$witness=true;
+		$array=(array)$entreprises[0];
+		foreach ($entreprises as $entreprise) {
+			if(BackUpEntreprises::create($entreprise)) {}
+			else $witness=false;
+			//$witness=$entreprise;
+
+		}
+		if($witness) {
+			if(!Entreprises::where('annee','<', '2022')->update(['annee'=>now()->year]))
+				$witness=false;
+		}
+		if($witness) {
+			return response()->json([
+				'succes'=>"backup effectue, date mise a jour",
+				//'codeIns'=>$request->codeIns,
+			], 200);
+		}
+		else {
+			return response()->json([
+				'echec'=>"quelque chose n'a pas marche",
+			], 500);
+		}
+	}
+
+
+	// la fonctiom pour les test de code
+	public function test(Request $request) {
+		
+		//return Entreprises::where('annee', '2019')->update(['annee'=>'2010']);
+		//return Entreprises::all()->take(1);
+		return Entreprises::where('annee','<', '2022')->update(['annee'=>'2010']);
 	}
   
 }

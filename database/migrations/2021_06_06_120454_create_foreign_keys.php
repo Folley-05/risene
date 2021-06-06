@@ -28,11 +28,6 @@ class CreateForeignKeys extends Migration {
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
-		Schema::table('ventilations', function(Blueprint $table) {
-			$table->foreign('id_entreprise')->references('id')->on('entreprises')
-						->onDelete('cascade')
-						->onUpdate('restrict');
-		});
 		Schema::table('sourceEnergie_Entreprises', function(Blueprint $table) {
 			$table->foreign('id_entreprise')->references('id')->on('entreprises')
 						->onDelete('restrict')
@@ -78,9 +73,6 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('politiq_publiq_Entreprises', function(Blueprint $table) {
 			$table->dropForeign('politiq_publiq_Entreprises_id_politiq_publiq_foreign');
-		});
-		Schema::table('ventilations', function(Blueprint $table) {
-			$table->dropForeign('ventilations_id_entreprise_foreign');
 		});
 		Schema::table('sourceEnergie_Entreprises', function(Blueprint $table) {
 			$table->dropForeign('sourceEnergie_Entreprises_id_entreprise_foreign');

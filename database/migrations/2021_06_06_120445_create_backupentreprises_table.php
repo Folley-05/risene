@@ -8,7 +8,7 @@ class CreateBackupentreprisesTable extends Migration {
 	public function up()
 	{
 		Schema::create('backupentreprises', function(Blueprint $table) {
-			$table->increments('id');
+			$table->integer('id');
 			$table->timestamps();
 			$table->string('raisonSociale');
 			$table->string('numContribuable');
@@ -84,7 +84,7 @@ class CreateBackupentreprisesTable extends Migration {
 			$table->string('effectifPermanent')->nullable();
 			$table->string('typeEntreprise')->nullable();
 			$table->string('situationExportation')->nullable();
-			$table->string('annees')->nullable();
+			$table->integer('annee')->nullable();
 			$table->string('brancheActivitePrincipale');
 			$table->string('brancheActiviteSecondaire')->nullable();
 			$table->string('sigle');

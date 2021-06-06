@@ -22,6 +22,7 @@ use App\Http\Controllers\VentilationsController;
 use App\Http\Controllers\CatImpotLiberatoiresController;
 use App\Http\Controllers\CatJuridiquesController;
 use App\Http\Controllers\SecteurActivitesController;
+use App\Http\Controllers\BackUpEntreprisesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -163,6 +164,9 @@ Route::delete('deleteentreprise/{id}', [EntreprisesController::class, 'del']);
 Route::post('importentreprises', [EntreprisesController::class, 'import']);
 Route::post('sortentreprises', [EntreprisesController::class, 'sort']);
 Route::post('sortedentreprises', [EntreprisesController::class, 'sortEntreprises']);
+Route::post('backup', [EntreprisesController::class, 'backup']);
+
+Route::post('test', [EntreprisesController::class, 'test']);
 
 
 
@@ -219,4 +223,7 @@ Route::post('setsecteuractivite', [SecteurActivitesController::class, 'store']);
 Route::post('updatesecteuractivite/{code}', [SecteurActivitesController::class, 'update']);
 Route::delete('deletesecteuractivite/{code}', [SecteurActivitesController::class, 'destroy']);
 Route::post('importsecteuractivites', [SecteurActivitesController::class, 'import']);
+
+// Entreprises Routes
+Route::get('getbackupentreprises', [BackUpEntreprisesController::class, 'index']);
 

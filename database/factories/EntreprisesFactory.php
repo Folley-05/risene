@@ -97,7 +97,7 @@ class EntreprisesFactory extends Factory
 			'effectifPermanent'=>$this->faker->numberBetween($min = 1, $max = 1000),
 			'typeEntreprise'=>$this->faker->sentence(),
 			'situationExportation'=>$this->faker->sentence(),
-			'annees'=>$this->faker->numberBetween($min = 2018, $max = 2021),
+			'annee'=>$this->faker->numberBetween($min = 2018, $max = 2021),
 			'brancheActivitePrincipale'=>$this->faker->sentence(),
 			'sigle'=>$this->faker->lastName,
 			'brancheActiviteSecondaire'=>$this->faker->numberBetween($min = 1, $max = 30),
