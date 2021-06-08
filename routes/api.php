@@ -164,9 +164,7 @@ Route::delete('deleteentreprise/{id}', [EntreprisesController::class, 'del']);
 Route::post('importentreprises', [EntreprisesController::class, 'import']);
 Route::post('sortentreprises', [EntreprisesController::class, 'sort']);
 Route::post('sortedentreprises', [EntreprisesController::class, 'sortEntreprises']);
-Route::post('backup', [EntreprisesController::class, 'backup']);
 
-Route::post('test', [EntreprisesController::class, 'test']);
 
 
 
@@ -224,6 +222,11 @@ Route::post('updatesecteuractivite/{code}', [SecteurActivitesController::class, 
 Route::delete('deletesecteuractivite/{code}', [SecteurActivitesController::class, 'destroy']);
 Route::post('importsecteuractivites', [SecteurActivitesController::class, 'import']);
 
-// Entreprises Routes
-Route::get('getbackupentreprises', [BackUpEntreprisesController::class, 'index']);
 
+// Backups Routes
+Route::get('getbackupentreprises', [BackUpEntreprisesController::class, 'index']);
+Route::get('getbackupentreprisesbyyear/{year}', [BackUpEntreprisesController::class, 'sortByYear']);
+Route::post('backup', [EntreprisesController::class, 'backup']);
+
+
+Route::post('test', [EntreprisesController::class, 'test']);

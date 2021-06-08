@@ -19,6 +19,15 @@ class BackUpEntreprisesController extends Controller
 	}
 
   /**
+   * Store a newly created resource in storage.
+   *
+   * @return Response
+   */
+  public function sortByYear() {
+
+  }
+
+  /**
    * Show the form for creating a new resource.
    *
    * @return Response
