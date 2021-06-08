@@ -19,12 +19,13 @@ class BackUpEntreprisesController extends Controller
 	}
 
   /**
-   * Store a newly created resource in storage.
+   * Display a listing of the resource sorted by year .
    *
    * @return Response
    */
-  public function sortByYear() {
-
+  public function sortByYear(Request $request) {
+		return BackUpEntreprises::where('annee', $request->year)->get();
+    //return $request->year;
   }
 
   /**

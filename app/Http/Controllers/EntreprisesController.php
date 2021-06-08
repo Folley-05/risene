@@ -321,7 +321,7 @@ class EntreprisesController extends Controller
 		
 		//return Entreprises::where('annee', '2019')->update(['annee'=>'2010']);
 		//return Entreprises::all()->take(1);
-		return Entreprises::where('annee','<', '2022')->update(['annee'=>'2010']);
+		return now()->year;
 	}
   
 }
