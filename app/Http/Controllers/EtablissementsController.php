@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Etablissements;
 
 class EtablissementsController extends Controller 
 {
@@ -14,7 +15,8 @@ class EtablissementsController extends Controller
    */
   public function index()
   {
-    
+	  return Etablissements::all();
+	
   }
 
   /**
@@ -24,7 +26,7 @@ class EtablissementsController extends Controller
    */
   public function create()
   {
-    
+	
   }
 
   /**
@@ -34,7 +36,14 @@ class EtablissementsController extends Controller
    */
   public function store(Request $request)
   {
-    
+	  $etablissements=json_decode($request->etablissements);
+	  for ($i = 0; $i < count($etablissements); $i ++) {
+		  $data=(array)$etablissements[$i];
+		  Etablissements::firstOrCreate($data);
+	  }
+	  return response()->json([
+		  'succes'=>$i." entreprises inserees ",
+	  ], 200);
   }
 
   /**
@@ -45,7 +54,7 @@ class EtablissementsController extends Controller
    */
   public function show($id)
   {
-    
+	
   }
 
   /**
@@ -56,7 +65,7 @@ class EtablissementsController extends Controller
    */
   public function edit($id)
   {
-    
+	
   }
 
   /**
@@ -67,7 +76,7 @@ class EtablissementsController extends Controller
    */
   public function update($id)
   {
-    
+	
   }
 
   /**
@@ -78,7 +87,7 @@ class EtablissementsController extends Controller
    */
   public function destroy($id)
   {
-    
+	
   }
   
 }

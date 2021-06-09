@@ -18,7 +18,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\ActivitesController;
 use App\Http\Controllers\EntreprisesController;
 use App\Http\Controllers\ProduitsController;
-use App\Http\Controllers\VentilationsController;
+use App\Http\Controllers\EtablissementsController;
 use App\Http\Controllers\CatImpotLiberatoiresController;
 use App\Http\Controllers\CatJuridiquesController;
 use App\Http\Controllers\SecteurActivitesController;
@@ -165,17 +165,13 @@ Route::post('importentreprises', [EntreprisesController::class, 'import']);
 Route::post('sortentreprises', [EntreprisesController::class, 'sort']);
 Route::post('sortedentreprises', [EntreprisesController::class, 'sortEntreprises']);
 
-
-
-
-// Ventilations Routes
-Route::get('getventilations', [VentilationsController::class, 'index']);
-Route::get('getventilation/{code}', [VentilationsController::class, 'show']);
-Route::get('getorderventilations/{id}', [VentilationsController::class, 'list']);
-Route::post('setventilation', [VentilationsController::class, 'store']);
-Route::post('updateventilation/{code}', [VentilationsController::class, 'update']);
-Route::delete('deleteventilation/{code}', [VentilationsController::class, 'destroy']);
-//Route::post('importregions', [VentilationsController::class, 'import']);
+// Etablissements Routes
+Route::get('getetablissements', [EtablissementsController::class, 'index']);
+Route::get('getetablissement/{code}', [EtablissementsController::class, 'show']);
+Route::get('getorderEtablissements/{id}', [EtablissementsController::class, 'list']);
+Route::post('setetablissement', [EtablissementsController::class, 'store']);
+Route::post('updateetablissement/{code}', [EtablissementsController::class, 'update']);
+Route::delete('deleteetablissement/{code}', [EtablissementsController::class, 'destroy']);
 
 // Produits Routes
 Route::get('getproduits', [ProduitsController::class, 'index']);
