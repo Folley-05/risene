@@ -86,6 +86,7 @@ class EntreprisesController extends Controller
 		]);
 		$request->merge([
 			'statutTraitement'=>false,
+			'etatMiseAJour'=>false,
 			'annee'=>now()->year,
 		]);
 		if($validate) {

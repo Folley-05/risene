@@ -10,13 +10,13 @@ class CreateEtablissementsTable extends Migration {
 		Schema::create('etablissements', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->string('nom');
+			$table->string('raisonSociale');
 			$table->string('region')->nullable();
 			$table->string('ville');
 			$table->string('quartier');
 			$table->string('id_entreprise');
-			$table->string('codeIns')->nullable();
-			$table->string('sigle')->nullable();
+			$table->string('codeIns');
+			$table->string('sigle');
 			$table->string('departement')->nullable();
 			$table->string('arrondissements')->nullable();
 			$table->string('boitePostale')->nullable();
