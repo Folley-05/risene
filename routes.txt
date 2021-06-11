@@ -121,6 +121,7 @@ post('importstatuts')
 get('getentreprises')
 get('getorderentreprises')
 get('getentreprise/{id}')
+get('getactiveentreprises');
 get('updatedentreprise');
 post('setentreprise')
 post('addentreprise')

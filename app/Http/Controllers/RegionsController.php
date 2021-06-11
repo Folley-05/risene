@@ -149,7 +149,7 @@ class RegionsController extends Controller
 	}
 
 	public function import2(Request $request) {
-		$data=convertCsvToArray($request->file, ',');
+		$data=convertCsvToArray2($request->file, ',');
 		return $data;
 	}
   
@@ -171,6 +171,18 @@ function convertCsvToArray(String $file, String $delimiter) {
 		return $data;
 	}
 	else return "can't open the file";
+
+}
+function convertCsvToArray2(String $file, String $delimiter) {
+	$header=null;
+	$data=array();
+		while(($row=fgetcsv($file, 1000, $delimiter)) !== false) 
+		{
+			if(!$header) $header=$row;
+			else $data[]=array_combine($header, $row);
+		}
+		return $data;
+	
 
 }
 

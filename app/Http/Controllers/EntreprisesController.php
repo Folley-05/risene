@@ -36,7 +36,7 @@ class EntreprisesController extends Controller
 	 */
 	public function active()
 	{
-		return Entreprises::where('statutSuppression', true)->get();
+		return Entreprises::where('statutSuppression', false)->get();
 	}
 
 	/**
@@ -79,6 +79,7 @@ class EntreprisesController extends Controller
 			'brancheActivitePrincipale'=>'required',
 			'codeBrancheActivitePrincipale'=>'required',
 			'sigle'=>'required|unique:entreprises,sigle',
+			'activitePrincipale'=>'required',
 			'codeINS'=>'prohibited',
 			'statutTraitement'=>'prohibited',
 			'etatMiseAJour'=>'prohibited',
@@ -109,9 +110,15 @@ class EntreprisesController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Entreprises $id)
+	public function show(Request $request)
 	{
-		return $id;
+		$entreprise=Entreprises::where('id', $request->id)->get();
+		if(count($entreprise))
+			return $entreprise[0];
+		else
+			return response()->json([
+				'echec'=>"l'entreprise n'existe pas",
+			], 500);
 	}
 
 	/**
@@ -182,14 +189,17 @@ class EntreprisesController extends Controller
 
 	public function del(Request $request, Entreprises $id) 
 	{
-		if($id->update($request->all())) {
+		$params=[
+			'statutSuppression'=>true
+		];
+		if($id->update($params)) {
 			return response()->json([
-				'success'=>"entreprise mise a jour",
+				'success'=>"entreprise supprime",
 			], 200);
 		}
 		else  {
 			return response()->json([
-				'echec'=>"echec de la mise a jour",
+				'echec'=>"echec de la suppression",
 			], 500);
 		}
 	}
@@ -200,10 +210,16 @@ class EntreprisesController extends Controller
 	
 	public function full(Request $request, Entreprises $id) {
 		$result=Entreprises::where('id', $id->id)->get();
-		if($result[0]->etatMiseAJour) 
+		if(!$result[0]->statutTraitement){ 
+			return response()->json([
+				'echec'=>"vous ne pouvez pas remplir cette entreprise car elle n'a pas ete valide",
+			], 500);
+		}
+		if($result[0]->etatMiseAJour){ 
 			return response()->json([
 				'echec'=>"vous ne pouvez pas remplir cette entreprise essayez une mise a jour",
 			], 500);
+		}
 		$validate=$request->validate([
 			'id'=>'prohibited',
 			'sigleSiege'=>'prohibited',
@@ -235,13 +251,23 @@ class EntreprisesController extends Controller
 	}
 
 	public function valid(Request $request, Entreprises $id) {
-		$result=Entreprises::where('statutTraitement', true)->orderByDesc('created_at')->take(2)->get();
-		$ins=genererCode($result[0]->codeINS);
-		$request->merge([
+		$result=Entreprises::where('statutTraitement', true)->orderByDesc('codeINS')->take(2)->get();
+		if(count($result)){
+			$ins=genererCode($result[0]->codeINS);
+		}
+		else {
+			$ins="2000016000";
+		}
+		/*$request->merge([
 			'codeINS'=>$ins,
 			'statutTraitement'=>true,
-		]);
-		if($id->update($request->all())) {
+		]);*/
+		$params=[
+			'codeINS'=>$ins,
+			'statutTraitement'=>true,
+		];
+		//return $request;
+		if($id->update($params)) {
 			return response()->json([
 				'success'=>"entreprise valide",
 				'codeIns'=>$ins,
@@ -252,7 +278,6 @@ class EntreprisesController extends Controller
 				'echec'=>"echec de la validation",
 			], 500);
 		}
-		//return $request;
 	}
 
 	public function waiting() {
