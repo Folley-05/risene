@@ -11,6 +11,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('raisonSociale')->unique();
+			$table->string('sigle');
 			$table->string('numContribuable');
 			$table->string('numCNPS')->nullable();
 			$table->string('numRegistreCommerce')->unique()->nullable();
@@ -66,8 +67,6 @@ class CreateEntreprisesTable extends Migration {
 			$table->integer('nombreEtablissement')->nullable();
 			$table->integer('catImpot')->unsigned()->nullable();
 			$table->integer('systemedsf')->unsigned()->nullable();
-			$table->integer('activitePrincipale');
-			$table->text('activiteSecondaire')->nullable();
 			$table->integer('effectifHomme')->nullable();
 			$table->integer('effectifFemme')->nullable();
 			$table->string('effectifTotal')->nullable();
@@ -85,14 +84,18 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('typeEntreprise')->nullable();
 			$table->string('situationExportation')->nullable();
 			$table->integer('annee')->nullable();
+			$table->integer('codeActivitePrincipale')->nullable();
+			$table->string('libelleActivitePrincipale')->nullable();
+			$table->integer('codeActiviteSecondaire');
+			$table->string('libelleActiviteSecondaire')->nullable();
 			$table->string('brancheActivitePrincipale');
-			$table->string('sigle');
 			$table->string('brancheActiviteSecondaire')->nullable();
 			$table->integer('codeBrancheActivitePrincipale');
 			$table->string('dateCessation')->nullable();
 			$table->integer('codeBrancheActiviteSecondaire')->nullable();
 			$table->string('civilite')->nullable();
 			$table->string('sexe')->nullable();
+			$table->integer('sourceMiseAJour')->nullable();
 			$table->string('dateMiseajours')->nullable();
 			$table->boolean('etatMiseAJour')->nullable();
 		});

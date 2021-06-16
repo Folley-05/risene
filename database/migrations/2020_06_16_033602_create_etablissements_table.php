@@ -16,7 +16,7 @@ class CreateEtablissementsTable extends Migration {
 			$table->string('quartier');
 			$table->string('id_entreprise');
 			$table->string('codeIns');
-			$table->string('sigle');
+			$table->string('sigle')->nullable();
 			$table->string('departement')->nullable();
 			$table->string('arrondissements')->nullable();
 			$table->string('boitePostale')->nullable();

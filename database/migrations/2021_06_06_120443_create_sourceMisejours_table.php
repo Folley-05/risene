@@ -8,9 +8,10 @@ class CreateSourceMisejoursTable extends Migration {
 	public function up()
 	{
 		Schema::create('sourceMisejours', function(Blueprint $table) {
+			$table->increments('id');
 			$table->timestamps();
 			$table->string('source');
-			$table->integer('code')->primary();
+			$table->integer('code');
 		});
 	}
 

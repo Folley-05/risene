@@ -147,11 +147,6 @@ class RegionsController extends Controller
 		]);
 		//return $data;
 	}
-
-	public function import2(Request $request) {
-		$data=convertCsvToArray2($request->file, ',');
-		return $data;
-	}
   
 }
 

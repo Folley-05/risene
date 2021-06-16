@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(ActivitesSeeder::class);
         //$this->call(CatImpotLiberatoiresSeeder::class);
         //$this->call(CatJuridiqueSeeder::class);
+        //$this->call(SourceMisejours::class);
 
         //$this->call(EntreprisesSeeder::class);
     }
