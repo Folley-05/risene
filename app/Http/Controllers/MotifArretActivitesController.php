@@ -129,14 +129,39 @@ class MotifArretActivitesController extends Controller
 			'file'=>'required|mimes:txt'
 		]);
 		$data=convertCsvToArray($request->file, ',');
-		for ($i = 0; $i < count($data); $i ++)
-		{
-			MotifArretActivites::firstOrCreate($data[$i]);
+		if(sizeof($data)) {
+			for ($i = 0; $i < count($data); $i ++) {
+				MotifArretActivites::firstOrCreate($data[$i]);
+			}
+			return $i." insersions effectuees, ";
 		}
-		return $i."insersions effectuees, ";
+		return response()->json([
+			"echec"=> "quelque chose s'est mal passe",
+			"erreur"=> $data
+		]);
+		//return $data;
 	}
 
   
+}
+
+
+
+function convertCsvToArray(String $file, String $delimiter) {
+	$header=null;
+	$data=array();
+	if (!file_exists($file) || !is_readable($file))	return "the file not exist or is not readable";
+	if(($handle=fopen($file, 'r')) !== false) {
+		while(($row=fgetcsv($handle, 1000, $delimiter)) !== false) 
+		{
+			if(!$header) $header=$row;
+			else $data[]=array_combine($header, $row);
+		}
+		fclose($handle);
+		return $data;
+	}
+	else return "can't open the file";
+
 }
 
 ?>

@@ -168,17 +168,5 @@ function convertCsvToArray(String $file, String $delimiter) {
 	else return "can't open the file";
 
 }
-function convertCsvToArray2(String $file, String $delimiter) {
-	$header=null;
-	$data=array();
-		while(($row=fgetcsv($file, 1000, $delimiter)) !== false) 
-		{
-			if(!$header) $header=$row;
-			else $data[]=array_combine($header, $row);
-		}
-		return $data;
-	
-
-}
 
 ?>

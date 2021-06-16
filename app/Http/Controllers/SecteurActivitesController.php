@@ -145,6 +145,7 @@ class SecteurActivitesController extends Controller
 			"echec"=> "quelque chose s'est mal passe",
 			"erreur"=> $data
 		]);
+		//return $data;
 	}
   
 }
