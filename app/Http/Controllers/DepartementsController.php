@@ -135,7 +135,9 @@ class DepartementsController extends Controller
 			for ($i = 0; $i < count($data); $i ++) {
 				Departements::firstOrCreate($data[$i]);
 			}
-			return $i." insersions effectuees, ";
+			return response()->json([
+				"usccess"=> $i." insersions effectuees, ",
+			], 200);
 		}
 		return response()->json([
 			"echec"=> "quelque chose s'est mal passe",

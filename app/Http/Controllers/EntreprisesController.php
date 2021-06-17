@@ -371,7 +371,9 @@ class EntreprisesController extends Controller
 		{
 			if(Entreprises::firstOrCreate($data[$i])) $n++;
 		}
-		return $n."insersions effectuees, "; 
+		return response()->json([
+			"usccess"=> $i." insersions effectuees, ",
+		], 200); 
 		//return $data;
 	}
   
