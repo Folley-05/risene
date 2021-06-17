@@ -76,7 +76,6 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('villeImplantation')->nullable();
 			$table->string('promoteurPrincipalDirigeant')->nullable();
 			$table->string('villeRegistreCommerce')->nullable();
-			$table->boolean('statutTraitement')->nullable();
 			$table->string('regimeFiscal')->nullable();
 			$table->boolean('statutSuppression')->nullable();
 			$table->string('natureBenefices')->nullable();
@@ -84,23 +83,24 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('typeEntreprise')->nullable();
 			$table->string('situationExportation')->nullable();
 			$table->integer('annee')->nullable();
-			$table->integer('codeActivitePrincipale')->nullable();
+			$table->integer('codeActivitePrincipale');
 			$table->string('libelleActivitePrincipale')->nullable();
-			$table->integer('codeActiviteSecondaire');
+			$table->integer('codeActiviteSecondaire')->nullable();
 			$table->string('libelleActiviteSecondaire')->nullable();
-			$table->string('brancheActivitePrincipale');
-			$table->string('brancheActiviteSecondaire')->nullable();
 			$table->integer('codeBrancheActivitePrincipale');
-			$table->string('dateCessation')->nullable();
+			$table->string('brancheActivitePrincipale');
 			$table->integer('codeBrancheActiviteSecondaire')->nullable();
+			$table->string('brancheActiviteSecondaire')->nullable();
+			$table->string('dateCessation')->nullable();
 			$table->string('civilite')->nullable();
 			$table->string('sexe')->nullable();
+			$table->boolean('statutTraitement')->nullable();
 			$table->integer('sourceMiseAJour')->nullable();
 			$table->string('dateMiseajours')->nullable();
 			$table->boolean('etatMiseAJour')->nullable();
 		});
 	}
-
+	
 	public function down()
 	{
 		Schema::drop('entreprises');

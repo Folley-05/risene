@@ -1,24 +1,15 @@
-verifier la table caracteristiqueLocal
-
-y a un soucis de data avec la table regimeimpot
-
-quand alex va m'envoyer les donnees le champs code INS doit etre vide
-
-//modifier les parametres d'une requete
-	$region->merge([
-		'libelle'=>"Mbouda"
-	]);
-
-// valider les donnees 
-	$validate=$region->validate([
-		'code'=>'required|unique:regions,code',
-		//'libelle'=>'required'
-	]);
-
-modifier le champs intitule en designation dans regime impots
-
-empecher la presence d'un champs :
-not_in, prohibited
 
 importation de donnees csv :
  consuter le lien https://askcodez.com/importation-de-fichier-csv-pour-laravel-controleur-et-inserer-les-donnees-dans-deux-tables.html
+
+
+les champs d'entreprise qui ne doivent pas etre nulls:
+raisonSociale, 
+numContribuable, 
+sigle, 
+codeBrancheActivitePrincipale, 
+libelleActivitePrincipale ,
+codeActivitePrincipale, 
+brancheActivitePrincipale, 
+
+bien comprendre le champs date mise a jour

@@ -76,10 +76,11 @@ class EntreprisesController extends Controller
 		$validate=$request->validate([
 			'raisonSociale'=>'required',
 			'numContribuable'=>'required|unique:entreprises,numContribuable',
-			'brancheActivitePrincipale'=>'required',
-			'codeBrancheActivitePrincipale'=>'required',
 			'sigle'=>'required|unique:entreprises,sigle',
-			'activitePrincipale'=>'required',
+			'codeActivitePrincipale'=>'required',
+			'libelleActivitePrincipale'=>'required',
+			'codeBrancheActivitePrincipale'=>'required',
+			'brancheActivitePrincipale'=>'required',
 			'codeINS'=>'prohibited',
 			'statutTraitement'=>'prohibited',
 			'etatMiseAJour'=>'prohibited',
@@ -296,16 +297,23 @@ class EntreprisesController extends Controller
 		return Entreprises::where('region', '')->get();
 	}
 
+	/**
+	 * insert from file function.
+	 *
+	 * @return Response
+	 */
 	public function import(Request $request) {
 		$validate=$request->validate([
 			'file'=>'required|mimes:txt'
 		]);
-		$data=convertCsvToArray(public_path('test.csv'), ',');
-		for ($i = 0; $i < count($data); $i ++)
+		return "hello";
+		//$data=convertCsvToArray(public_path('test.csv'), ',');
+		/*for ($i = 0; $i < count($data); $i ++)
 		{
 			Entreprises::firstOrCreate($data[$i]);
 		}
-		return $i."insersions effectuees, ";
+		return $i."insersions effectuees, "; */
+		//return $data;
 	}
 
 	/**
@@ -344,10 +352,27 @@ class EntreprisesController extends Controller
 
 	// la fonctiom pour les test de code
 	public function test(Request $request) {
-		
-		//return Entreprises::where('annee', '2019')->update(['annee'=>'2010']);
-		//return Entreprises::all()->take(1);
-		return now()->year;
+		$validate=$request->validate([
+			'file'=>'required|mimes:txt'
+		]);
+		$n=0;
+		$data=convertCsvToArray($request->file, ',');
+		//Entreprises::firstOrCreate($data[0]);
+		for ($i = 0; $i < count($data); $i ++)
+		{
+			$data[$i]['statutTraitement']=true;
+			$data[$i]['sourceMiseAJour']=1;
+			$data[$i]['etatMiseAJour']=true;
+			$data[$i]['dateMiseajours']=now();
+			$data[$i]['annee']=now()->year;
+		}
+
+		for ($i = 0; $i < count($data); $i ++)
+		{
+			if(Entreprises::firstOrCreate($data[$i])) $n++;
+		}
+		return $n."insersions effectuees, "; 
+		//return $data;
 	}
   
 }
