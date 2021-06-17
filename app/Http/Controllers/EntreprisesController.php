@@ -353,7 +353,7 @@ class EntreprisesController extends Controller
 	// la fonctiom pour les test de code
 	public function test(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:txt'
+			'file'=>'required|mimes:csv'
 		]);
 		$n=0;
 		$data=convertCsvToArray($request->file, ',');

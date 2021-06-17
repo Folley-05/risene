@@ -135,7 +135,7 @@ class ActivitesController extends Controller
 	 */
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:txt'
+			'file'=>'required|mimes:csv'
 		]);
 		$data=convertCsvToArray($request->file, ',');
 		if(sizeof($data)) {
