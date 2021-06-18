@@ -23,6 +23,8 @@ use App\Http\Controllers\CatImpotLiberatoiresController;
 use App\Http\Controllers\CatJuridiquesController;
 use App\Http\Controllers\SecteurActivitesController;
 use App\Http\Controllers\BackUpEntreprisesController;
+use App\Http\Controllers\BrancheActivitesController;
+use App\Http\Controllers\SourceMisejoursController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,7 +76,6 @@ Route::post('setregion', [RegionsController::class, 'store']);
 Route::post('updateregion/{code}', [RegionsController::class, 'update']);
 Route::delete('deleteregion/{code}', [RegionsController::class, 'destroy']);
 Route::post('importregions', [RegionsController::class, 'import']);
-Route::post('importregions2', [RegionsController::class, 'import2']);
 
 // SystemeDsf Routes
 Route::get('getsystemedsfs', [SystemeDsfsController::class, 'index']);
@@ -224,6 +225,24 @@ Route::post('importsecteuractivites', [SecteurActivitesController::class, 'impor
 Route::get('getbackupentreprises', [BackUpEntreprisesController::class, 'index']);
 Route::get('getbackupentreprisesbyyear/{year}', [BackUpEntreprisesController::class, 'sortByYear']);
 Route::post('backup', [EntreprisesController::class, 'backup']);
+
+// BrancheActivites Routes
+Route::get('getbrancheactivites', [BrancheActivitesController::class, 'index']);
+Route::get('getorderbrancheactivites', [BrancheActivitesController::class, 'order']);
+Route::get('getbrancheactivite/{code}', [BrancheActivitesController::class, 'show']);
+Route::post('setbrancheactivite', [BrancheActivitesController::class, 'store']);
+Route::post('updatebrancheactivite/{code}', [BrancheActivitesController::class, 'update']);
+Route::delete('deletebrancheactivite/{code}', [BrancheActivitesController::class, 'destroy']);
+Route::post('importbrancheactivites', [BrancheActivitesController::class, 'import']);
+
+// SourceMisejours Routes
+Route::get('getsourcemisejours', [SourceMisejoursController::class, 'index']);
+Route::get('getordersourcemisejours', [SourceMisejoursController::class, 'order']);
+Route::get('getsourcemisejour/{code}', [SourceMisejoursController::class, 'show']);
+Route::post('setsourcemisejour', [SourceMisejoursController::class, 'store']);
+Route::post('updatesourcemisejour/{code}', [SourceMisejoursController::class, 'update']);
+Route::delete('deletesourcemisejour/{code}', [SourceMisejoursController::class, 'destroy']);
+Route::post('importsourcemisejours', [SourceMisejoursController::class, 'import']);
 
 
 Route::post('test', [EntreprisesController::class, 'test']);

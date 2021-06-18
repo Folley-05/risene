@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
         //$this->call(CatJuridiqueSeeder::class);
         //$this->call(SourceMisejours::class);
 
-        //$this->call(EntreprisesSeeder::class);
+        $this->call(EntreprisesSeeder::class);
     }
 }

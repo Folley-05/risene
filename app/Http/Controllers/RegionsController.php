@@ -52,7 +52,7 @@ class RegionsController extends Controller
 		if($validate) {
 			if(Regions::create($request->all())) {
 				return response()->json([
-					'succes'=>"regions cree avec succes",
+					'success'=>"regions cree avec success",
 				], 200);
 			}
 			else {
@@ -132,7 +132,7 @@ class RegionsController extends Controller
 	 */
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:csv'
+			'file'=>'required|mimes:txt,csv'
 		]);
 		$data=convertCsvToArray($request->file, ',');
 		if(sizeof($data)) {

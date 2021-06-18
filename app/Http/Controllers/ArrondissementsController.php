@@ -126,7 +126,7 @@ class ArrondissementsController extends Controller
 	*/
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:csv'
+			'file'=>'required|mimes:csv,txt'
 		]);
 		$data=convertCsvToArray($request->file, ',');
 		if(sizeof($data)) {
@@ -134,7 +134,7 @@ class ArrondissementsController extends Controller
 				Arrondissements::firstOrCreate($data[$i]);
 			}
 			return response()->json([
-				"usccess"=> $i." insersions effectuees, ",
+				"success"=> $i." insersions effectuees, ",
 			], 200);
 		}
 		return response()->json([

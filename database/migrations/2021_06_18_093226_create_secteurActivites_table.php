@@ -11,7 +11,7 @@ class CreateSecteurActivitesTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('libelle')->nullable();
-			$table->integer('code')->nullable();
+			$table->integer('code');
 		});
 	}
 

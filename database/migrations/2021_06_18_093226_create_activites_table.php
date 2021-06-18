@@ -11,7 +11,7 @@ class CreateActivitesTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('intitule')->nullable();
-			$table->string('code')->nullable();
+			$table->string('code');
 		});
 	}
 

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departements;
 use Illuminate\Http\Request;
+use App\Models\BrancheActivites;
 
-class DepartementsController extends Controller 
+class BrancheActivitesController extends Controller 
 {
 
 	/**
@@ -15,8 +15,7 @@ class DepartementsController extends Controller
 	 */
 	public function index()
 	{
-		return Departements::all();
-		
+		return BrancheActivites::all();
 	}
 
 	/**
@@ -26,7 +25,7 @@ class DepartementsController extends Controller
 	 */
 	public function order()
 	{
-		return Departements::orderByDesc('created_at')->get();
+		return BrancheActivites::orderByDesc('created_at')->get();
 	}
 
 	/**
@@ -36,8 +35,8 @@ class DepartementsController extends Controller
 	 */
 	public function create(Request $requete)
 	{
+		
 	}
-
 
 	/**
 	 * Store a newly created resource in storage.
@@ -46,15 +45,21 @@ class DepartementsController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		if(Departements::create($request->all())) {
-			return response()->json([
-				'succes'=>"departements cree avec succes",
-			], 200);
-		}
-		else {
-			return response()->json([
-				'echec'=>"departements non cree",
-			], 500);
+		$validate=$request->validate([
+			'code'=>'required|unique:branchesActivites,code',
+			//'libelle'=>'required'
+		]);
+		if($validate) {
+			if(BrancheActivites::create($request->all())) {
+				return response()->json([
+					'success'=>"branche activites cree avec success",
+				], 200);
+			}
+			else {
+				return response()->json([
+					'echec'=>"branche activites non cree",
+				], 500);
+			}
 		}
 	}
 
@@ -64,11 +69,10 @@ class DepartementsController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Departements $code)
+	public function show(BrancheActivites $code)
 	{
 		return $code;
 	}
-
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -87,11 +91,11 @@ class DepartementsController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, Departements $code)
+	public function update(Request $request, BrancheActivites $code)
 	{
 		if($code->update($request->all())) {
 			return response()->json([
-				'success'=>"departements mis a jour",
+				'success'=>"branche activites mis a jour",
 			], 200);
 		}
 		else  {
@@ -107,16 +111,16 @@ class DepartementsController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy(Departements $code)
+	public function destroy(BrancheActivites $code)
 	{
 		if($code->delete()) {
 			return response()->json([
-				'success'=>"departements supprime",
+				'success'=>"branche activites supprime",
 			], 200);
 		}
 		else {
 			return response()->json([
-				'echec'=>"departements non supprime"
+				'echec'=>"branche activites non supprime"
 			], 500);
 		}
 	}
@@ -128,24 +132,24 @@ class DepartementsController extends Controller
 	 */
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:csv,txt'
+			'file'=>'required|mimes:txt,csv'
 		]);
 		$data=convertCsvToArray($request->file, ',');
 		if(sizeof($data)) {
 			for ($i = 0; $i < count($data); $i ++) {
-				Departements::firstOrCreate($data[$i]);
+				BrancheActivites::firstOrCreate($data[$i]);
 			}
 			return response()->json([
-				"usccess"=> $i." insersions effectuees, ",
+				"success"=> $i." insersions effectuees, ",
 			], 200);
 		}
 		return response()->json([
 			"echec"=> "quelque chose s'est mal passe",
 			"erreur"=> $data
-		]);
+		], 500);
 		//return $data;
 	}
-
+  
 }
 
 

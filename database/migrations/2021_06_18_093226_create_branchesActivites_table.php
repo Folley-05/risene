@@ -3,20 +3,21 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateSourceMisejoursTable extends Migration {
+class CreateBranchesActivitesTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('sourceMisejours', function(Blueprint $table) {
+		Schema::create('branchesActivites', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->string('source');
 			$table->integer('code');
+			$table->string('libelle');
+			$table->integer('secteur');
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('sourceMisejours');
+		Schema::drop('branchesActivites');
 	}
 }
