@@ -143,14 +143,14 @@ class EntreprisesController extends Controller
 	public function update(Request $request, Entreprises $id)
 	{
 		$validate=$request->validate([
-			'id'=>'prohibited',
-			'sigleSiege'=>'prohibited',
-			'raisonSociale'=>'prohibited',
-			'numContribuable'=>'prohibited',
-			'brancheActivitePrincipale'=>'prohibited',
-			'codeBrancheActivitePrincipale'=>'prohibited',
+			// 'id'=>'prohibited',
+			// 'sigleSiege'=>'prohibited',
+			// 'raisonSociale'=>'prohibited',
+			// 'numContribuable'=>'prohibited',
+			// 'brancheActivitePrincipale'=>'prohibited',
+			// 'codeBrancheActivitePrincipale'=>'prohibited',
 			'annee'=>'prohibited',
-			'sigle'=>'prohibited',
+			// 'sigle'=>'prohibited',
 			'codeINS'=>'prohibited',
 			'statutTraitement'=>'prohibited',
 			'numCNPS'=>'unique:Entreprises,numCNPS'
@@ -159,10 +159,12 @@ class EntreprisesController extends Controller
 			'dateMiseajours'=>now()
 		]);
 		$result=Entreprises::where('id', $id->id)->get();
-		if(!$result[0]->etatMiseAJour) 
-			return response()->json([
-				'echec'=>"vous ne pouvez pas mettre a jour une entreprise sans donnees",
-			], 500);
+		/*
+			if(!$result[0]->etatMiseAJour) 
+				return response()->json([
+					'echec'=>"vous ne pouvez pas mettre a jour une entreprise sans donnees",
+				], 500);
+		*/
 
 		if($id->update($request->all())) {
 			return response()->json([
@@ -264,12 +266,17 @@ class EntreprisesController extends Controller
 			'codeINS'=>$ins,
 			'statutTraitement'=>true,
 		]);*/
-		$params=[
+		$request->merge([
 			'codeINS'=>$ins,
 			'statutTraitement'=>true,
-		];
+
+		]);
+		// $params=[
+		// 	'codeINS'=>$ins,
+		// 	'statutTraitement'=>true,
+		// ];
 		//return $request;
-		if($id->update($params)) {
+		if($id->update($request)) {
 			return response()->json([
 				'success'=>"entreprise valide",
 				'codeIns'=>$ins,
