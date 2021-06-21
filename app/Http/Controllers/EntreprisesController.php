@@ -73,6 +73,7 @@ class EntreprisesController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		//return now()->year;
 		$validate=$request->validate([
 			'raisonSociale'=>'required',
 			'numContribuable'=>'required|unique:entreprises,numContribuable',
@@ -276,10 +277,9 @@ class EntreprisesController extends Controller
 		// 	'statutTraitement'=>true,
 		// ];
 		//return $request;
-		if($id->update($request)) {
+		if($id->update($request->all())) {
 			return response()->json([
 				'success'=>"entreprise valide",
-				'codeIns'=>$ins,
 			], 200);
 		}
 		else  {

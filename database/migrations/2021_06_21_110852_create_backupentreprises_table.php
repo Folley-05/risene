@@ -8,12 +8,12 @@ class CreateBackupentreprisesTable extends Migration {
 	public function up()
 	{
 		Schema::create('backupentreprises', function(Blueprint $table) {
-			$table->integer('id');
+			$table->increments('id');
 			$table->timestamps();
-			$table->string('raisonSociale');
+			$table->string('raisonSociale')->unique();
 			$table->string('numContribuable');
 			$table->string('numCNPS')->nullable();
-			$table->string('numRegistreCommerce')->nullable();
+			$table->string('numRegistreCommerce')->unique()->nullable();
 			$table->string('numGps')->nullable();
 			$table->float('altitude')->nullable();
 			$table->float('lattitude')->nullable();
@@ -45,8 +45,16 @@ class CreateBackupentreprisesTable extends Migration {
 			$table->integer('CAPEF_CCIMA')->nullable();
 			$table->string('pageFacebook')->nullable();
 			$table->string('codeFormeJuridique')->nullable();
+			$table->integer('codeActivitePrincipale');
 			$table->string('libelleFormeJuridique')->nullable();
+			$table->string('libelleActivitePrincipale')->nullable();
+			$table->integer('codeActiviteSecondaire')->nullable();
+			$table->string('libelleActiviteSecondaire')->nullable();
 			$table->string('quartier')->nullable();
+			$table->integer('sourceMiseAJour')->nullable();
+			$table->integer('secteurActivites')->nullable();
+			$table->integer('remplissageDsf')->nullable();
+			$table->string('pointRepere')->nullable();
 			$table->integer('id_arrondissement')->unsigned()->nullable();
 			$table->string('nomPromoteur')->nullable();
 			$table->integer('agePromoteur')->nullable();
@@ -66,8 +74,6 @@ class CreateBackupentreprisesTable extends Migration {
 			$table->integer('nombreEtablissement')->nullable();
 			$table->integer('catImpot')->unsigned()->nullable();
 			$table->integer('systemedsf')->unsigned()->nullable();
-			$table->integer('activitePrincipale');
-			$table->text('activiteSecondaire')->nullable();
 			$table->integer('effectifHomme')->nullable();
 			$table->integer('effectifFemme')->nullable();
 			$table->string('effectifTotal')->nullable();
@@ -75,12 +81,12 @@ class CreateBackupentreprisesTable extends Migration {
 			$table->integer('region')->unsigned()->nullable();
 			$table->string('affilieOrganisationProffessionnelle')->nullable();
 			$table->string('villeImplantation')->nullable();
-			$table->string('promoteurPrincipalDirigeant')->nullable();
 			$table->string('villeRegistreCommerce')->nullable();
-			$table->boolean('statutTraitement')->nullable();
+			$table->string('promoteurPrincipalDirigeant')->nullable();
 			$table->string('regimeFiscal')->nullable();
-			$table->boolean('statutSuppression')->nullable();
+			$table->boolean('statutTraitement')->nullable();
 			$table->string('natureBenefices')->nullable();
+			$table->boolean('statutSuppression')->nullable();
 			$table->string('effectifPermanent')->nullable();
 			$table->string('typeEntreprise')->nullable();
 			$table->string('situationExportation')->nullable();
