@@ -311,15 +311,27 @@ class EntreprisesController extends Controller
 	 */
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:txt'
+			'file'=>'required|mimes:csv,txt'
 		]);
-		return "hello";
-		//$data=convertCsvToArray(public_path('test.csv'), ',');
-		/*for ($i = 0; $i < count($data); $i ++)
+		$n=0;
+		$data=convertCsvToArray($request->file, ',');
+		//Entreprises::firstOrCreate($data[0]);
+		for ($i = 0; $i < count($data); $i ++)
 		{
-			Entreprises::firstOrCreate($data[$i]);
+			$data[$i]['statutTraitement']=true;
+			$data[$i]['sourceMiseAJour']=1;
+			$data[$i]['etatMiseAJour']=true;
+			$data[$i]['dateMiseajours']=now();
+			$data[$i]['annee']=now()->year;
 		}
-		return $i."insersions effectuees, "; */
+
+		for ($i = 0; $i < count($data); $i ++)
+		{
+			if(Entreprises::firstOrCreate($data[$i])) $n++;
+		}
+		return response()->json([
+			"usccess"=> $i." insersions effectuees, ",
+		], 200); 
 		//return $data;
 	}
 
@@ -357,31 +369,64 @@ class EntreprisesController extends Controller
 	}
 
 
-	// la fonctiom pour les test de code
+	// la fonction pour les test de code
 	public function test(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:csv'
+			'file'=>'required|mimes:csv,txt'
 		]);
 		$n=0;
 		$data=convertCsvToArray($request->file, ',');
-		//Entreprises::firstOrCreate($data[0]);
-		for ($i = 0; $i < count($data); $i ++)
-		{
-			$data[$i]['statutTraitement']=true;
-			$data[$i]['sourceMiseAJour']=1;
-			$data[$i]['etatMiseAJour']=true;
-			$data[$i]['dateMiseajours']=now();
-			$data[$i]['annee']=now()->year;
-		}
+		$entreprise=[];
+		$entreprise['raisonSociale']=$data[0]['RAISON_SOCIALE'];
+		$entreprise['numContribuable']=$data[0]['NIU'];
+		$entreprise['sigle']=$data[0]['SIGLE'];
+		$entreprise['codeActivitePrincipale']=$data[0]['CODE_ACTIVITE'];
+		$entreprise['libelleActivitePrincipale']=$data[0]['ACTIVITE_PRINCIPALE'];
+		$entreprise['dateenreg']=$data[0]['ANNEE_ENTREE'];
+		//$entreprise['codeBrancheActivitePrincipale']=$data[0]['']
+		//$entreprise['']=$data[0]['N°_BORDEREAU']
+		//$entreprise['']=$data[0]['ANNEE_DSF']
+		$entreprise['dateCreation']=$data[0]['DATE_CREATION'];
+		$entreprise['boitePostale']=$data[0]['BP'];
+		$entreprise['region']=$data[0]['REGION_ADMIN'];
+		$entreprise['departement']=$data[0]['DEPARTEMENT'];
+		//$entreprise['']=$data[0]['VILLE'];
+		//$entreprise['']=$data[0]['COMMUNE']
+		$entreprise['quartier']=$data[0]['QUARTIER'];
+		$entreprise['pointRepere']=$data[0]['LIEUX_DIT'];
+		$entreprise['tel1']=$data[0]['TEL-1'];
+		$entreprise['tel2']=$data[0]['TEL-2'];
+		$entreprise['numRegistreCommerce']=$data[0]['REGISTRE_COMMERCE'];
+		$entreprise['villeRegistreCommerce']=$data[0]['VILLE_RC'];
+		$entreprise['villeImplantation']=$data[0]['VILLE_IMP'];
+		$entreprise['numGps']=$data[0]['GPS'];
+		$entreprise['email']=$data[0]['E-MAIL'];
+		$entreprise['siteweb']=$data[0]['SITE_WEB'];
+		//$entreprise['codeFormeJuridique']=$data[0]['']
+		$entreprise['libelleFormeJuridique']=$data[0]['FORME_JURIDIQUE'];
+		$entreprise['chiffaff']=$data[0]['CHIFFRE_AFFAIRES'];
+		$entreprise['effectifTotal']=$data[0]['EFFECTIF_EMPLOIS'];
+		$entreprise['typeEntreprise']=$data[0]['TYPE'];
+		$entreprise['secteurActivites']=$data[0]['SECTEUR'];
+		$entreprise['situationExportation']=$data[0]['EXPORT'];
+		$entreprise['chiffaffexp']=$data[0]['CA_EXPORT'];
+		$entreprise['datedemarrage']=$data[0]['DEBUT_ACTIV'];
+		$entreprise['dateCessation']=$data[0]['CESSATION_ACTIV'];
+		//$entreprise['']=$data[0]['STATUT']
+		$entreprise['civilite']=$data[0]['CIVIL'];
+		$entreprise['sexe']=$data[0]['SEXE'];
+		$entreprise['dateMiseajours']=$data[0]['DATE_A_JOUR'];
+		//$entreprise['']=$data[0]['CENTRE_DE_RATTACHEMENT']
+		//$entreprise['']=$data[0]['']
+		//$entreprise['']=$data[0]['']
 
-		for ($i = 0; $i < count($data); $i ++)
-		{
-			if(Entreprises::firstOrCreate($data[$i])) $n++;
-		}
-		return response()->json([
-			"usccess"=> $i." insersions effectuees, ",
-		], 200); 
-		//return $data;
+		// varianles de gestion
+		$data[$i]['statutTraitement']=true;
+		$data[$i]['sourceMiseAJour']=1;
+		$data[$i]['etatMiseAJour']=true;
+		$data[$i]['dateMiseajours']=now();
+		$data[$i]['annee']=now()->year;
+		return $entreprise;
 	}
   
 }

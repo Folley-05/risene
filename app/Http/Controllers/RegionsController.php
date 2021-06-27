@@ -140,7 +140,7 @@ class RegionsController extends Controller
 				Regions::firstOrCreate($data[$i]);
 			}
 			return response()->json([
-				"usccess"=> $i." insersions effectuees, ",
+				"success"=> $i." insersions effectuees, ",
 			], 200);
 		}
 		return response()->json([
