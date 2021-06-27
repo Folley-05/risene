@@ -5,6 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Entreprises;
 use App\Models\BackUpEntreprises;
+use App\Models\Arrondissements;
+use App\Models\Departements;
+use App\Models\Regions;
+use App\Models\SecteurActivites;
+// use App\Models\BackUpEntreprises;
+// use App\Models\BackUpEntreprises;
+// use App\Models\BackUpEntreprises;
 
 class EntreprisesController extends Controller 
 {
@@ -375,58 +382,23 @@ class EntreprisesController extends Controller
 			'file'=>'required|mimes:csv,txt'
 		]);
 		$n=0;
+		$error="les entreprises ";
+		$entreprises=[];
 		$data=convertCsvToArray($request->file, ',');
-		$entreprise=[];
-		$entreprise['raisonSociale']=$data[0]['RAISON_SOCIALE'];
-		$entreprise['numContribuable']=$data[0]['NIU'];
-		$entreprise['sigle']=$data[0]['SIGLE'];
-		$entreprise['codeActivitePrincipale']=$data[0]['CODE_ACTIVITE'];
-		$entreprise['libelleActivitePrincipale']=$data[0]['ACTIVITE_PRINCIPALE'];
-		$entreprise['dateenreg']=$data[0]['ANNEE_ENTREE'];
-		//$entreprise['codeBrancheActivitePrincipale']=$data[0]['']
-		//$entreprise['']=$data[0]['N°_BORDEREAU']
-		//$entreprise['']=$data[0]['ANNEE_DSF']
-		$entreprise['dateCreation']=$data[0]['DATE_CREATION'];
-		$entreprise['boitePostale']=$data[0]['BP'];
-		$entreprise['region']=$data[0]['REGION_ADMIN'];
-		$entreprise['departement']=$data[0]['DEPARTEMENT'];
-		//$entreprise['']=$data[0]['VILLE'];
-		//$entreprise['']=$data[0]['COMMUNE']
-		$entreprise['quartier']=$data[0]['QUARTIER'];
-		$entreprise['pointRepere']=$data[0]['LIEUX_DIT'];
-		$entreprise['tel1']=$data[0]['TEL-1'];
-		$entreprise['tel2']=$data[0]['TEL-2'];
-		$entreprise['numRegistreCommerce']=$data[0]['REGISTRE_COMMERCE'];
-		$entreprise['villeRegistreCommerce']=$data[0]['VILLE_RC'];
-		$entreprise['villeImplantation']=$data[0]['VILLE_IMP'];
-		$entreprise['numGps']=$data[0]['GPS'];
-		$entreprise['email']=$data[0]['E-MAIL'];
-		$entreprise['siteweb']=$data[0]['SITE_WEB'];
-		//$entreprise['codeFormeJuridique']=$data[0]['']
-		$entreprise['libelleFormeJuridique']=$data[0]['FORME_JURIDIQUE'];
-		$entreprise['chiffaff']=$data[0]['CHIFFRE_AFFAIRES'];
-		$entreprise['effectifTotal']=$data[0]['EFFECTIF_EMPLOIS'];
-		$entreprise['typeEntreprise']=$data[0]['TYPE'];
-		$entreprise['secteurActivites']=$data[0]['SECTEUR'];
-		$entreprise['situationExportation']=$data[0]['EXPORT'];
-		$entreprise['chiffaffexp']=$data[0]['CA_EXPORT'];
-		$entreprise['datedemarrage']=$data[0]['DEBUT_ACTIV'];
-		$entreprise['dateCessation']=$data[0]['CESSATION_ACTIV'];
-		//$entreprise['']=$data[0]['STATUT']
-		$entreprise['civilite']=$data[0]['CIVIL'];
-		$entreprise['sexe']=$data[0]['SEXE'];
-		$entreprise['dateMiseajours']=$data[0]['DATE_A_JOUR'];
-		//$entreprise['']=$data[0]['CENTRE_DE_RATTACHEMENT']
-		//$entreprise['']=$data[0]['']
-		//$entreprise['']=$data[0]['']
+		/*for($i=0; $i<count($data); $i++) {
+			$entreprise=buildEntreprise($data[$i]);
+			$witness=storeEntreprise($entreprise);
+			if($witness) $n++;
+			else $error=$error."".$entreprise['raisonSociale'].', ';
+			$entreprises[$i]=$entreprise;
 
-		// varianles de gestion
-		$data[$i]['statutTraitement']=true;
-		$data[$i]['sourceMiseAJour']=1;
-		$data[$i]['etatMiseAJour']=true;
-		$data[$i]['dateMiseajours']=now();
-		$data[$i]['annee']=now()->year;
-		return $entreprise;
+		}*/
+		return $data;
+		/*return response()->json([
+			'succes'=>$n." entreprises ont ete inserees",
+			'error'=>$error."n'ont pas ete inserees",
+		], 200);*/
+		//return Departements::where('libelle', $data[0]['DEPARTEMENT'])->get();
 	}
   
 }
@@ -483,6 +455,75 @@ function convertCsvToArray(String $file, String $delimiter) {
 	}
 	else return "can't open the file";
 
+}
+
+function validEntreprise(Request $entreprise) {
+}
+
+function getcode($table) {
+	return count($table) ? $table[0]->code : 0;
+}
+
+function buildEntreprise($data) {
+	$entreprise['raisonSociale']=$data['RAISON_SOCIALE'];
+	$entreprise['numContribuable']=$data['NIU'];
+	$entreprise['sigle']=$data['SIGLE'];
+	$entreprise['codeActivitePrincipale']=$data['CODE_ACTIVITE'];
+	$data['ACTIVITE_PRINCIPALE'] ? $entreprise['libelleActivitePrincipale']=$data['ACTIVITE_PRINCIPALE'] : null;
+	$data['ANNEE_ENTREE'] ? $entreprise['dateenreg']=$data['ANNEE_ENTREE'] : null;
+	//$entreprise['codeBrancheActivitePrincipale']=$data['']
+	//$entreprise['']=$data['N°_BORDEREAU']
+	//$entreprise['']=$data['ANNEE_DSF']
+	$data['DATE_CREATION'] ? $entreprise['dateCreation']=$data['DATE_CREATION'] : null;
+	$data['BP'] ? $entreprise['boitePostale']=$data['BP'] : null;
+	$entreprise['region']=getcode(Regions::where('libelle', $data['REGION_ADMIN'])->get());
+	$entreprise['departement']=getcode(Departements::where('libelle', $data['DEPARTEMENT'])->get());
+	//$entreprise['']=$data['VILLE'];
+	$entreprise['arrondissement']=getcode(Arrondissements::where('libelle', $data['COMMUNE'])->get());
+	$data['QUARTIER'] ? $entreprise['quartier']=$data['QUARTIER'] : null;
+	$data['LIEUX_DIT'] ? $entreprise['pointRepere']=$data['LIEUX_DIT'] : null;
+	$data['TEL-1'] ? $entreprise['tel1']=$data['TEL-1'] : null;
+	$data['TEL-2'] ? $entreprise['tel2']=$data['TEL-2'] : null;
+	$data['REGISTRE_COMMERCE'] ? $entreprise['numRegistreCommerce']=$data['REGISTRE_COMMERCE'] : null;
+	$data['VILLE_RC'] ? $entreprise['villeRegistreCommerce']=$data['VILLE_RC'] : null;
+	$data['VILLE_IMP'] ? $entreprise['villeImplantation']=$data['VILLE_IMP'] : null;
+	$data['GPS'] ? $entreprise['numGps']=$data['GPS'] : null;
+	$data['E-MAIL'] ? $entreprise['email']=$data['E-MAIL'] : null;
+	$data['SITE_WEB'] ? $entreprise['siteweb']=$data['SITE_WEB'] : null;
+	//$entreprise['codeFormeJuridique']=$data['']
+	$data['FORME_JURIDIQUE'] ? $entreprise['libelleFormeJuridique']=$data['FORME_JURIDIQUE'] : null;
+	$data['CHIFFRE_AFFAIRES'] ? $entreprise['chiffaff']=$data['CHIFFRE_AFFAIRES'] : null;
+	$data['EFFECTIF_EMPLOIS'] ? $entreprise['effectifTotal']=$data['EFFECTIF_EMPLOIS'] : null;
+	$data['TYPE'] ? $entreprise['typeEntreprise']=$data['TYPE'] : null;
+	$entreprise['secteurActivites']=getcode(SecteurActivites::where('libelle', $data['SECTEUR'])->get());
+	$data['EXPORT'] ? $entreprise['situationExportation']=$data['EXPORT'] : null;
+	$data['CA_EXPORT'] ? $entreprise['chiffaffexp']=$data['CA_EXPORT']: null;
+	$data['DEBUT_ACTIV'] ? $entreprise['datedemarrage']=$data['DEBUT_ACTIV'] : null;
+	$data['CESSATION_ACTIV'] ? $entreprise['dateCessation']=$data['CESSATION_ACTIV']: null;
+	//$entreprise['']=$data['STATUT']
+	$data['CIVIL'] ? $entreprise['civilite']=$data['CIVIL'] : null;
+	$data['SEXE'] ? $entreprise['sexe']=$data['SEXE'] : null;
+	$data['DATE_A_JOUR'] ? $entreprise['dateMiseajours']=$data['DATE_A_JOUR'] : null;
+	//$entreprise['']=$data['CENTRE_DE_RATTACHEMENT']
+	//$entreprise['']=$data['']
+	//$entreprise['']=$data['']
+
+	// varianles de gestion
+	$entreprise['statutTraitement']=true;
+	$entreprise['sourceMiseAJour']=1;
+	$entreprise['etatMiseAJour']=true;
+	$entreprise['dateMiseajours']=now();
+	$entreprise['annee']=now()->year;
+	return $entreprise;
+}
+
+function storeEntreprise($entreprise) {
+	try {
+		if(Entreprises::create($entreprise)) return true;
+		else return false;
+	} catch (\Throwable $th) {
+		return false;
+	}
 }
 
 ?>

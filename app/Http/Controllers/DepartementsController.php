@@ -136,7 +136,7 @@ class DepartementsController extends Controller
 				Departements::firstOrCreate($data[$i]);
 			}
 			return response()->json([
-				"usccess"=> $i." insersions effectuees, ",
+				"susccess"=> $i." insersions effectuees, ",
 			], 200);
 		}
 		return response()->json([
