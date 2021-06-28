@@ -27,6 +27,15 @@ cette route supprime un arrondissent suivant son code
 toutes les autres routes des tables de bases suivent le meme schema
 
 
+// Users Routes
+get('getusers')
+get('getorderusers')
+get('getuser/{id})
+post('auth')
+post('setuser')
+post('updateuser/{id}')
+delete('deleteuser/{id}')
+
 Departements Routes
 get('getdepartements')
 get('getorderdepartements')
@@ -121,8 +130,8 @@ post('importstatuts')
 get('getentreprises')
 get('getorderentreprises')
 get('getentreprise/{id}')
-get('getactiveentreprises');
-get('updatedentreprise');
+get('getactiveentreprises')
+get('updatedentreprise')
 post('setentreprise')
 post('addentreprise')
 post('fullentreprise')
@@ -153,10 +162,10 @@ delete('deletecatjuridiques/{code}')
 post('importcatjuridiques')
 
 // SecteurActivites Routes
-get('getsecteuractivites');
-get('getordersecteuractivites');
-get('getsecteuractivite/{code}');
-post('setsecteuractivite');
-post('updatesecteuractivite/{code}');
-delete('deletesecteuractivite/{code}');
-post('importsecteuractivites');
+get('getsecteuractivites')
+get('getordersecteuractivites')
+get('getsecteuractivite/{code}')
+post('setsecteuractivite')
+post('updatesecteuractivite/{code}')
+delete('deletesecteuractivite/{code}')
+post('importsecteuractivites')

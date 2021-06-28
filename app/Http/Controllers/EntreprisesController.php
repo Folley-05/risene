@@ -88,6 +88,7 @@ class EntreprisesController extends Controller
 			'codeActivitePrincipale'=>'required',
 			'libelleActivitePrincipale'=>'required',
 			'codeBrancheActivitePrincipale'=>'required',
+			'libelleFormeJuridique'=>'required',
 			'brancheActivitePrincipale'=>'required',
 			'codeINS'=>'prohibited',
 			'statutTraitement'=>'prohibited',
@@ -263,27 +264,22 @@ class EntreprisesController extends Controller
 	}
 
 	public function valid(Request $request, Entreprises $id) {
-		$result=Entreprises::where('statutTraitement', true)->orderByDesc('codeINS')->take(2)->get();
+		$entreprise=$id;
+		//return $entreprise['libelleFormeJuridique'];
+		$entreprise['libelleFormeJuridique']==="SECTEUR PUBLIC" ? ($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get()) 
+			:	($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique','<>', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get());
 		if(count($result)){
-			$ins=genererCode($result[0]->codeINS);
+			$ins=genererCode($result[0]->codeINS, $entreprise['libelleFormeJuridique']);
 		}
 		else {
-			$ins="2000016000";
+			$ins=genererCode("", $entreprise['libelleFormeJuridique']);
 		}
-		/*$request->merge([
-			'codeINS'=>$ins,
-			'statutTraitement'=>true,
-		]);*/
+		//return $ins;
 		$request->merge([
 			'codeINS'=>$ins,
 			'statutTraitement'=>true,
 
 		]);
-		// $params=[
-		// 	'codeINS'=>$ins,
-		// 	'statutTraitement'=>true,
-		// ];
-		//return $request;
 		if($id->update($request->all())) {
 			return response()->json([
 				'success'=>"entreprise valide",
@@ -321,25 +317,23 @@ class EntreprisesController extends Controller
 			'file'=>'required|mimes:csv,txt'
 		]);
 		$n=0;
+		$error="les entreprises ";
+		$entreprises=[];
 		$data=convertCsvToArray($request->file, ',');
-		//Entreprises::firstOrCreate($data[0]);
-		for ($i = 0; $i < count($data); $i ++)
-		{
-			$data[$i]['statutTraitement']=true;
-			$data[$i]['sourceMiseAJour']=1;
-			$data[$i]['etatMiseAJour']=true;
-			$data[$i]['dateMiseajours']=now();
-			$data[$i]['annee']=now()->year;
-		}
+		for($i=0; $i<count($data); $i++) {
+			$entreprise=buildEntreprise($data[$i]);
+			$witness=storeEntreprise($entreprise);
+			if($witness) $n++;
+			else $error=$error."".$entreprise['raisonSociale'].', ';
+			$entreprises[$i]=$entreprise;
 
-		for ($i = 0; $i < count($data); $i ++)
-		{
-			if(Entreprises::firstOrCreate($data[$i])) $n++;
 		}
-		return response()->json([
-			"usccess"=> $i." insersions effectuees, ",
-		], 200); 
 		//return $data;
+		return response()->json([
+			'succes'=>$n." entreprises ont ete inserees",
+			'error'=>$error."n'ont pas ete inserees",
+		], 200);
+		//return Departements::where('libelle', $data[0]['DEPARTEMENT'])->get();
 	}
 
 	/**
@@ -385,20 +379,20 @@ class EntreprisesController extends Controller
 		$error="les entreprises ";
 		$entreprises=[];
 		$data=convertCsvToArray($request->file, ',');
-		/*for($i=0; $i<count($data); $i++) {
+		for($i=0; $i<count($data); $i++) {
 			$entreprise=buildEntreprise($data[$i]);
 			$witness=storeEntreprise($entreprise);
 			if($witness) $n++;
 			else $error=$error."".$entreprise['raisonSociale'].', ';
 			$entreprises[$i]=$entreprise;
 
-		}*/
-		return $data;
-		/*return response()->json([
+		}
+		//$result=Entreprises::where('statutTraitement', true)->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get();
+		//return $result;
+		return response()->json([
 			'succes'=>$n." entreprises ont ete inserees",
 			'error'=>$error."n'ont pas ete inserees",
-		], 200);*/
-		//return Departements::where('libelle', $data[0]['DEPARTEMENT'])->get();
+		], 200);
 	}
   
 }
@@ -427,7 +421,7 @@ function calculKey($chaine) {
 }
 
 // generate code function
-function genererCode($code) {
+function genererCode($code, $secteur) {
 	if($code) {
 		$chaine=substr($code, 0, 6);
 		$chaine+=1;
@@ -436,7 +430,7 @@ function genererCode($code) {
 		//echo("le prochain code INS est : ".$chaine);
 		return $chaine;
 	}
-	else return "2000016000";
+	else return $secteur==='SECTEUR PUBLIC' ? "1000016000" : "2000016000";
 
 }
 
@@ -512,13 +506,22 @@ function buildEntreprise($data) {
 	$entreprise['statutTraitement']=true;
 	$entreprise['sourceMiseAJour']=1;
 	$entreprise['etatMiseAJour']=true;
-	$entreprise['dateMiseajours']=now();
+	//$entreprise['dateMiseajours']=now();
 	$entreprise['annee']=now()->year;
 	return $entreprise;
 }
 
 function storeEntreprise($entreprise) {
+	$entreprise['libelleFormeJuridique']==="SECTEUR PUBLIC" ? ($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get()) 
+		:	($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique','<>', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get());
 	try {
+		if(count($result)){
+			$ins=genererCode($result[0]->codeINS, $entreprise['libelleFormeJuridique']);
+		}
+		else {
+			$ins=genererCode("", $entreprise['libelleFormeJuridique']);
+		}
+		$entreprise['codeINS']=$ins;
 		if(Entreprises::create($entreprise)) return true;
 		else return false;
 	} catch (\Throwable $th) {

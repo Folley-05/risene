@@ -16,6 +16,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('numCNPS')->nullable();
 			$table->string('numBordereau')->nullable();
 			$table->string('numRegistreCommerce')->unique()->nullable();
+			$table->string('codeINS')->unique()->nullable();
 			$table->string('numGps')->nullable();
 			$table->float('altitude')->nullable();
 			$table->float('lattitude')->nullable();
@@ -43,7 +44,6 @@ class CreateEntreprisesTable extends Migration {
 			$table->boolean('intranet')->nullable();
 			$table->boolean('internet')->nullable();
 			$table->integer('dateenreg')->nullable();
-			$table->string('codeINS')->nullable();
 			$table->integer('CAPEF_CCIMA')->nullable();
 			$table->string('pageFacebook')->nullable();
 			$table->string('codeFormeJuridique')->nullable();
