@@ -390,7 +390,7 @@ class EntreprisesController extends Controller
 		//$result=Entreprises::where('statutTraitement', true)->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get();
 		//return $result;
 		return response()->json([
-			'succes'=>$n." entreprises ont ete inserees",
+			'success'=>$n." entreprises ont ete inserees",
 			'error'=>$error."n'ont pas ete inserees",
 		], 200);
 	}

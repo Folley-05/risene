@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\CatJuridiques;
+use App\Models\FormeJuridiques;
 
-class CatJuridiquesController extends Controller 
+class FormeJuridiquesController extends Controller 
 {
 
 	/**
@@ -15,7 +15,7 @@ class CatJuridiquesController extends Controller
 	 */
 	public function index()
 	{
-		return CatJuridiques::all();
+		return FormeJuridiques::all();
 	}
 
 	/**
@@ -25,7 +25,7 @@ class CatJuridiquesController extends Controller
 	 */
 	public function order()
 	{
-		return CatJuridiques::orderByDesc('created_at')->get();
+		return FormeJuridiques::orderByDesc('created_at')->get();
 	}
 
 	/**
@@ -46,11 +46,11 @@ class CatJuridiquesController extends Controller
 	public function store(Request $request)
 	{
 		$validate=$request->validate([
-			'code'=>'required|unique:catJuridiques,code',
-			//'libelle'=>'required'
+			'code'=>'required|unique:formeJuridiques,code',
+			'libelle'=>'required'
 		]);
 		if($validate) {
-			if(CatJuridiques::create($request->all())) {
+			if(FormeJuridiques::create($request->all())) {
 				return response()->json([
 					'succes'=>"categorie juridique cree avec succes",
 				], 200);
@@ -69,7 +69,7 @@ class CatJuridiquesController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(CatJuridiques $code)
+	public function show(FormeJuridiques $code)
 	{
 		return $code;
 	}
@@ -91,7 +91,7 @@ class CatJuridiquesController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, CatJuridiques $code)
+	public function update(Request $request, FormeJuridiques $code)
 	{
 		if($code->update($request->all())) {
 			return response()->json([
@@ -111,7 +111,7 @@ class CatJuridiquesController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy(CatJuridiques $code)
+	public function destroy(FormeJuridiques $code)
 	{
 		if($code->delete()) {
 			return response()->json([
@@ -132,12 +132,12 @@ class CatJuridiquesController extends Controller
 	 */
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:csv'
+			'file'=>'required|mimes:csv,txt'
 		]);
 		$data=convertCsvToArray($request->file, ',');
 		if(sizeof($data)) {
 			for ($i = 0; $i < count($data); $i ++) {
-				CatJuridiques::firstOrCreate($data[$i]);
+				FormeJuridiques::firstOrCreate($data[$i]);
 			}
 			return response()->json([
 				"usccess"=> $i." insersions effectuees, ",

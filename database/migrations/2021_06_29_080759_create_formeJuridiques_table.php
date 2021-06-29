@@ -3,20 +3,20 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCatJuridiquesTable extends Migration {
+class CreateFormeJuridiquesTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('catJuridiques', function(Blueprint $table) {
+		Schema::create('formeJuridiques', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->string('institule');
+			$table->string('libelle');
 			$table->string('code');
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('catJuridiques');
+		Schema::drop('formeJuridiques');
 	}
 }

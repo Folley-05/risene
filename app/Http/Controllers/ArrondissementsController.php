@@ -141,8 +141,9 @@ class ArrondissementsController extends Controller
 			"echec"=> "quelque chose s'est mal passe",
 			"erreur"=> $data
 		]);
-		//return $data;
+		return $data;
 	}
+
 	
 }
 
@@ -163,6 +164,10 @@ function convertCsvToArray(String $file, String $delimiter) {
 	}
 	else return "can't open the file";
 
+}
+
+function buildArrondissement($data) {
+	$arrondissement['']='';
 }
 
 ?>

@@ -20,7 +20,7 @@ use App\Http\Controllers\EntreprisesController;
 use App\Http\Controllers\ProduitsController;
 use App\Http\Controllers\EtablissementsController;
 use App\Http\Controllers\CatImpotLiberatoiresController;
-use App\Http\Controllers\CatJuridiquesController;
+use App\Http\Controllers\FormeJuridiquesController;
 use App\Http\Controllers\SecteurActivitesController;
 use App\Http\Controllers\BackUpEntreprisesController;
 use App\Http\Controllers\BrancheActivitesController;
@@ -202,14 +202,14 @@ Route::post('updatecatimpotliberatoires/{code}', [CatImpotLiberatoiresController
 Route::delete('deletecatimpotliberatoires/{code}', [CatImpotLiberatoiresController::class, 'destroy']);
 Route::post('importcatimpotliberatoires', [CatImpotLiberatoiresController::class, 'import']);
 
-// CatJuridiques Routes
-Route::get('getcatjuridiques', [CatJuridiquesController::class, 'index']);
-Route::get('getordercatjuridiques', [CatJuridiquesController::class, 'order']);
-Route::get('getcatjuridiques/{code}', [CatJuridiquesController::class, 'show']);
-Route::post('setcatjuridiques', [CatJuridiquesController::class, 'store']);
-Route::post('updatecatjuridiques/{code}', [CatJuridiquesController::class, 'update']);
-Route::delete('deletecatjuridiques/{code}', [CatJuridiquesController::class, 'destroy']);
-Route::post('importcatjuridiques', [CatJuridiquesController::class, 'import']);
+// FormeJuridiques Routes
+Route::get('getformejuridiques', [FormeJuridiquesController::class, 'index']);
+Route::get('getorderformejuridiques', [FormeJuridiquesController::class, 'order']);
+Route::get('getformejuridiques/{code}', [FormeJuridiquesController::class, 'show']);
+Route::post('setformejuridiques', [FormeJuridiquesController::class, 'store']);
+Route::post('updateformejuridiques/{code}', [FormeJuridiquesController::class, 'update']);
+Route::delete('deleteformejuridiques/{code}', [FormeJuridiquesController::class, 'destroy']);
+Route::post('importformejuridiques', [FormeJuridiquesController::class, 'import']);
 
 // SecteurActivites Routes
 Route::get('getsecteuractivites', [SecteurActivitesController::class, 'index']);

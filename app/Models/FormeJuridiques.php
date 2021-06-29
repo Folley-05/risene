@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class CatJuridiques extends Model 
+class FormeJuridiques extends Model 
 {
-
     use HasFactory;
 
-    protected $table = 'catJuridiques';
+    protected $table = 'formeJuridiques';
     protected $primaryKey='code';
-    public $incrementing=false;
     public $timestamps = true;
-    protected $fillable = array('institule', 'code');
+    protected $fillable = array('libelle', 'code');
 
     public function entreprise()
     {
