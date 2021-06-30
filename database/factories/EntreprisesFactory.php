@@ -25,6 +25,7 @@ class EntreprisesFactory extends Factory
 			'id'=>$this->faker->unique()->numberBetween($min = 1, $max = 100),
 			'raisonSociale'=>$this->faker->lastName,
 			'numContribuable'=>$this->faker->unique()->randomNumber($nbDigits = NULL, $strict = false),
+			'secteur'=>$this->faker->randomElement($array = array ('SECTEUR PUBLIQUE', 'SECTEUR PARAPUBLIQUE', 'SECTEUR PRIVE')),
 			'numCNPS'=>$this->faker->unique()->randomNumber($nbDigits = NULL, $strict = false),
 			'numBordereau'=>$this->faker->unique()->randomNumber($nbDigits = NULL, $strict = false),
 			'numRegistreCommerce'=>$this->faker->unique()->randomNumber($nbDigits = NULL, $strict = false),

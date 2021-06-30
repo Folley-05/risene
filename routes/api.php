@@ -151,8 +151,8 @@ Route::post('importstatuts', [StatusController::class, 'import']);
 
 // Entreprises Routes
 Route::get('getentreprises', [EntreprisesController::class, 'index']);
-Route::get('getorderentreprises', [EntreprisesController::class, 'order']);
-Route::get('getactiveentreprises', [EntreprisesController::class, 'active']);
+Route::get('getorderentreprises', [EntreprisesController::class, 'active']);
+Route::get('getallentreprises', [EntreprisesController::class, 'order']);
 Route::get('getentreprise/{id}', [EntreprisesController::class, 'show']);
 Route::post('setentreprise', [EntreprisesController::class, 'store']);
 Route::get('waitingentreprises', [EntreprisesController::class, 'waiting']);
@@ -243,6 +243,5 @@ Route::post('setsourcemisejour', [SourceMisejoursController::class, 'store']);
 Route::post('updatesourcemisejour/{code}', [SourceMisejoursController::class, 'update']);
 Route::delete('deletesourcemisejour/{code}', [SourceMisejoursController::class, 'destroy']);
 Route::post('importsourcemisejours', [SourceMisejoursController::class, 'import']);
-
 
 Route::post('test', [EntreprisesController::class, 'test']);

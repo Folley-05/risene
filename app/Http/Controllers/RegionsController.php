@@ -47,7 +47,7 @@ class RegionsController extends Controller
 	{
 		$validate=$request->validate([
 			'code'=>'required|unique:regions,code',
-			//'libelle'=>'required'
+			'libelle'=>'required'
 		]);
 		if($validate) {
 			if(Regions::create($request->all())) {

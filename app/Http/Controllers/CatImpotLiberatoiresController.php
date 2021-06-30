@@ -47,12 +47,12 @@ class CatImpotLiberatoiresController extends Controller
 	{
 		$validate=$request->validate([
 			'code'=>'required|unique:catImpotLiberatoires,code',
-			//'libelle'=>'required'
+			'intitule'=>'required'
 		]);
 		if($validate) {
 			if(CatImpotLiberatoires::create($request->all())) {
 				return response()->json([
-					'succes'=>"categorie impot liberatoire cree avec succes",
+					'success'=>"categorie impot liberatoire cree avec succes",
 				], 200);
 			}
 			else {
@@ -139,7 +139,9 @@ class CatImpotLiberatoiresController extends Controller
 			for ($i = 0; $i < count($data); $i ++) {
 				CatImpotLiberatoires::firstOrCreate($data[$i]);
 			}
-			return $i." insersions effectuees, ";
+			return response()->json([
+				"success"=> $i." insersions effectuees, ",
+			], 200);
 		}
 		return response()->json([
 			"echec"=> "quelque chose s'est mal passe",

@@ -15,6 +15,7 @@ class CreateBackupentreprisesTable extends Migration {
 			$table->string('numContribuable');
 			$table->string('numCNPS')->nullable();
 			$table->string('numBordereau')->nullable();
+			$table->string('secteur')->nullable();
 			$table->string('numRegistreCommerce')->nullable();
 			$table->string('codeINS')->nullable();
 			$table->string('numGps')->nullable();

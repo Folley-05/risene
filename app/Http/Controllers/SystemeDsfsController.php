@@ -45,6 +45,10 @@ class SystemeDsfsController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		$validate=$request->validate([
+			'code'=>'required|unique:systemeDsfs,code',
+			'designation'=>'required',
+		]);
 		if(SystemeDsfs::create($request->all())) {
 			return response()->json([
 				'succes'=>"systemedsf cree avec succes",
@@ -134,7 +138,7 @@ class SystemeDsfsController extends Controller
 				SystemeDsfs::firstOrCreate($data[$i]);
 			}
 			return response()->json([
-				"usccess"=> $i." insersions effectuees, ",
+				"success"=> $i." insersions effectuees, ",
 			], 200);
 		}
 		return response()->json([

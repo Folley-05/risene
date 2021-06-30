@@ -43,7 +43,7 @@ class EntreprisesController extends Controller
 	 */
 	public function active()
 	{
-		return Entreprises::where('statutSuppression', false)->get();
+		return Entreprises::where('statutSuppression', null)->get();
 	}
 
 	/**

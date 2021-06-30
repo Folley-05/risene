@@ -15,6 +15,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('numContribuable');
 			$table->string('numCNPS')->nullable();
 			$table->string('numBordereau')->nullable();
+			$table->string('secteur')->nullable();
 			$table->string('numRegistreCommerce')->unique()->nullable();
 			$table->string('codeINS')->unique()->nullable();
 			$table->string('numGps')->nullable();
