@@ -20,6 +20,17 @@ class EtablissementsController extends Controller
   }
 
   /**
+   * Display a order listing of the resource.
+   *
+   * @return Response
+   */
+  public function order()
+  {
+		return Etablissements::orderBy('raisonSociale')->orderBy('codeActivitePrincipale')->get();
+	
+  }
+
+  /**
    * Show the form for creating a new resource.
    *
    * @return Response
@@ -46,8 +57,9 @@ class EtablissementsController extends Controller
       //$data['dateMiseajours']=now();
       $data['annee']=now()->year;
       $data['statutSuppression']=false;
-		  Etablissements::firstOrCreate($data);
+		Etablissements::firstOrCreate($data);
 	  }
+	  return $etablissements;
 	  return response()->json([
 		  'succes'=>$i." datas inserees ",
 	  ], 200);
@@ -81,7 +93,7 @@ class EtablissementsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Request $request, Etablissements $id)
 	{
 		$validate=$request->validate([
 			'id'=>'prohibited',

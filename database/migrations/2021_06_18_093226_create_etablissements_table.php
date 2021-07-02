@@ -55,14 +55,14 @@ class CreateEtablissementsTable extends Migration {
 			$table->string('pageFacebook')->nullable();
 			$table->string('codeFormeJuridique')->nullable();
 			$table->string('libelleFormeJuridique')->nullable();
-			$table->integer('codeActivitePrincipale');
+			$table->integer('codeActivitePrincipale')->nullable();
 			$table->string('libelleActivitePrincipale')->nullable();
 			$table->integer('codeActiviteSecondaire')->nullable();
 			$table->string('quartier')->nullable();
 			$table->string('libelleActiviteSecondaire')->nullable();
 			$table->integer('secteurActivites')->nullable();
 			$table->integer('sourceMiseAJour')->nullable();
-			$table->string('pointRepere')->nullable();
+			$table->string('pointRepere');
 			$table->integer('arrondissement')->unsigned()->nullable();
 			$table->string('nomPromoteur')->nullable();
 			$table->integer('agePromoteur')->nullable();
