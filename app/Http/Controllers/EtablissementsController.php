@@ -39,10 +39,17 @@ class EtablissementsController extends Controller
 	  $etablissements=json_decode($request->etablissements);
 	  for ($i = 0; $i < count($etablissements); $i ++) {
 		  $data=(array)$etablissements[$i];
+      $data['statutSiege']=false;
+      $data['statutTraitement']=true;
+      //$data['sourceMiseAJour']=1;
+      $data['etatMiseAJour']=true;
+      //$data['dateMiseajours']=now();
+      $data['annee']=now()->year;
+      $data['statutSuppression']=false;
 		  Etablissements::firstOrCreate($data);
 	  }
 	  return response()->json([
-		  'succes'=>$i." entreprises inserees ",
+		  'succes'=>$i." datas inserees ",
 	  ], 200);
   }
 
@@ -75,9 +82,44 @@ class EtablissementsController extends Controller
    * @return Response
    */
   public function update($id)
-  {
+	{
+		$validate=$request->validate([
+			'id'=>'prohibited',
+			'id_entreprise'=>'prohibited',
+			// 'sigleSiege'=>'prohibited',
+			// 'raisonSociale'=>'prohibited',
+			// 'numContribuable'=>'prohibited',
+			// 'brancheActivitePrincipale'=>'prohibited',
+			// 'codeBrancheActivitePrincipale'=>'prohibited',
+			'annee'=>'prohibited',
+			// 'sigle'=>'prohibited',
+			'codeINS'=>'prohibited',
+			'statutTraitement'=>'prohibited',
+			//'numCNPS'=>'unique:etablissements,numCNPS'
+		]);
+		$request->merge([
+			'dateMiseajours'=>now()
+		]);
+		$result=Etablissements::where('id', $id->id)->get();
+		/*
+			if(!$result[0]->etatMiseAJour) 
+				return response()->json([
+					'echec'=>"vous ne pouvez pas mettre a jour une etablissement sans donnees",
+				], 500);
+		*/
+
+		if($id->update($request->all())) {
+			return response()->json([
+				'success'=>"etablissement mise a jour",
+			], 200);
+		}
+		else  {
+			return response()->json([
+				'echec'=>"echec de la mise a jour",
+			], 500);
+		}
+	}
 	
-  }
 
   /**
    * Remove the specified resource from storage.

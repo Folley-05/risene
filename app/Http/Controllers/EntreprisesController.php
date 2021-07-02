@@ -33,7 +33,7 @@ class EntreprisesController extends Controller
 	 */
 	public function order()
 	{
-		return Entreprises::orderByDesc('created_at')->get();
+		return Entreprises::orderBy('raisonSociale')->orderBy('codeActivitePrincipale')->orderByDesc('created_at')->get();
 	}
 
 	/**
@@ -43,7 +43,7 @@ class EntreprisesController extends Controller
 	 */
 	public function active()
 	{
-		return Entreprises::where('statutSuppression', null)->get();
+		return Entreprises::where('statutSuppression', false)->orderBy('raisonSociale')->orderBy('codeActivitePrincipale')->get(); // a retravailler
 	}
 
 	/**
@@ -84,7 +84,7 @@ class EntreprisesController extends Controller
 		$validate=$request->validate([
 			'raisonSociale'=>'required',
 			'numContribuable'=>'required|unique:entreprises,numContribuable',
-			'sigle'=>'required|unique:entreprises,sigle',
+			'sigle'=>'required',
 			'codeActivitePrincipale'=>'required',
 			'libelleActivitePrincipale'=>'required',
 			'codeBrancheActivitePrincipale'=>'required',
@@ -98,6 +98,8 @@ class EntreprisesController extends Controller
 			'statutTraitement'=>false,
 			'etatMiseAJour'=>false,
 			'annee'=>now()->year,
+			'statutSuppression'=>false,
+			'statutSiege'=>true
 		]);
 		if($validate) {
 			if(Entreprises::create($request->all())) {
@@ -152,7 +154,7 @@ class EntreprisesController extends Controller
 	public function update(Request $request, Entreprises $id)
 	{
 		$validate=$request->validate([
-			// 'id'=>'prohibited',
+			'id'=>'prohibited',
 			// 'sigleSiege'=>'prohibited',
 			// 'raisonSociale'=>'prohibited',
 			// 'numContribuable'=>'prohibited',
@@ -162,7 +164,7 @@ class EntreprisesController extends Controller
 			// 'sigle'=>'prohibited',
 			'codeINS'=>'prohibited',
 			'statutTraitement'=>'prohibited',
-			'numCNPS'=>'unique:Entreprises,numCNPS'
+			'numCNPS'=>'unique:entreprises,numCNPS'
 		]);
 		$request->merge([
 			'dateMiseajours'=>now()
@@ -508,6 +510,8 @@ function buildEntreprise($data) {
 	$entreprise['etatMiseAJour']=true;
 	//$entreprise['dateMiseajours']=now();
 	$entreprise['annee']=now()->year;
+	$entreprise['statutSuppression']=false;
+	$entreprise['statutSiege']=true;
 	return $entreprise;
 }
 

@@ -10,8 +10,9 @@ class CreateBackupentreprisesTable extends Migration {
 		Schema::create('backupentreprises', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
+			$table->boolean('statutSiege')->nullable();
 			$table->string('raisonSociale');
-			$table->string('sigle');
+			$table->string('sigle')->nullable();
 			$table->string('numContribuable');
 			$table->string('numCNPS')->nullable();
 			$table->string('numBordereau')->nullable();
@@ -33,12 +34,15 @@ class CreateBackupentreprisesTable extends Migration {
 			$table->date('dateCreation')->nullable();
 			$table->date('datedemarrage')->nullable();
 			$table->integer('capitalSocial')->nullable();
+			$table->date('dateCapitalSocial')->nullable();
 			$table->integer('partprivenational')->nullable();
 			$table->integer('partpriveetranger')->nullable();
 			$table->integer('partpubliquenationale')->nullable();
 			$table->integer('partpubliqueetranger')->nullable();
 			$table->bigInteger('chiffaff')->nullable();
+			$table->date('datechiffaff')->nullable();
 			$table->bigInteger('chiffaffexp')->nullable();
+			$table->date('datechiffexp')->nullable();
 			$table->boolean('utilordinateur')->nullable();
 			$table->integer('nbreordi')->nullable();
 			$table->integer('nbreinfo')->nullable();
@@ -77,10 +81,12 @@ class CreateBackupentreprisesTable extends Migration {
 			$table->integer('catImpot')->unsigned()->nullable();
 			$table->integer('systemedsf')->unsigned()->nullable();
 			$table->integer('remplissageDsf')->nullable();
+			$table->string('fichierDsf')->nullable();
 			$table->integer('anneeDsf')->nullable();
 			$table->integer('effectifHomme')->nullable();
 			$table->integer('effectifFemme')->nullable();
 			$table->string('effectifTotal')->nullable();
+			$table->date('dateeffectiftotal')->nullable();
 			$table->string('departement')->nullable();
 			$table->integer('region')->unsigned()->nullable();
 			$table->string('affilieOrganisationProffessionnelle')->nullable();

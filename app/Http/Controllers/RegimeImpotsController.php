@@ -120,7 +120,7 @@ class RegimeImpotsController extends Controller
 	}
 
 	/**
-	 * insert from file function.
+	 * insert from file function
 	 *
 	 * @return Response
 	 */
@@ -134,7 +134,7 @@ class RegimeImpotsController extends Controller
 				RegimeImpots::firstOrCreate($data[$i]);
 			}
 			return response()->json([
-				"success"=> $i." insersions effectuees, ",
+				"suo8ccess"=> $i." insersions effectuees, ",
 			], 200);
 		}
 		return response()->json([

@@ -12,7 +12,6 @@ class CreateRegimeImpotsTable extends Migration {
 			$table->timestamps();
 			$table->string('designation');
 			$table->string('code');
-			$table->string('institule');
 		});
 	}
 

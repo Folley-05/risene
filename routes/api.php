@@ -170,7 +170,7 @@ Route::post('sortedentreprises', [EntreprisesController::class, 'sortEntreprises
 // Etablissements Routes
 Route::get('getetablissements', [EtablissementsController::class, 'index']);
 Route::get('getetablissement/{code}', [EtablissementsController::class, 'show']);
-Route::get('getorderetablissements/{id}', [EtablissementsController::class, 'list']);
+Route::get('getorderetablissements', [EtablissementsController::class, 'list']);
 Route::post('setetablissement', [EtablissementsController::class, 'store']);
 Route::post('updateetablissement/{code}', [EtablissementsController::class, 'update']);
 Route::delete('deleteetablissement/{code}', [EtablissementsController::class, 'destroy']);

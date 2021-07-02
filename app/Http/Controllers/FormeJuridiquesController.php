@@ -140,7 +140,7 @@ class FormeJuridiquesController extends Controller
 				FormeJuridiques::firstOrCreate($data[$i]);
 			}
 			return response()->json([
-				"usccess"=> $i." insersions effectuees, ",
+				"success"=> $i." insersions effectuees, ",
 			], 200);
 		}
 		return response()->json([

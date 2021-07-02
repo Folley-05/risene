@@ -14,7 +14,7 @@ class RegimeImpots extends Model
     public $incrementing = false;
     public $timestamps = true;
     
-    protected $fillable=['code', 'designation', 'intitule'];
+    protected $fillable=['code', 'designation',];
 
     public function entreprise()
     {
