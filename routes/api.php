@@ -169,11 +169,14 @@ Route::post('sortedentreprises', [EntreprisesController::class, 'sortEntreprises
 
 // Etablissements Routes
 Route::get('getetablissements', [EtablissementsController::class, 'index']);
-Route::get('getetablissement/{code}', [EtablissementsController::class, 'show']);
+Route::get('getetablissement/{id}', [EtablissementsController::class, 'show']);
 Route::get('getorderetablissements', [EtablissementsController::class, 'order']);
 Route::post('setetablissement', [EtablissementsController::class, 'store']);
-Route::post('updateetablissement/{code}', [EtablissementsController::class, 'update']);
-Route::delete('deleteetablissement/{code}', [EtablissementsController::class, 'destroy']);
+Route::post('updateetablissement/{id}', [EtablissementsController::class, 'update']);
+Route::delete('deleteetablissement/{id}', [EtablissementsController::class, 'destroy']);
+
+
+Route::post('setetablissement2', [EtablissementsController::class, 'store2']);
 
 // Produits Routes
 Route::get('getproduits', [ProduitsController::class, 'index']);

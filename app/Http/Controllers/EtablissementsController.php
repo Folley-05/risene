@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Etablissements;
 
-class EtablissementsController extends Controller 
+class EtablissementsController extends Controller
 {
 
   /**
@@ -16,7 +16,7 @@ class EtablissementsController extends Controller
   public function index()
   {
 	  return Etablissements::all();
-	
+
   }
 
   /**
@@ -27,7 +27,7 @@ class EtablissementsController extends Controller
   public function order()
   {
 		return Etablissements::orderBy('raisonSociale')->orderBy('codeActivitePrincipale')->get();
-	
+
   }
 
   /**
@@ -37,7 +37,7 @@ class EtablissementsController extends Controller
    */
   public function create()
   {
-	
+
   }
 
   /**
@@ -65,15 +65,44 @@ class EtablissementsController extends Controller
 	  ], 200);
   }
 
+  public function store2(Request $request)
+  {
+    //return now()->year;
+    $validate=$request->validate([
+        'id_entreprise'=>'required',
+        'numContribuable'=>'required',
+        'raisonSociale'=>'required',
+        'pointRepere'=>'required',
+        'sigle'=>'required',
+        'codeActivitePrincipale'=>'required',
+        'libelleActivitePrincipale'=>'required',
+        'codeBrancheActivitePrincipale'=>'required',
+    ]);
+    if($validate) {
+        if(Etablissements::create($request->all())) {
+            return response()->json([
+                'succes'=>"etablissement enregistre",
+                //'codeIns'=>$request->codeIns,
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'echec'=>"entreprise non cree",
+            ], 500);
+        }
+    }
+    //return $request;
+  }
+
   /**
    * Display the specified resource.
    *
    * @param  int  $id
    * @return Response
    */
-  public function show($id)
+  public function show(Etablissements $id)
   {
-	
+    return $id;
   }
 
   /**
@@ -84,7 +113,7 @@ class EtablissementsController extends Controller
    */
   public function edit($id)
   {
-	
+
   }
 
   /**
@@ -114,12 +143,11 @@ class EtablissementsController extends Controller
 		]);
 		$result=Etablissements::where('id', $id->id)->get();
 		/*
-			if(!$result[0]->etatMiseAJour) 
+			if(!$result[0]->etatMiseAJour)
 				return response()->json([
 					'echec'=>"vous ne pouvez pas mettre a jour une etablissement sans donnees",
 				], 500);
 		*/
-
 		if($id->update($request->all())) {
 			return response()->json([
 				'success'=>"etablissement mise a jour",
@@ -131,7 +159,7 @@ class EtablissementsController extends Controller
 			], 500);
 		}
 	}
-	
+
 
   /**
    * Remove the specified resource from storage.
@@ -139,11 +167,11 @@ class EtablissementsController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Etablissements $id)
   {
-	
+
   }
-  
+
 }
 
 ?>
