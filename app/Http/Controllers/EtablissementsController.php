@@ -57,6 +57,7 @@ class EtablissementsController extends Controller
       //$data['dateMiseajours']=now();
       $data['annee']=now()->year;
       $data['statutSuppression']=false;
+      $data['statutSiege']=false;
 		Etablissements::firstOrCreate($data);
 	  }
 	  return $etablissements;

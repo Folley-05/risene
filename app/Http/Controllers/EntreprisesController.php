@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -13,7 +13,7 @@ use App\Models\SecteurActivites;
 // use App\Models\BackUpEntreprises;
 // use App\Models\BackUpEntreprises;
 
-class EntreprisesController extends Controller 
+class EntreprisesController extends Controller
 {
 
 	/**
@@ -70,7 +70,7 @@ class EntreprisesController extends Controller
 	 */
 	public function create(Request $requete)
 	{
-		
+
 	}
 
 	/**
@@ -142,7 +142,7 @@ class EntreprisesController extends Controller
 	 */
 	public function edit($id)
 	{
-		
+
 	}
 
 	/**
@@ -167,11 +167,12 @@ class EntreprisesController extends Controller
 			'numCNPS'=>'unique:entreprises,numCNPS'
 		]);
 		$request->merge([
-			'dateMiseajours'=>now()
+			'dateMiseajours'=>now(),
+            'statutSiege'=>true
 		]);
 		$result=Entreprises::where('id', $id->id)->get();
 		/*
-			if(!$result[0]->etatMiseAJour) 
+			if(!$result[0]->etatMiseAJour)
 				return response()->json([
 					'echec'=>"vous ne pouvez pas mettre a jour une entreprise sans donnees",
 				], 500);
@@ -202,7 +203,7 @@ class EntreprisesController extends Controller
 		], 200);
 	}
 
-	public function del(Request $request, Entreprises $id) 
+	public function del(Request $request, Entreprises $id)
 	{
 		$params=[
 			'statutSuppression'=>true
@@ -218,19 +219,19 @@ class EntreprisesController extends Controller
 			], 500);
 		}
 	}
-	
+
 	public function add(Request $request) {
 		return "a coder";
 	}
-	
+
 	public function full(Request $request, Entreprises $id) {
 		$result=Entreprises::where('id', $id->id)->get();
-		if(!$result[0]->statutTraitement){ 
+		if(!$result[0]->statutTraitement){
 			return response()->json([
 				'echec'=>"vous ne pouvez pas remplir cette entreprise car elle n'a pas ete valide",
 			], 500);
 		}
-		if($result[0]->etatMiseAJour){ 
+		if($result[0]->etatMiseAJour){
 			return response()->json([
 				'echec'=>"vous ne pouvez pas remplir cette entreprise essayez une mise a jour",
 			], 500);
@@ -262,13 +263,13 @@ class EntreprisesController extends Controller
 				'echec'=>"echec",
 			], 500);
 		}
-		
+
 	}
 
 	public function valid(Request $request, Entreprises $id) {
 		$entreprise=$id;
 		//return $entreprise['libelleFormeJuridique'];
-		$entreprise['libelleFormeJuridique']==="SECTEUR PUBLIC" ? ($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get()) 
+		$entreprise['libelleFormeJuridique']==="SECTEUR PUBLIC" ? ($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get())
 			:	($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique','<>', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get());
 		if(count($result)){
 			$ins=genererCode($result[0]->codeINS, $entreprise['libelleFormeJuridique']);
@@ -396,7 +397,7 @@ class EntreprisesController extends Controller
 			'error'=>$error."n'ont pas ete inserees",
 		], 200);
 	}
-  
+
 }
 
 // handle INS code
@@ -441,7 +442,7 @@ function convertCsvToArray(String $file, String $delimiter) {
 	$data=array();
 	if (!file_exists($file) || !is_readable($file))	return "the file not exist or is not readable";
 	if(($handle=fopen($file, 'r')) !== false) {
-		while(($row=fgetcsv($handle, 1000, $delimiter)) !== false) 
+		while(($row=fgetcsv($handle, 1000, $delimiter)) !== false)
 		{
 			if(!$header) $header=$row;
 			else $data[]=array_combine($header, $row);
@@ -516,7 +517,7 @@ function buildEntreprise($data) {
 }
 
 function storeEntreprise($entreprise) {
-	$entreprise['libelleFormeJuridique']==="SECTEUR PUBLIC" ? ($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get()) 
+	$entreprise['libelleFormeJuridique']==="SECTEUR PUBLIC" ? ($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get())
 		:	($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique','<>', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get());
 	try {
 		if(count($result)){
