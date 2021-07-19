@@ -15,7 +15,7 @@ class CreateEtablissementsTable extends Migration {
 			$table->boolean('statutSiege')->nullable();
 			$table->string('raisonSociale');
 			$table->string('sigle')->nullable();
-			$table->string('numContribuable')->unique();
+			$table->string('numContribuable')->nullable();
 			$table->string('numCNPS')->nullable();
 			$table->string('numBordereau')->nullable();
 			$table->string('secteur')->nullable();
