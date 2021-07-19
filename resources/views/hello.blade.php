@@ -11,6 +11,6 @@
     <div id="mercuryo-widget"></div>
 
     <script src="https://widget.mercuryo.io/embed.2.0.js"></script>
-    <script>mercuryoWidget.run({widgetId: '676862f6-3fcb-405a-9d64-17758c055e62', host: document.getElementById('mercuryo-widget')});</script>
+    <script>mercuryoWidget.run({widgetId: '935378ff-bf47-4dd8-8998-29a0e4812a2c', host: document.getElementById('mercuryo-widget')});</script>
 </body>
 </html>
