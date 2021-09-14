@@ -1,11 +1,13 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
 use App\Models\StatusOccupationLocals;
 use Illuminate\Http\Request;
 
-class StatusOccupationLocalsController extends Controller 
+use Rap2hpoutre\FastExcel\FastExcel;
+
+class StatusOccupationLocalsController extends Controller
 {
 
 	/**
@@ -35,7 +37,7 @@ class StatusOccupationLocalsController extends Controller
 	 */
 	public function create(Request $requete)
 	{
-		
+
 	}
 
 	/**
@@ -76,7 +78,7 @@ class StatusOccupationLocalsController extends Controller
 	 */
 	public function edit($id)
 	{
-		
+
 	}
 
 	/**
@@ -119,6 +121,21 @@ class StatusOccupationLocalsController extends Controller
 		}
 	}
 
+    public function manyDelete(Request $request) {
+        $list;
+        $list=$request->all()['list'];
+        for ($i=0; $i<count($list) ; $i++) {
+            try {
+                $reg=StatusOccupationLocals::where('code', $list[$i])->get()[0];
+                $reg->delete();
+            } catch (\Throwable $th) {
+            }
+        }
+        return response()->json([
+            'response'=>"suppression effectuee"
+        ], 200);
+    }
+
 	/**
 	 * insert from file function.
 	 *
@@ -126,24 +143,26 @@ class StatusOccupationLocalsController extends Controller
 	 */
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:csv'
+			//'file'=>'required|mimes:txt,csv',
+			'file'=>'required|mimes:xlsx,xls',
 		]);
-		$data=convertCsvToArray($request->file, ',');
-		if(sizeof($data)) {
-			for ($i = 0; $i < count($data); $i ++) {
-				StatusOccupationLocals::firstOrCreate($data[$i]);
-			}
+
+        $collection = (new FastExcel)->import($request->file);
+        if(sizeof($collection)) {
+            for($i=0; $i<count($collection); $i++){
+                StatusOccupationLocals::firstOrCreate($collection[$i]);
+            }
 			return response()->json([
-				"usccess"=> $i." insersions effectuees, ",
+                "success"=> $i." statut occupation a jour inseres ",
 			], 200);
-		}
-		return response()->json([
-			"echec"=> "quelque chose s'est mal passe",
-			"erreur"=> $data
-		]);
-		//return $data;
+        }
+        else {
+			return response()->json([
+                "error"=> " le fichier est vide ",
+			], 200);
+        }
 	}
-  
+
 }
 
 ?>

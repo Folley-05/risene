@@ -1,11 +1,13 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
 use App\Models\Arrondissements;
 use Illuminate\Http\Request;
 
-class ArrondissementsController extends Controller 
+use Rap2hpoutre\FastExcel\FastExcel;
+
+class ArrondissementsController extends Controller
 {
 
 	/**
@@ -35,7 +37,7 @@ class ArrondissementsController extends Controller
 	 */
 	public function create(Request $requete)
 	{
-		
+
 	}
 
 	/**
@@ -76,7 +78,7 @@ class ArrondissementsController extends Controller
 	 */
 	public function edit($id)
 	{
-		
+
 	}
 
 	/**
@@ -119,6 +121,21 @@ class ArrondissementsController extends Controller
 		}
 	}
 
+    public function manyDelete(Request $request) {
+        $list;
+        $list=$request->all()['list'];
+        for ($i=0; $i<count($list) ; $i++) {
+            try {
+                $reg=Arrondissements::where('code', $list[$i])->get()[0];
+                $reg->delete();
+            } catch (\Throwable $th) {
+            }
+        }
+        return response()->json([
+            'response'=>"suppression effectuee"
+        ], 200);
+    }
+
 	/**
 	 * insert from file function.
 	 *
@@ -126,9 +143,28 @@ class ArrondissementsController extends Controller
 	*/
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:csv,txt'
+			//'file'=>'required|mimes:txt,csv',
+			'file'=>'required|mimes:xlsx,xls',
 		]);
-		$data=convertCsvToArray($request->file, ',');
+
+        $collection = (new FastExcel)->import($request->file);
+        if(sizeof($collection)) {
+            for($i=0; $i<count($collection); $i++){
+                Arrondissements::firstOrCreate($collection[$i]);
+            }
+			return response()->json([
+                "success"=> $i." arrondissements inseres ",
+			], 200);
+        }
+        else {
+			return response()->json([
+                "error"=> " le fichier est vide ",
+			], 200);
+        }
+
+
+
+		/*$data=convertCsvToArray($request->file, ',');
 		if(sizeof($data)) {
 			for ($i = 0; $i < count($data); $i ++) {
 				Arrondissements::firstOrCreate($data[$i]);
@@ -141,10 +177,10 @@ class ArrondissementsController extends Controller
 			"echec"=> "quelque chose s'est mal passe",
 			"erreur"=> $data
 		]);
-		return $data;
+		return $data;*/
 	}
 
-	
+
 }
 
 
@@ -154,7 +190,7 @@ function convertCsvToArray(String $file, String $delimiter) {
 	$data=array();
 	if (!file_exists($file) || !is_readable($file))	return "the file not exist or is not readable";
 	if(($handle=fopen($file, 'r')) !== false) {
-		while(($row=fgetcsv($handle, 1000, $delimiter)) !== false) 
+		while(($row=fgetcsv($handle, 1000, $delimiter)) !== false)
 		{
 			if(!$header) $header=$row;
 			else $data[]=array_combine($header, $row);

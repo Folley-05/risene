@@ -26,6 +26,9 @@ use App\Http\Controllers\BackUpEntreprisesController;
 use App\Http\Controllers\BrancheActivitesController;
 use App\Http\Controllers\SourceMisejoursController;
 
+
+use App\Http\Controllers\ExcelController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -57,6 +60,7 @@ Route::get('getarrondissement/{code}', [ArrondissementsController::class, 'show'
 Route::post('setarrondissement', [ArrondissementsController::class, 'store']);
 Route::post('updatearrondissement/{code}', [ArrondissementsController::class, 'update']);
 Route::delete('deletearrondissement/{code}', [ArrondissementsController::class, 'destroy']);
+Route::post('deletearrondissements', [ArrondissementsController::class, 'manyDelete']);
 Route::post('importarrondissements', [ArrondissementsController::class, 'import']);
 
 //Departements Routes
@@ -66,6 +70,7 @@ Route::get('getdepartement/{code}', [DepartementsController::class, 'show']);
 Route::post('setdepartement', [DepartementsController::class, 'store']);
 Route::post('updatedepartement/{code}', [DepartementsController::class, 'update']);
 Route::delete('deletedepartement/{code}', [DepartementsController::class, 'destroy']);
+Route::post('deletedepartements', [DepartementsController::class, 'manyDelete']);
 Route::post('importdepartements', [DepartementsController::class, 'import']);
 
 // Regions Routes
@@ -75,6 +80,7 @@ Route::get('getregion/{code}', [RegionsController::class, 'show']);
 Route::post('setregion', [RegionsController::class, 'store']);
 Route::post('updateregion/{code}', [RegionsController::class, 'update']);
 Route::delete('deleteregion/{code}', [RegionsController::class, 'destroy']);
+Route::post('deleteregions', [RegionsController::class, 'manyDelete']);
 Route::post('importregions', [RegionsController::class, 'import']);
 
 // SystemeDsf Routes
@@ -84,6 +90,7 @@ Route::get('getsystemedsf/{code}', [SystemeDsfsController::class, 'show']);
 Route::post('setsystemedsf', [SystemeDsfsController::class, 'store']);
 Route::post('updatesystemedsf/{code}', [SystemeDsfsController::class, 'update']);
 Route::delete('deletesystemedsf/{code}', [SystemeDsfsController::class, 'destroy']);
+Route::post('deletedsfs', [SystemeDsfsController::class, 'manyDelete']);
 Route::post('importsystemedsfs', [SystemeDsfsController::class, 'import']);
 
 // EtatActivites Routes
@@ -93,6 +100,7 @@ Route::get('getetatactivite/{code}', [EtatActivitesController::class, 'show']);
 Route::post('setetatactivite', [EtatActivitesController::class, 'store']);
 Route::post('updateetatactivite/{code}', [EtatActivitesController::class, 'update']);
 Route::delete('deleteetatactivite/{code}', [EtatActivitesController::class, 'destroy']);
+Route::post('deleteetatactivites', [EtatActivitesController::class, 'manyDelete']);
 Route::post('importetatactivites', [EtatActivitesController::class, 'import']);
 
 // NatureContratLocation Routes
@@ -102,6 +110,7 @@ Route::get('getnaturecontratlocation/{code}', [NatureContratLocationsController:
 Route::post('setnaturecontratlocation', [NatureContratLocationsController::class, 'store']);
 Route::post('updatenaturecontratlocation/{code}', [NatureContratLocationsController::class, 'update']);
 Route::delete('deletenaturecontratlocation/{code}', [NatureContratLocationsController::class, 'destroy']);
+Route::post('deletenaturecontratlocations', [NatureContratLocationsController::class, 'manyDelete']);
 Route::post('importnaturecontratlocations', [NatureContratLocationsController::class, 'import']);
 
 // NatureCreation Routes
@@ -111,6 +120,7 @@ Route::get('getnaturecreation/{code}', [NatureCreationController::class, 'show']
 Route::post('setnaturecreation', [NatureCreationController::class, 'store']);
 Route::post('updatenaturecreation/{code}', [NatureCreationController::class, 'update']);
 Route::delete('deletenaturecreation/{code}', [NatureCreationController::class, 'destroy']);
+Route::post('deletenaturecreations', [NatureCreationController::class, 'manyDelete']);
 Route::post('importnaturecreations', [NatureCreationController::class, 'import']);
 
 // RegimeImpots Routes
@@ -120,6 +130,7 @@ Route::get('getregimeimpot/{code}', [RegimeImpotsController::class, 'show']);
 Route::post('setregimeimpot', [RegimeImpotsController::class, 'store']);
 Route::post('updateregimeimpot/{code}', [RegimeImpotsController::class, 'update']);
 Route::delete('deleteregimeimpot/{code}', [RegimeImpotsController::class, 'destroy']);
+Route::post('deleteregimeimpots', [RegimeImpotsController::class, 'manyDelete']);
 Route::post('importregimeimpots', [RegimeImpotsController::class, 'import']);
 
 // StatutOccupationLocal Routes
@@ -129,6 +140,7 @@ Route::get('getstatusoccupationlocale/{code}', [StatusOccupationLocalsController
 Route::post('setstatusoccupationlocale', [StatusOccupationLocalsController::class, 'store']);
 Route::post('updatestatusoccupationlocale/{code}', [StatusOccupationLocalsController::class, 'update']);
 Route::delete('deletestatusoccupationlocale/{code}', [StatusOccupationLocalsController::class, 'destroy']);
+Route::post('deletestatutoccupations', [StatusOccupationLocalsController::class, 'manyDelete']);
 Route::post('importstatutoccupations', [StatusOccupationLocalsController::class, 'import']);
 
 // MotifArretActivites Routes
@@ -138,6 +150,7 @@ Route::get('getmotifarretactivite/{code}', [MotifArretActivitesController::class
 Route::post('setmotifarretactivite', [MotifArretActivitesController::class, 'store']);
 Route::post('updatemotifarretactivite/{code}', [MotifArretActivitesController::class, 'update']);
 Route::delete('deletemotifarretactivite/{code}', [MotifArretActivitesController::class, 'destroy']);
+Route::post('deletemotifarretactivites', [MotifArretActivitesController::class, 'manyDelete']);
 Route::post('importrmotifarretactivites', [MotifArretActivitesController::class, 'import']);
 
 // Statut Routes
@@ -147,6 +160,7 @@ Route::get('getstatus/{code}', [StatusController::class, 'show']);
 Route::post('setstatus', [StatusController::class, 'store']);
 Route::post('updatestatus/{code}', [StatusController::class, 'update']);
 Route::delete('deletestatus/{code}', [StatusController::class, 'destroy']);
+Route::post('deletestatus', [StatusController::class, 'manyDelete']);
 Route::post('importstatuts', [StatusController::class, 'import']);
 
 // Entreprises Routes
@@ -164,6 +178,7 @@ Route::post('validentreprise/{id}', [EntreprisesController::class, 'valid']);
 Route::post('updateentreprise/{id}', [EntreprisesController::class, 'update']);
 Route::delete('deleteentreprise/{id}', [EntreprisesController::class, 'del']);
 Route::post('importentreprises', [EntreprisesController::class, 'import']);
+Route::post('importentreprises2', [EntreprisesController::class, 'import2']);
 Route::post('sortentreprises', [EntreprisesController::class, 'sort']);
 Route::post('sortedentreprises', [EntreprisesController::class, 'sortEntreprises']);
 
@@ -194,6 +209,7 @@ Route::get('getactivite/{code}', [ActivitesController::class, 'show']);
 Route::post('setactivite', [ActivitesController::class, 'store']);
 Route::post('updateactivite/{code}', [ActivitesController::class, 'update']);
 Route::delete('deleteactivite/{code}', [ActivitesController::class, 'destroy']);
+Route::post('deleteactivites', [ActivitesController::class, 'manyDelete']);
 Route::post('importactivitess', [ActivitesController::class, 'import']);
 
 // CatImpotLiberatoires Routes
@@ -203,6 +219,7 @@ Route::get('getcatimpotliberatoires/{code}', [CatImpotLiberatoiresController::cl
 Route::post('setcatimpotliberatoires', [CatImpotLiberatoiresController::class, 'store']);
 Route::post('updatecatimpotliberatoires/{code}', [CatImpotLiberatoiresController::class, 'update']);
 Route::delete('deletecatimpotliberatoires/{code}', [CatImpotLiberatoiresController::class, 'destroy']);
+Route::post('deletecatimpotliberatoires', [CatImpotLiberatoiresController::class, 'manyDelete']);
 Route::post('importcatimpotliberatoires', [CatImpotLiberatoiresController::class, 'import']);
 
 // FormeJuridiques Routes
@@ -212,6 +229,7 @@ Route::get('getformejuridiques/{code}', [FormeJuridiquesController::class, 'show
 Route::post('setformejuridiques', [FormeJuridiquesController::class, 'store']);
 Route::post('updateformejuridiques/{code}', [FormeJuridiquesController::class, 'update']);
 Route::delete('deleteformejuridiques/{code}', [FormeJuridiquesController::class, 'destroy']);
+Route::post('deleteformejuridiques', [FormeJuridiquesController::class, 'manyDelete']);
 Route::post('importformejuridiques', [FormeJuridiquesController::class, 'import']);
 
 // SecteurActivites Routes
@@ -221,6 +239,7 @@ Route::get('getsecteuractivite/{code}', [SecteurActivitesController::class, 'sho
 Route::post('setsecteuractivite', [SecteurActivitesController::class, 'store']);
 Route::post('updatesecteuractivite/{code}', [SecteurActivitesController::class, 'update']);
 Route::delete('deletesecteuractivite/{code}', [SecteurActivitesController::class, 'destroy']);
+Route::post('deletesecteuractivite', [SecteurActivitesController::class, 'manyDelete']);
 Route::post('importsecteuractivites', [SecteurActivitesController::class, 'import']);
 
 
@@ -236,6 +255,7 @@ Route::get('getbrancheactivite/{code}', [BrancheActivitesController::class, 'sho
 Route::post('setbrancheactivite', [BrancheActivitesController::class, 'store']);
 Route::post('updatebrancheactivite/{code}', [BrancheActivitesController::class, 'update']);
 Route::delete('deletebrancheactivite/{code}', [BrancheActivitesController::class, 'destroy']);
+Route::post('deletebrancheactivites', [BrancheActivitesController::class, 'manyDelete']);
 Route::post('importbrancheactivites', [BrancheActivitesController::class, 'import']);
 
 // SourceMisejours Routes
@@ -245,6 +265,10 @@ Route::get('getsourcemisejour/{code}', [SourceMisejoursController::class, 'show'
 Route::post('setsourcemisejour', [SourceMisejoursController::class, 'store']);
 Route::post('updatesourcemisejour/{code}', [SourceMisejoursController::class, 'update']);
 Route::delete('deletesourcemisejour/{code}', [SourceMisejoursController::class, 'destroy']);
+Route::post('deletesourcemiseajours', [BrancheActivitesController::class, 'manyDelete']);
 Route::post('importsourcemisejours', [SourceMisejoursController::class, 'import']);
 
 Route::post('test', [EntreprisesController::class, 'test']);
+
+
+Route::post('testexcel', [ExcelController::class, 'test']);

@@ -1,11 +1,13 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
 use App\Models\Status;
 use Illuminate\Http\Request;
 
-class StatusController extends Controller 
+use Rap2hpoutre\FastExcel\FastExcel;
+
+class StatusController extends Controller
 {
 
 	/**
@@ -35,7 +37,7 @@ class StatusController extends Controller
 	 */
 	public function create(Request $requete)
 	{
-		
+
 	}
 
 	/**
@@ -76,7 +78,7 @@ class StatusController extends Controller
 	 */
 	public function edit($id)
 	{
-		
+
 	}
 
 	/**
@@ -119,6 +121,21 @@ class StatusController extends Controller
 		}
 	}
 
+    public function manyDelete(Request $request) {
+        $list;
+        $list=$request->all()['list'];
+        for ($i=0; $i<count($list) ; $i++) {
+            try {
+                $reg=Status::where('code', $list[$i])->get()[0];
+                $reg->delete();
+            } catch (\Throwable $th) {
+            }
+        }
+        return response()->json([
+            'response'=>"suppression effectuee"
+        ], 200);
+    }
+
 	/**
 	 * insert from file function.
 	 *
@@ -126,22 +143,24 @@ class StatusController extends Controller
 	 */
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:csv'
+			//'file'=>'required|mimes:txt,csv',
+			'file'=>'required|mimes:xlsx,xls',
 		]);
-		$data=convertCsvToArray($request->file, ',');
-		if(sizeof($data)) {
-			for ($i = 0; $i < count($data); $i ++) {
-				Status::firstOrCreate($data[$i]);
-			}
+
+        $collection = (new FastExcel)->import($request->file);
+        if(sizeof($collection)) {
+            for($i=0; $i<count($collection); $i++){
+                Status::firstOrCreate($collection[$i]);
+            }
 			return response()->json([
-				"usccess"=> $i." insersions effectuees, ",
+                "success"=> $i." status a jour inseres ",
 			], 200);
-		}
-		return response()->json([
-			"echec"=> "quelque chose s'est mal passe",
-			"erreur"=> $data
-		]);
-		//return $data;
+        }
+        else {
+			return response()->json([
+                "error"=> " le fichier est vide ",
+			], 200);
+        }
 	}
 }
 
@@ -152,7 +171,7 @@ function convertCsvToArray(String $file, String $delimiter) {
 	$data=array();
 	if (!file_exists($file) || !is_readable($file))	return "the file not exist or is not readable";
 	if(($handle=fopen($file, 'r')) !== false) {
-		while(($row=fgetcsv($handle, 1000, $delimiter)) !== false) 
+		while(($row=fgetcsv($handle, 1000, $delimiter)) !== false)
 		{
 			if(!$header) $header=$row;
 			else $data[]=array_combine($header, $row);

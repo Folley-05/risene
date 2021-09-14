@@ -1,11 +1,13 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Regions;
 
+use Rap2hpoutre\FastExcel\FastExcel;
 
-class RegionsController extends Controller 
+
+class RegionsController extends Controller
 {
 
 	/**
@@ -35,7 +37,7 @@ class RegionsController extends Controller
 	 */
 	public function create(Request $requete)
 	{
-		
+
 	}
 
 	/**
@@ -82,7 +84,7 @@ class RegionsController extends Controller
 	 */
 	public function edit($id)
 	{
-		
+
 	}
 
 	/**
@@ -125,6 +127,21 @@ class RegionsController extends Controller
 		}
 	}
 
+    public function manyDelete(Request $request) {
+        $list;
+        $list=$request->all()['list'];
+        for ($i=0; $i<count($list) ; $i++) {
+            try {
+                $reg=Regions::where('code', $list[$i])->get()[0];
+                $reg->delete();
+            } catch (\Throwable $th) {
+            }
+        }
+        return response()->json([
+            'response'=>"suppression effectuee"
+        ], 200);
+    }
+
 	/**
 	 * insert from file function.
 	 *
@@ -132,9 +149,28 @@ class RegionsController extends Controller
 	 */
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:txt,csv'
+			//'file'=>'required|mimes:txt,csv',
+			'file'=>'required|mimes:xlsx,xls',
 		]);
-		$data=convertCsvToArray($request->file, ',');
+
+        $collection = (new FastExcel)->import($request->file);
+        if(sizeof($collection)) {
+            for($i=0; $i<count($collection); $i++){
+                Regions::firstOrCreate($collection[$i]);
+            }
+			return response()->json([
+                "success"=> $i." regions inseres ",
+			], 200);
+        }
+        else {
+			return response()->json([
+                "error"=> " le fichier est vide ",
+			], 200);
+        }
+
+
+
+		/*$data=convertCsvToArray($request->file, ',');
 		if(sizeof($data)) {
 			for ($i = 0; $i < count($data); $i ++) {
 				Regions::firstOrCreate($data[$i]);
@@ -146,10 +182,9 @@ class RegionsController extends Controller
 		return response()->json([
 			"echec"=> "quelque chose s'est mal passe",
 			"erreur"=> $data
-		], 500);
-		//return $data;
+		], 500);*/
 	}
-  
+
 }
 
 
@@ -159,7 +194,7 @@ function convertCsvToArray(String $file, String $delimiter) {
 	$data=array();
 	if (!file_exists($file) || !is_readable($file))	return "the file not exist or is not readable";
 	if(($handle=fopen($file, 'r')) !== false) {
-		while(($row=fgetcsv($handle, 1000, $delimiter)) !== false) 
+		while(($row=fgetcsv($handle, 1000, $delimiter)) !== false)
 		{
 			if(!$header) $header=$row;
 			else $data[]=array_combine($header, $row);

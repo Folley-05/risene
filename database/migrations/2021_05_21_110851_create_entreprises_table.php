@@ -33,7 +33,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('email')->nullable();
 			$table->date('dateCreation')->nullable();
 			$table->date('datedemarrage')->nullable();
-			$table->integer('capitalSocial')->nullable();
+			$table->bigInteger('capitalSocial')->nullable();
 			$table->date('dateCapitalSocial')->nullable();
 			$table->integer('partprivenational')->nullable();
 			$table->integer('partpriveetranger')->nullable();
@@ -41,6 +41,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->integer('partpubliqueetranger')->nullable();
 			$table->bigInteger('chiffaff')->nullable();
 			$table->date('datechiffaff')->nullable();
+			$table->string('situationExportation')->nullable();
 			$table->bigInteger('chiffaffexp')->nullable();
 			$table->date('datechiffexp')->nullable();
 			$table->boolean('utilordinateur')->nullable();
@@ -48,7 +49,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->integer('nbreinfo')->nullable();
 			$table->boolean('intranet')->nullable();
 			$table->boolean('internet')->nullable();
-			$table->integer('dateenreg')->nullable();
+			$table->date('dateenreg')->nullable();
 			$table->integer('CAPEF_CCIMA')->nullable();
 			$table->string('pageFacebook')->nullable();
 			$table->string('codeFormeJuridique')->nullable();
@@ -82,7 +83,7 @@ class CreateEntreprisesTable extends Migration {
 			$table->integer('systemedsf')->unsigned()->nullable();
 			$table->integer('remplissageDsf')->nullable();
 			$table->string('fichierDsf')->nullable();
-			$table->integer('anneeDsf')->nullable();
+			$table->date('anneeDsf')->nullable();
 			$table->integer('effectifHomme')->nullable();
 			$table->integer('effectifFemme')->nullable();
 			$table->string('effectifTotal')->nullable();
@@ -99,16 +100,15 @@ class CreateEntreprisesTable extends Migration {
 			$table->string('natureBenefices')->nullable();
 			$table->string('effectifPermanent')->nullable();
 			$table->string('typeEntreprise')->nullable();
-			$table->string('situationExportation')->nullable();
 			$table->integer('annee')->nullable();
 			$table->string('brancheActivitePrincipale')->nullable();
 			$table->string('brancheActiviteSecondaire')->nullable();
 			$table->integer('codeBrancheActivitePrincipale')->nullable();
-			$table->string('dateCessation')->nullable();
+			$table->date('dateCessation')->nullable();
 			$table->integer('codeBrancheActiviteSecondaire')->nullable();
 			$table->string('civilite')->nullable();
 			$table->string('sexe')->nullable();
-			$table->string('dateMiseajours')->nullable();
+			$table->date('dateMiseajours')->nullable();
 			$table->boolean('etatMiseAJour')->nullable();
 		});
 	}

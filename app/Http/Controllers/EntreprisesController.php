@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+set_time_limit(500);
+
+
 use Illuminate\Http\Request;
 use App\Models\Entreprises;
 use App\Models\BackUpEntreprises;
@@ -9,9 +12,8 @@ use App\Models\Arrondissements;
 use App\Models\Departements;
 use App\Models\Regions;
 use App\Models\SecteurActivites;
-// use App\Models\BackUpEntreprises;
-// use App\Models\BackUpEntreprises;
-// use App\Models\BackUpEntreprises;
+
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class EntreprisesController extends Controller
 {
@@ -90,6 +92,8 @@ class EntreprisesController extends Controller
 			'codeBrancheActivitePrincipale'=>'required',
 			'libelleFormeJuridique'=>'required',
 			'brancheActivitePrincipale'=>'required',
+
+            // prohibited field
 			'codeINS'=>'prohibited',
 			'statutTraitement'=>'prohibited',
 			'etatMiseAJour'=>'prohibited',
@@ -220,6 +224,12 @@ class EntreprisesController extends Controller
 		}
 	}
 
+    public function manyDelete(Request $request) {
+        $list;
+        $list=$request->all();
+        return $list;
+    }
+
 	public function add(Request $request) {
 		return "a coder";
 	}
@@ -317,26 +327,58 @@ class EntreprisesController extends Controller
 	 */
 	public function import(Request $request) {
 		$validate=$request->validate([
-			'file'=>'required|mimes:csv,txt'
+			'file'=>'required|mimes:xlsx,xls'
 		]);
 		$n=0;
-		$error="les entreprises ";
+        $error;
+        $errorList=[];
 		$entreprises=[];
-		$data=convertCsvToArray($request->file, ',');
-		for($i=0; $i<count($data); $i++) {
-			$entreprise=buildEntreprise($data[$i]);
+        $collection = (new FastExcel)->import($request->file);
+		for($i=0; $i<count($collection); $i++) {
+            $entreprise=buildEntreprise($collection[$i]);
 			$witness=storeEntreprise($entreprise);
 			if($witness) $n++;
-			else $error=$error."".$entreprise['raisonSociale'].', ';
+			else {
+                $error['number']=$i+1;
+                $error['raison_sociale']=$entreprise['raisonSociale'];
+                array_push($errorList, $error);
+            }
 			$entreprises[$i]=$entreprise;
 
 		}
 		//return $data;
 		return response()->json([
-			'succes'=>$n." entreprises ont ete inserees",
-			'error'=>$error."n'ont pas ete inserees",
+            'number'=>$i,
+			'success'=>$n,
+			'fails'=>$errorList,
 		], 200);
 		//return Departements::where('libelle', $data[0]['DEPARTEMENT'])->get();
+	}
+
+	public function import2() {
+		$n=0;
+        $error;
+        $errorList=[];
+		$entreprises=[];
+        $collection = (new FastExcel)->import('./entreprises.xlsx');
+		for($i=0; $i<count($collection); $i++) {
+            $entreprise=buildEntreprise($collection[$i]);
+			$witness=storeEntreprise($entreprise);
+			if($witness) $n++;
+			else {
+                $error['number']=$i+1;
+                $error['raison_sociale']=$entreprise['raisonSociale'];
+                array_push($errorList, $error);
+            }
+			$entreprises[$i]=$entreprise;
+
+		}
+		//return $data;
+		return response()->json([
+            'number'=>$i,
+			'success'=>$n,
+			'fails'=>$errorList,
+		], 200);
 	}
 
 	/**
@@ -398,6 +440,8 @@ class EntreprisesController extends Controller
 		], 200);
 	}
 
+
+// fin de la classe
 }
 
 // handle INS code
@@ -519,14 +563,15 @@ function buildEntreprise($data) {
 function storeEntreprise($entreprise) {
 	$entreprise['libelleFormeJuridique']==="SECTEUR PUBLIC" ? ($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get())
 		:	($result=Entreprises::where('statutTraitement', true)->where('libelleFormeJuridique','<>', 'SECTEUR PUBLIC')->where('codeINS', '<>', null)->orderByDesc('codeINS')->take(2)->get());
+	$ins;
+	if(count($result)){
+		$ins=genererCode($result[0]->codeINS, $entreprise['libelleFormeJuridique']);
+	}
+	else {
+		$ins=genererCode("", $entreprise['libelleFormeJuridique']);
+	}
+	$entreprise['codeINS']=$ins;
 	try {
-		if(count($result)){
-			$ins=genererCode($result[0]->codeINS, $entreprise['libelleFormeJuridique']);
-		}
-		else {
-			$ins=genererCode("", $entreprise['libelleFormeJuridique']);
-		}
-		$entreprise['codeINS']=$ins;
 		if(Entreprises::create($entreprise)) return true;
 		else return false;
 	} catch (\Throwable $th) {
