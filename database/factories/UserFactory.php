@@ -23,13 +23,13 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'name' => 'Folley', //$this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => $this->faker->lastname, // password
+            'password' => 'Folleypass', // $this->faker->lastname, // password
             'api_token' => Str::random(10),
             'remember_token' => Str::random(10),
-            'role' =>$this->faker->randomElement($array = array ('admin','dataadmin','user')),
+            'role' => 'dataadmin', //$this->faker->randomElement($array = array ('admin','dataadmin','user')),
         ];
     }
 
